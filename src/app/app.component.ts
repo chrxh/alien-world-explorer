@@ -11,8 +11,9 @@ import {SelectionModel} from "@angular/cdk/collections";
 })
 export class AppComponent implements AfterViewInit {
   title = 'world-explorer';
+  simulationImage:any = "assets/test.png";
 
-  displayedColumns: string[] = ['isActive', 'isDistributed', 'simulationName', 'userName', 'worldSize', 'timestep'];
+  displayedColumns: string[] = ['isActive', 'simulationName', 'userName', 'worldSize', 'timestep'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(false, []);
 
@@ -35,12 +36,17 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {isActive: false, isDistributed: false, simulationName: 'genesis0', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis1', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis2', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis3', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis4', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis5', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
-  {isActive: false, isDistributed: false, simulationName: 'genesis6', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis0', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis1', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis2', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis3', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis4', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis5', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis6', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis7', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis8', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis9', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis10', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
+  {isActive: false, simulationName: 'genesis11', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
 ];
 

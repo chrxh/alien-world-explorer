@@ -3,73 +3,55 @@
 </mat-toolbar>
 <br/>
 
-<div class="vtest">
-  <div>
-  <div class="SimulationTable">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
-      <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
-    </ng-container>
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="isDistributed">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Distributed </th>
-      <td mat-cell *matCellDef="let element"> {{element.isDistributed}} </td>
-    </ng-container>
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="simulationName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Simulation name </th>
-      <td mat-cell *matCellDef="let element"> {{element.simulationName}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="userName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-      <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="worldSize">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> World size </th>
-      <td mat-cell *matCellDef="let element"> {{element.worldSize}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="timestep">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Time step </th>
-      <td mat-cell *matCellDef="let element"> {{element.timestep}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        (click)="selection.toggle(row)"
-        [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
-        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
-    </tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-  </div>
-
-  <div class="SimulationDescription">
-    <mat-card>Description
-    </mat-card>
-  </div>
-  </div>
-  <br/>
-  <mat-card>
-  </mat-card>
-
-</div>
-
 <div class="gridbox">
-  <p>
+  <div class="SimulationTable">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-  </p>
-  <p>Box 2</p>
-  <p>Box 3</p>
-  <p>Box 4</p>
+      <!-- Position Column -->
+      <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+        <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="simulationName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Simulation name </th>
+        <td mat-cell *matCellDef="let element"> {{element.simulationName}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> User name </th>
+        <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="worldSize">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> World size </th>
+        <td mat-cell *matCellDef="let element"> {{element.worldSize}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="timestep">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time step </th>
+        <td mat-cell *matCellDef="let element"> {{element.timestep}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)"
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+          (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <mat-card class="SimulationDescription">
+    Description
+  </mat-card>
+  <mat-card class="SimulationImage">
+    <figure class="figure">
+      <img width=100% [src]="simulationImage" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+    </figure>
+  </mat-card>
 </div>
