@@ -1,0 +1,55 @@
+
+mat-toolbar {
+  background: #0B1C4B;
+  color: #97F4DD;
+}
+
+.SimulationTable {
+  float: left;
+  width: 50%;
+}
+table {
+  width: 100%;
+  background: #4070C0;
+}
+.mat-cell {
+  color: #FFFFFF;
+}
+.mat-header-cell {
+  background: #6090D0;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.mat-row.hovered {
+  background: #0F886A;
+}
+.mat-row.highlighted {
+  background: #12A883;
+}
+mat-paginator {
+  background: #6090D0;
+  color: #FFFFFF;
+}
+
+
+.SimulationDescription {
+  padding-left: 2%;
+  float: left;
+  width: 45%;
+}
+mat-card {
+  background: #4070C0;
+  color: #c4daed;
+}
+
+.vtest {
+  width:80%;
+  display: grid;
+  align-items: center;
+}
+
+.gridbox {
+  display: grid;
+  grid-template-columns: 50% 30%;
+  grid-template-rows: 200px auto;
+}
