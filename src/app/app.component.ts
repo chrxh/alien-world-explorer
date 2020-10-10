@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
@@ -11,8 +11,7 @@ import {SelectionModel} from "@angular/cdk/collections";
 })
 export class AppComponent implements AfterViewInit {
   title = 'world explorer';
-  simulationImage:any = "assets/test.png";
-
+  simulationImage = "http://localhost/testimage.php";
   universeSizeX  = 1000;
   universeSizeY  = 1000;
   scrollbarPosX = 500;
@@ -32,27 +31,36 @@ export class AppComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  onUpdateImage()
+  {
+    this.simulationImage = "http://localhost/testimage.php?r=" + Math.floor(Math.random()*10000);
+  }
+
   onLeftClick() {
     if(this.scrollbarPosX - this.scrollStepX >= 0) {
       this.scrollbarPosX -= this.scrollStepX;
+      this.onUpdateImage();
     }
   }
 
   onRightClick() {
     if(this.scrollbarPosX + this.scrollStepX <= this.universeSizeX) {
       this.scrollbarPosX += this.scrollStepX;
+      this.onUpdateImage();
     }
   }
 
   onTopClick() {
     if(this.scrollbarPosY - this.scrollStepY >= 0) {
       this.scrollbarPosY -= this.scrollStepY;
+      this.onUpdateImage();
     }
   }
 
   onDownClick() {
     if(this.scrollbarPosY + this.scrollStepY <= this.universeSizeY) {
       this.scrollbarPosY += this.scrollStepY;
+      this.onUpdateImage();
     }
   }
 }
