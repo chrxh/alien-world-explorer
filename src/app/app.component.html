@@ -1,37 +1,31 @@
 <mat-toolbar>
   <span><i>alien </i> <b>world explorer</b></span>
 </mat-toolbar>
-<br/>
 
 <div class="gridbox">
   <div class="SimulationTable">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <!-- Position Column -->
       <ng-container matColumnDef="isActive">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
         <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
       </ng-container>
 
-      <!-- Position Column -->
       <ng-container matColumnDef="simulationName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Simulation name </th>
         <td mat-cell *matCellDef="let element"> {{element.simulationName}} </td>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container matColumnDef="userName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> User name </th>
         <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
       <ng-container matColumnDef="worldSize">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> World size </th>
         <td mat-cell *matCellDef="let element"> {{element.worldSize}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
       <ng-container matColumnDef="timestep">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Time step </th>
         <td mat-cell *matCellDef="let element"> {{element.timestep}} </td>
@@ -47,11 +41,17 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
   <mat-card class="SimulationDescription">
-    Description
+
   </mat-card>
-  <mat-card class="SimulationImage">
-    <figure class="figure">
-      <img width=100% [src]="simulationImage" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-    </figure>
-  </mat-card>
+
+  <div class="SimulationCard">
+    <div class="SimulationImage">a</div>
+    <button class="SimulationButtonLeft" mat-mini-fab></button>
+    <button class="SimulationButtonRight" mat-mini-fab></button>
+    <button class="SimulationButtonTop" mat-mini-fab></button>
+    <button class="SimulationButtonDown" mat-mini-fab></button>
+    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="1" max="1000" value="500"></mat-slider>
+    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="1" max="1000" value="500" vertical="true" invert="true"></mat-slider>
+  </div>
 </div>
+

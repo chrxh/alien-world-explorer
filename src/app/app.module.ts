@@ -11,6 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
 import {CdkTableModule} from "@angular/cdk/table";
 import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import {MatDividerModule} from '@angular/material/divider';
     MatCardModule,
     MatSortModule,
     MatDividerModule,
-    CdkTableModule
+    CdkTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

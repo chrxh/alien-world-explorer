@@ -24,11 +24,18 @@ export class AppComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }
 }
 
 export interface PeriodicElement {
   isActive: boolean;
-  isDistributed: boolean;
   simulationName: string;
   userName: string;
   worldSize: string;

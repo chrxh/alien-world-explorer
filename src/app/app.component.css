@@ -1,11 +1,13 @@
 
 mat-toolbar {
+  height: 3em;
   background: #0B1C4B;
   color: #97F4DD;
 }
 
 table {
   width: 100%;
+  height: 100%;
   background: #EEE;
 }
 .mat-cell {
@@ -35,20 +37,24 @@ mat-card {
 
 
 .gridbox {
+  height: calc(100% - 10em);
   display: grid;
   grid-template-columns: 70% 30%;
-  grid-template-rows: auto auto;
-  grid-gap: 2em;
+  grid-template-rows: 50% 70%;
+  grid-gap: 1em;
 
   display: -ms-grid;
 
-  padding-left: 2em;
-  padding-right: 4em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 2em;
 }
 
 .SimulationTable {
   grid-column: 1;
   grid-row: 1;
+  height: calc(100% - 4em);
 }
 
 .SimulationDescription {
@@ -56,10 +62,11 @@ mat-card {
   grid-row: 1;
 }
 
-.SimulationImage {
+.SimulationCard {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row: 2;
+  padding-top: 1%;
 }
 
 ::ng-deep .mat-paginator-page-size-select {
@@ -77,3 +84,60 @@ mat-card {
 ::ng-deep .mat-select-arrow {
   color: #132E7E;
 }
+
+.SimulationCard
+{
+  height: 100%;
+  position: relative;
+}
+.SimulationImage
+{
+  left: 1.5em;
+  top: 3em;
+  width: calc(100% - 3em);
+  height: calc(100% - 3em);
+  position: absolute;
+  background: black;
+}
+.SimulationButtonLeft
+{
+  top: 7em;
+  left: 3em;
+  position: absolute;
+  background: #FF3399;
+}
+.SimulationButtonRight
+{
+  top: 7em;
+  left: 8em;
+  position: absolute;
+  background: #FF3399;
+}
+.SimulationButtonTop
+{
+  top: 4.5em;
+  left: 5.5em;
+  position: absolute;
+  background: #FF3399;
+}
+.SimulationButtonDown
+{
+  top: 9.5em;
+  left: 5.5em;
+  position: absolute;
+  background: #FF3399;
+}
+
+.SimulationScrollbarX {
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 100%;
+}
+.SimulationScrollbarY {
+  position: absolute;
+  left: -1.5em;
+  top: 1.5em;
+  height: 100%;
+}
+
