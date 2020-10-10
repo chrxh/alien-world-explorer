@@ -3,6 +3,8 @@
 </mat-toolbar>
 
 <div class="gridbox">
+  <mat-card class="InfoBox">
+  </mat-card>
   <div class="SimulationTable">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
@@ -44,14 +46,16 @@
 
   </mat-card>
 
-  <div class="SimulationCard">
-    <div class="SimulationImage">a</div>
-    <button class="SimulationButtonLeft" mat-mini-fab></button>
-    <button class="SimulationButtonRight" mat-mini-fab></button>
-    <button class="SimulationButtonTop" mat-mini-fab></button>
-    <button class="SimulationButtonDown" mat-mini-fab></button>
-    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="1" max="1000" value="500"></mat-slider>
-    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="1" max="1000" value="500" vertical="true" invert="true"></mat-slider>
+  <div class="SimulationView">
+    <div class="SimulationImage">
+      <img width=100% [src]="simulationImage" class="figure-img img-fluid rounded">
+    </div>
+    <button class="SimulationButtonLeft" mat-mini-fab (click)="onLeftClick()"></button>
+    <button class="SimulationButtonRight" mat-mini-fab (click)="onRightClick()"></button>
+    <button class="SimulationButtonTop" mat-mini-fab (click)="onTopClick()"></button>
+    <button class="SimulationButtonDown" mat-mini-fab (click)="onDownClick()"></button>
+    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="universeSizeX" [(step)]="scrollStepX" [(value)]="scrollbarPosX" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="0" [(max)]="universeSizeY" [(step)]="scrollStepY" [(value)]="scrollbarPosY" vertical="true" invert="true" color="warn"></mat-slider>
   </div>
 </div>
 

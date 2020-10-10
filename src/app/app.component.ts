@@ -10,12 +10,19 @@ import {SelectionModel} from "@angular/cdk/collections";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'world-explorer';
+  title = 'world explorer';
   simulationImage:any = "assets/test.png";
+
+  universeSizeX  = 1000;
+  universeSizeY  = 1000;
+  scrollbarPosX = 500;
+  scrollbarPosY = 500;
+  scrollStepX = 50;
+  scrollStepY = 100;
 
   displayedColumns: string[] = ['isActive', 'simulationName', 'userName', 'worldSize', 'timestep'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(false, []);
+  selection = new SelectionModel<SimulationData>(false, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -25,16 +32,32 @@ export class AppComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
+  onLeftClick() {
+    if(this.scrollbarPosX - this.scrollStepX >= 0) {
+      this.scrollbarPosX -= this.scrollStepX;
     }
+  }
 
-    return value;
+  onRightClick() {
+    if(this.scrollbarPosX + this.scrollStepX <= this.universeSizeX) {
+      this.scrollbarPosX += this.scrollStepX;
+    }
+  }
+
+  onTopClick() {
+    if(this.scrollbarPosY - this.scrollStepY >= 0) {
+      this.scrollbarPosY -= this.scrollStepY;
+    }
+  }
+
+  onDownClick() {
+    if(this.scrollbarPosY + this.scrollStepY <= this.universeSizeY) {
+      this.scrollbarPosY += this.scrollStepY;
+    }
   }
 }
 
-export interface PeriodicElement {
+export interface SimulationData {
   isActive: boolean;
   simulationName: string;
   userName: string;
@@ -42,7 +65,7 @@ export interface PeriodicElement {
   timestep: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: SimulationData[] = [
   {isActive: false, simulationName: 'genesis0', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
   {isActive: false, simulationName: 'genesis1', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
   {isActive: false, simulationName: 'genesis2', userName: 'alien', worldSize: '40,000 x 1,000', timestep: '1,000,000'},
