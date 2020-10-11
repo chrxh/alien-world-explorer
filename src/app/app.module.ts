@@ -14,10 +14,12 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
+import {VectorRenderer2d} from './vectorrender2d.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VectorRenderer2d
   ],
   imports: [
     BrowserModule,
