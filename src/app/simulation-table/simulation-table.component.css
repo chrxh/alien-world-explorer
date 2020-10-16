@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+    height: 100%;
+}
+.mat-cell {
+}
+.mat-header-cell {
+    font-weight: bold;
+}
+.mat-row.hovered {
+    background: #D7FFF0;
+}
+.mat-row.highlighted {
+    background: #D7FFF0;
+}
+mat-paginator {
+}
+  
+::ng-deep .mat-paginator-page-size-select {
+    width: 2em;
+  }
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: transparent;
+}
+::ng-deep .mat-select-value {
+    font-weight: bold;
+    font-size: 15px;
+    
+}
+::ng-deep .mat-select-arrow {
+}
+  

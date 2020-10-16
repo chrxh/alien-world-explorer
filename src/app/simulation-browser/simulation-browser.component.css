@@ -1,0 +1,51 @@
+.MainContainer
+{
+    height: 100%;
+    position: relative;
+}
+.SimulationImage
+{
+  left: 1.5em;
+  top: 3em;
+  width: calc(100% - 3em);
+  height: calc(100% - 3em);
+  position: absolute;
+}
+.SimulationButtonLeft
+{
+  top: 7em;
+  left: 3em;
+  position: absolute;
+}
+.SimulationButtonRight
+{
+  top: 7em;
+  left: 8em;
+  position: absolute;
+}
+.SimulationButtonTop
+{
+  top: 4.5em;
+  left: 5.5em;
+  position: absolute;
+}
+.SimulationButtonDown
+{
+  top: 9.5em;
+  left: 5.5em;
+  position: absolute;
+}
+
+.SimulationScrollbarX {
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 100%;
+}
+.SimulationScrollbarY {
+  position: absolute;
+  left: -1.5em;
+  top: 1.5em;
+  height: 100%;
+}
+

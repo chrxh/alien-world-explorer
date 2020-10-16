@@ -1,39 +1,10 @@
 
 mat-toolbar {
   height: 3em;
-  background: #0B1C4B;
-  color: #97F4DD;
-}
-
-table {
-  width: 100%;
-  height: 100%;
-  background: #EEE;
-}
-.mat-cell {
-  color: #000;
-}
-.mat-header-cell {
-  background: #6090D0;
-  color: #FFFFFF;
-  font-weight: bold;
-}
-.mat-row.hovered {
-  background: #D7FFF0;
-}
-.mat-row.highlighted {
-  background: #B0F4E0;
-}
-mat-paginator {
-  background: #6090D0;
-  color: #FFFFFF;
 }
 
 mat-card {
-  background: #4070C0;
-  color: #c4daed;
 }
-
 
 .gridbox {
   height: calc(100% - 10em);
@@ -68,82 +39,10 @@ mat-card {
   grid-row: 2;
 }
 
-.SimulationView {
+.SimulationBrowser {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row: 3;
   padding-top: 1%;
-}
-
-::ng-deep .mat-paginator-page-size-select {
-  width: 2em;
-}
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-  background-color: transparent;
-}
-
-::ng-deep .mat-select-value {
-  color: #FFF;
-  font-weight: bold;
-  font-size: 15px;
-}
-::ng-deep .mat-select-arrow {
-  color: #132E7E;
-}
-
-.SimulationView
-{
-  height: 100%;
-  position: relative;
-}
-.SimulationImage
-{
-  left: 1.5em;
-  top: 3em;
-  width: calc(100% - 3em);
-  height: calc(100% - 3em);
-  position: absolute;
-  background: black;
-}
-.SimulationButtonLeft
-{
-  top: 7em;
-  left: 3em;
-  position: absolute;
-  background: #FF3399;
-}
-.SimulationButtonRight
-{
-  top: 7em;
-  left: 8em;
-  position: absolute;
-  background: #FF3399;
-}
-.SimulationButtonTop
-{
-  top: 4.5em;
-  left: 5.5em;
-  position: absolute;
-  background: #FF3399;
-}
-.SimulationButtonDown
-{
-  top: 9.5em;
-  left: 5.5em;
-  position: absolute;
-  background: #FF3399;
-}
-
-.SimulationScrollbarX {
-  position: absolute;
-  top: 0em;
-  left: 0em;
-  width: 100%;
-}
-.SimulationScrollbarY {
-  position: absolute;
-  left: -1.5em;
-  top: 1.5em;
-  height: 100%;
 }
 

@@ -1,0 +1,11 @@
+<div class="MainContainer">
+    <div #simulationImageId class="SimulationImage">
+        <img width="100%" [(src)]="simulationImage" class="figure-img img-fluid rounded">
+    </div>
+    <button class="SimulationButtonLeft" mat-mini-fab (click)="onLeftClick()"></button>
+    <button class="SimulationButtonRight" mat-mini-fab (click)="onRightClick()"></button>
+    <button class="SimulationButtonTop" mat-mini-fab (click)="onTopClick()"></button>
+    <button class="SimulationButtonDown" mat-mini-fab (click)="onDownClick()"></button>
+    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="universeSizeX" [(step)]="scrollStepX" [(value)]="scrollbarPosX" (click)="onUpdateImage()" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="0" [(max)]="universeSizeY" [(step)]="scrollStepY" [(value)]="scrollbarPosY" (click)="onUpdateImage()" vertical="true" invert="true" color="warn"></mat-slider>
+</div>
