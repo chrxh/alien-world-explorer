@@ -14,20 +14,22 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
-import {VectorRenderer2d} from './vectorrender2d.pipe';
+import {NumberArrayRenderer} from './numberarrayrenderer.pipe';
+import { HttpClientModule } from '@angular/common/http';
 import { SimulationTableComponent } from './simulation-table/simulation-table.component';
 import { SimulationBrowserComponent } from './simulation-browser/simulation-browser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VectorRenderer2d,
+    NumberArrayRenderer,
     SimulationTableComponent,
     SimulationBrowserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     MatToolbarModule,
     BrowserAnimationsModule,
     MatTableModule,

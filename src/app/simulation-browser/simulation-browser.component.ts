@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-simulation-browser',
@@ -6,6 +6,12 @@ import { Component, AfterViewInit } from '@angular/core';
   styleUrls: ['./simulation-browser.component.css']
 })
 export class SimulationBrowserComponent implements AfterViewInit {
+
+  @Input()
+  get simulationId(): string { return this._simulationId; };
+  set simulationId(simulationId : string) {
+    this._simulationId = simulationId;
+  }
 
   simulationImage = "http://localhost/testimage.php";
 
@@ -61,4 +67,5 @@ export class SimulationBrowserComponent implements AfterViewInit {
     }
   }
 
+  private _simulationId : string = "";
 }

@@ -4,15 +4,16 @@
 
 <div class="gridbox">
   <mat-card class="InfoBox">
+    Please select an active simulation from below to observe.
   </mat-card>
 
-  <app-simulation-table class="SimulationTable">
+  <app-simulation-table class="SimulationTable" (selectedSimulationIdEvent)="setSelectedSimulationId($event)">
   </app-simulation-table>
 
   <mat-card class="SimulationDescription">
   </mat-card>
 
-  <app-simulation-browser class="SimulationBrowser">
+  <app-simulation-browser class="SimulationBrowser" [simulationId]="selectedSimulationId">
   </app-simulation-browser>
 </div>
 

@@ -13,6 +13,6 @@
     imagefilledrectangle ($image, $x*4, $y*4, $x*4+3, $y*4+3, $farbe);
   }
 
-imagepng($image);
+  imagepng($image);
   imageDestroy($image);
 ?>

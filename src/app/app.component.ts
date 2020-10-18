@@ -10,10 +10,16 @@ import {SelectionModel} from "@angular/cdk/collections";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'world explorer';
+  public title = 'world explorer';
+
+  public selectedSimulationId : string = "";
 
   ngAfterViewInit() {
   }
 
+  setSelectedSimulationId(simulationId : string)
+  {
+    this.selectedSimulationId = simulationId;
+  }
 }
 
