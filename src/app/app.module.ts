@@ -16,15 +16,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
 import {NumberArrayRenderer} from './numberarrayrenderer.pipe';
 import { HttpClientModule } from '@angular/common/http';
-import { SimulationTableComponent } from './simulation-table/simulation-table.component';
-import { SimulationBrowserComponent } from './simulation-browser/simulation-browser.component';
+import { SimulationTableComponent } from './simulationtable/simulationtable.component';
+import { SimulationViewComponent } from './simulationview/simulationview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NumberArrayRenderer,
     SimulationTableComponent,
-    SimulationBrowserComponent
+    SimulationViewComponent
   ],
   imports: [
     BrowserModule,

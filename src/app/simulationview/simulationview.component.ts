@@ -1,11 +1,11 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'app-simulation-browser',
-  templateUrl: './simulation-browser.component.html',
-  styleUrls: ['./simulation-browser.component.css']
+  selector: 'app-simulationview',
+  templateUrl: './simulationview.component.html',
+  styleUrls: ['./simulationview.component.css']
 })
-export class SimulationBrowserComponent implements AfterViewInit {
+export class SimulationViewComponent implements AfterViewInit {
 
   @Input()
   get simulationId(): string { return this._simulationId; };
@@ -14,7 +14,6 @@ export class SimulationBrowserComponent implements AfterViewInit {
   }
 
   simulationImage = "http://localhost/testimage.php";
-
   universeSizeX  = 1000;
   universeSizeY  = 1000;
   zoom = 4;
@@ -26,9 +25,6 @@ export class SimulationBrowserComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-  }
-
-  onSimulationClicked(row) {
   }
 
   onUpdateImage()

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimulationBrowserComponent } from './simulation-browser.component';
+import { SimulationViewComponent } from './simulationview.component';
 
-describe('SimulationBrowserComponent', () => {
-  let component: SimulationBrowserComponent;
-  let fixture: ComponentFixture<SimulationBrowserComponent>;
+describe('SimulationViewComponent', () => {
+  let component: SimulationViewComponent;
+  let fixture: ComponentFixture<SimulationViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SimulationBrowserComponent ]
+      declarations: [ SimulationViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SimulationBrowserComponent);
+    fixture = TestBed.createComponent(SimulationViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
