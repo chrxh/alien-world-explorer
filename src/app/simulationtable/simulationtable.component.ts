@@ -8,8 +8,8 @@ import {SimulationInfo} from "../simulationinfo";
 
 @Component({
   selector: 'app-simulation-table',
-  templateUrl: './simulation-table.component.html',
-  styleUrls: ['./simulation-table.component.css']
+  templateUrl: './simulationtable.component.html',
+  styleUrls: ['./simulationtable.component.css']
 })
 export class SimulationTableComponent implements AfterViewInit {
 
