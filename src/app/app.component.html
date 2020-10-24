@@ -7,13 +7,14 @@
     Please select an active simulation from below to observe.
   </mat-card>
 
-  <app-simulation-table class="SimulationTable" (selectedSimulationIdEvent)="setSelectedSimulationId($event)">
+  <app-simulation-table class="SimulationTable" (selectedSimulationEvent)="selectedSimulationInfo = $event">
   </app-simulation-table>
 
   <mat-card class="SimulationDescription">
+    {{selectedSimulationInfo?.description}}
   </mat-card>
 
-  <app-simulationview class="SimulationView" [simulationId]="selectedSimulationId">
+  <app-simulationview class="SimulationView" [simulationInfo]="selectedSimulationInfo">
   </app-simulationview>
 </div>
 

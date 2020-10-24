@@ -3,6 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from "@angular/cdk/collections";
+import { SimulationInfo } from './simulationinfo';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,15 @@ import {SelectionModel} from "@angular/cdk/collections";
 export class AppComponent implements AfterViewInit {
   public title = 'world explorer';
 
-  public selectedSimulationId : string = "";
+  public selectedSimulationInfo : SimulationInfo;
 
   ngAfterViewInit() {
   }
 
-  setSelectedSimulationId(simulationId : string)
+  setSelectedSimulation(simulationInfo)
   {
-    this.selectedSimulationId = simulationId;
+    this.selectedSimulationInfo = simulationInfo;
+    alert("tes");
   }
 }
 

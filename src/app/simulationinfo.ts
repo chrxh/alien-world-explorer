@@ -5,4 +5,5 @@ export interface SimulationInfo {
     userName: string;
     worldSize: number[];
     timestep: number;
+    description: string;
   }

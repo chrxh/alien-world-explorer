@@ -13,7 +13,7 @@ import {SimulationInfo} from "../simulationinfo";
 })
 export class SimulationTableComponent implements AfterViewInit {
 
-  @Output() selectedSimulationIdEvent = new EventEmitter<string>();
+  @Output() selectedSimulationEvent = new EventEmitter<SimulationInfo>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,13 +32,12 @@ export class SimulationTableComponent implements AfterViewInit {
 
   onSimulationClicked() {
     const selectedRowData = this.selection.selected;
-    this.selectedSimulationIdEvent.emit(selectedRowData[0].id);
+    this.selectedSimulationEvent.emit(selectedRowData[0]);
   }
   
   getSimulationInfo(): void {
     this.simulationInfoService.getAll().subscribe(
       (result: SimulationInfo[]) => {
-//        this.dataSource.data = [{isActive: false, simulationName: 'genesis0', userName: 'alien', worldSize: [40000, 1000], timestep: 1000000}];
         this.dataSource.data = result;
       },
       (err) => {

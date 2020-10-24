@@ -1,4 +1,5 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
+import {SimulationInfo} from "../simulationinfo";
 
 @Component({
   selector: 'app-simulationview',
@@ -8,9 +9,9 @@ import { Component, Input, AfterViewInit } from '@angular/core';
 export class SimulationViewComponent implements AfterViewInit {
 
   @Input()
-  get simulationId(): string { return this._simulationId; };
-  set simulationId(simulationId : string) {
-    this._simulationId = simulationId;
+  get simulationInfo() : SimulationInfo { return this._simulationInfo; };
+  set simulationInfo(simulationInfo : SimulationInfo) {
+    this._simulationInfo = simulationInfo;
   }
 
   simulationImage = "http://localhost/testimage.php";
@@ -63,5 +64,5 @@ export class SimulationViewComponent implements AfterViewInit {
     }
   }
 
-  private _simulationId : string = "";
+  private _simulationInfo : SimulationInfo;
 }
