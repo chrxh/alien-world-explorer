@@ -17,11 +17,5 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
   }
-
-  setSelectedSimulation(simulationInfo)
-  {
-    this.selectedSimulationInfo = simulationInfo;
-    alert("tes");
-  }
 }
 

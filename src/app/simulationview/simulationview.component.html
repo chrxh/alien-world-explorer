@@ -1,11 +1,11 @@
 <div class="MainContainer">
-    <div #simulationImageId class="SimulationImage">
-        <img width="100%" [(src)]="simulationImage" class="figure-img img-fluid rounded">
+    <div class="SimulationImage">
+        <img #simulationImageRef width="100%" [(src)]="simulationImage" class="figure-img img-fluid rounded">
     </div>
     <button class="SimulationButtonLeft" mat-mini-fab (click)="onLeftClicked()"></button>
     <button class="SimulationButtonRight" mat-mini-fab (click)="onRightClicked()"></button>
     <button class="SimulationButtonTop" mat-mini-fab (click)="onTopClicked()"></button>
     <button class="SimulationButtonDown" mat-mini-fab (click)="onDownClicked()"></button>
-    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="universeSizeX" [(step)]="scrollStepX" [(value)]="scrollbarPosX" (click)="onUpdateImage()" color="warn"></mat-slider>
-    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="0" [(max)]="universeSizeY" [(step)]="scrollStepY" [(value)]="scrollbarPosY" (click)="onUpdateImage()" vertical="true" invert="true" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="scrollbarSizeX" [(step)]="scrollbarStepX" [(value)]="scrollbarPosX" (click)="onUpdateImage()" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarY" tickInterval="1000" min="0" [(max)]="scrollbarSizeY" [(step)]="scrollbarStepY" [(value)]="scrollbarPosY" (click)="onUpdateImage()" vertical="true" invert="true" color="warn"></mat-slider>
 </div>

@@ -1,7 +1,7 @@
 <?php
     $result = [
         ["id"=> 1, "isActive" => true, "simulationName" => "genesis0", "userName" => "admin", "worldSize" => [40000, 1000], "timestep" => 0, "description" => "Description of the first test simulation."],
-        ["id"=> 2, "isActive" => false, "simulationName" => "genesis1", "userName" => "admin", "worldSize" => [60000, 1000], "timestep" => 0, "description" => "Description of the second test simulation."],
+        ["id"=> 2, "isActive" => false, "simulationName" => "genesis1", "userName" => "admin", "worldSize" => [1000, 1000], "timestep" => 0, "description" => "Description of the second test simulation."],
         ["id"=> 3, "isActive" => false, "simulationName" => "genesis2", "userName" => "admin", "worldSize" => [60000, 1000], "timestep" => 0, "description" => ""],
         ["id"=> 4, "isActive" => false, "simulationName" => "genesis3", "userName" => "admin", "worldSize" => [60000, 1000], "timestep" => 0, "description" => ""],
         ["id"=> 5, "isActive" => false, "simulationName" => "genesis4", "userName" => "admin", "worldSize" => [60000, 1000], "timestep" => 0, "description" => ""],

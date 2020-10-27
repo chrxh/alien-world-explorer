@@ -31,7 +31,7 @@ export class SimulationTableComponent implements AfterViewInit {
 
     setInterval(()=>{
       this.getSimulationInfo();
-    }, 10000);
+    }, 3000);
   }
 
   onSimulationClicked() {
@@ -44,7 +44,7 @@ export class SimulationTableComponent implements AfterViewInit {
   }
   
   getSimulationInfo(): void {
-    this.simulationInfoService.getAll().subscribe(
+    this.simulationInfoService.getSimulationInfos().subscribe(
       (result: SimulationInfo[]) => {
         this.dataSource.data = result;
       },

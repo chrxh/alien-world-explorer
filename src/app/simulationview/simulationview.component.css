@@ -8,7 +8,7 @@
   left: 1.5em;
   top: 3em;
   width: calc(100% - 3em);
-  height: calc(100% - 3em);
+  height: calc(100% - 0em);
   position: absolute;
 }
 .SimulationButtonLeft
@@ -46,6 +46,6 @@
   position: absolute;
   left: -1.5em;
   top: 1.5em;
-  height: 100%;
+  height: calc(100% + 3em);
 }
 
