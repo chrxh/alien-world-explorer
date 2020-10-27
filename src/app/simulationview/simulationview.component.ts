@@ -36,28 +36,28 @@ export class SimulationViewComponent implements AfterViewInit {
 //      + "&width=" + width + "&height=" + height + "&zoom=" + this.zoom;
   }
 
-  onLeftClick() {
+  onLeftClicked() {
     if(this.scrollbarPosX - this.scrollStepX >= 0) {
       this.scrollbarPosX -= this.scrollStepX;
       this.onUpdateImage();
     }
   }
 
-  onRightClick() {
+  onRightClicked() {
     if(this.scrollbarPosX + this.scrollStepX <= this.universeSizeX) {
       this.scrollbarPosX += this.scrollStepX;
       this.onUpdateImage();
     }
   }
 
-  onTopClick() {
+  onTopClicked() {
     if(this.scrollbarPosY - this.scrollStepY >= 0) {
       this.scrollbarPosY -= this.scrollStepY;
       this.onUpdateImage();
     }
   }
 
-  onDownClick() {
+  onDownClicked() {
     if(this.scrollbarPosY + this.scrollStepY <= this.universeSizeY) {
       this.scrollbarPosY += this.scrollStepY;
       this.onUpdateImage();

@@ -28,11 +28,19 @@ export class SimulationTableComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getSimulationInfo();
+
+    setInterval(()=>{
+      this.getSimulationInfo();
+    }, 10000);
   }
 
   onSimulationClicked() {
     const selectedRowData = this.selection.selected;
     this.selectedSimulationEvent.emit(selectedRowData[0]);
+  }
+
+  onRefreshClicked() {
+    this.getSimulationInfo();
   }
   
   getSimulationInfo(): void {
