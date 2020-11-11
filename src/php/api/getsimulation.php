@@ -20,8 +20,8 @@
                 $currentTimestamp = $date->getTimestamp();
 
                 //invalidate token after 10 min
-                if ($currentTimestamp - $lastUpdateTimestamp > 60*10) {
-                    $db->query("UPDATE simulation SET TOKEN='' WHERE simulation.ID = " . $obj->id);
+                if ($currentTimestamp - $lastUpdateTimestamp > 60*1) {
+                    $db->query("UPDATE simulation SET TOKEN=NULL WHERE simulation.ID = " . $obj->id);
                 }
                 else {
                     $isActive = true;
@@ -29,7 +29,7 @@
             }
 
             $result[] = [
-                "id" => $obj->id, 
+                "id" => (int)$obj->id, 
                 "isActive" => $isActive, 
                 "simulationName" => $obj->simulationName, 
                 "userName" => $obj->userName, 
