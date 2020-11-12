@@ -29,9 +29,10 @@ export class SimulationTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.getSimulationInfo();
 
-    setInterval(()=>{
+/*    setInterval(()=>{
       this.getSimulationInfo();
     }, 3000);
+*/
   }
 
   onSimulationClicked() {

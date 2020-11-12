@@ -8,17 +8,21 @@ import {SimulationInfo} from "../simulationinfo";
 })
 export class SimulationViewComponent implements AfterViewInit {
 
-  simulationImage = "http://localhost/testimage.php";
-  zoom = 4;
-  scrollbarSizeX = 0;
-  scrollbarSizeY = 0;
-  scrollbarPosX = 500;
-  scrollbarPosY = 500;
-  scrollbarStepX = 50;
-  scrollbarStepY = 100;
+  public simulationImageSrc = "http://localhost/api/getsimulationimage.php";
+  public scrollbarSizeX = 0;
+  public scrollbarSizeY = 0;
+  public scrollbarPosX = 500;
+  public scrollbarPosY = 500;
+  public scrollbarStepX = 50;
+  public scrollbarStepY = 100;
+  public SimulationScrollbarYheight = 300;
+
+  private zoom = 4;
+
 
   @ViewChild('simulationImageRef') simulationImageAccess: ElementRef;
-
+  @ViewChild('simulationScrollbarYRef') simulationScrollbarYaccess: ElementRef;
+  
   @Input()
   get simulationInfo() : SimulationInfo { return this._simulationInfo; };
   set simulationInfo(simulationInfo : SimulationInfo) {
@@ -28,6 +32,8 @@ export class SimulationViewComponent implements AfterViewInit {
 
     this.scrollbarPosX = simulationInfo.worldSize[0] / 2;
     this.scrollbarPosY = simulationInfo.worldSize[1] / 2;
+
+    this.onUpdateImage();
   }
 
   constructor() { }
@@ -36,17 +42,28 @@ export class SimulationViewComponent implements AfterViewInit {
     setInterval(()=>{
       this.onUpdateImage();
     }, 1000);
-
   }
 
   onUpdateImage()
   {
     if(this._simulationInfo != null) {
-      var width = Math.floor(this.simulationImageAccess.nativeElement.width / this.zoom);
-      var height = Math.floor(this.simulationImageAccess.nativeElement.height / this.zoom);
-      this.simulationImage = "http://localhost/testimage.php?r=" + Math.floor(Math.random()*100000)
-        + "&width=" + width + "&height=" + height + "&zoom=" + this.zoom;
+      var width = Math.floor(this.simulationImageAccess.nativeElement.width);
+      var height = Math.floor(this.simulationImageAccess.nativeElement.height);
+      this.simulationImageSrc = "http://localhost/api/getsimulationimage.php"
+        + "?r=" + Math.floor(Math.random()*100000)
+        + "&simulationId=" + this.simulationInfo.id
+        + "&posX=" + this.scrollbarPosX
+        + "&posY=" + this.scrollbarPosY
+        + "&sizeX=" + width
+        + "&sizeY=" + height
+        + "&zoom=" + this.zoom;
     }
+  }
+
+  onImageLoad()
+  {
+    var height = Math.floor(this.simulationImageAccess.nativeElement.height);
+    this.SimulationScrollbarYheight = height + 45;
   }
 
   onLeftClicked() {
