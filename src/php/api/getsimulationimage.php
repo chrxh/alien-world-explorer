@@ -30,24 +30,22 @@
         $imageData = $row['DATA'];
         $sizeX = $row['SIZE_X']; 
         $sizeY = $row['SIZE_Y'];
-        $zoom = $row['ZOOM']; ;
 
         $image = imagecreatetruecolor($sizeX, $sizeY);
 
-        /*
         $color = imagecolorallocate($image, 55, 55, 180);
         $len = strlen($imageData)-4;
         $data = unpack("n2size/n*", $imageData);
         
         for ($i = 1; $i < $len/4; $i++) {
-            $x = $data[$i*2 - 1] * $zoom;
-            $y = $data[$i*2] * $zoom;
-//            imagefilledrectangle ($image, 0, 0, 20, 20, $color);
-            if ($x + ($zoom - 1) < $sizeX && $y + ($zoom - 1) < $sizeY) {
-                imagefilledrectangle ($image, $x, $y, $x + ($zoom - 1), $y + ($zoom - 1), $color);
+            $x = $data[$i*2 - 1];
+            $y = $data[$i*2];
+            if ($x < $sizeX && $y < $sizeY) {
+                $color = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
+                imagesetpixel($image, $x, $y, $color);
             }
         }
-        */
+        
         imagepng($image, $imageFileName);
         imagepng($image);
         imageDestroy($image);
@@ -69,9 +67,8 @@
             $posY = $_GET["posY"];
             $sizeX = $_GET["sizeX"];
             $sizeY = $_GET["sizeY"];
-            $zoom = $_GET["zoom"];
         
-            $db->query("INSERT INTO task (ID, SIMULATION_ID, SESSION_ID, STATE, POS_X, POS_Y, SIZE_X, SIZE_Y, ZOOM, DATA) VALUES (NULL, $simulationId, '$sessionId', 0, $posX, $posY, $sizeX, $sizeY, $zoom, NULL)");
+            $db->query("INSERT INTO task (ID, SIMULATION_ID, SESSION_ID, STATE, POS_X, POS_Y, SIZE_X, SIZE_Y, DATA) VALUES (NULL, $simulationId, '$sessionId', 0, $posX, $posY, $sizeX, $sizeY, NULL)");
         }
 
         //image in cache? => stream the image directly from the cachefile

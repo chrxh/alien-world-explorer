@@ -47,16 +47,15 @@ export class SimulationViewComponent implements AfterViewInit {
   onUpdateImage()
   {
     if(this._simulationInfo != null) {
-      var width = Math.floor(this.simulationImageAccess.nativeElement.width);
-      var height = Math.floor(this.simulationImageAccess.nativeElement.height);
+      var width = Math.floor(this.simulationImageAccess.nativeElement.width) / this.zoom;
+      var height = Math.floor(this.simulationImageAccess.nativeElement.height) / this.zoom;
       this.simulationImageSrc = "http://localhost/api/getsimulationimage.php"
         + "?r=" + Math.floor(Math.random()*100000)
         + "&simulationId=" + this.simulationInfo.id
         + "&posX=" + this.scrollbarPosX
         + "&posY=" + this.scrollbarPosY
         + "&sizeX=" + width
-        + "&sizeY=" + height
-        + "&zoom=" + this.zoom;
+        + "&sizeY=" + height;
     }
   }
 
