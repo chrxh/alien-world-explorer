@@ -1,8 +1,7 @@
 <?php
-    $db = new mysqli("localhost", "root", "", "alien");
-	if ($db->connect_error) {
-        exit;
-    }
+    include 'lib/helpers.php';
+    
+    $db = connectToDB();
     $simulationId = $_POST["simulationId"];
     $token = $_POST["token"];
 

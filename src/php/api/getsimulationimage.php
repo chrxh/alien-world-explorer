@@ -1,7 +1,9 @@
 <?php
     header("Content-type: image/png");
-
     session_start();
+
+    include 'lib/helpers.php';
+
     $sessionId = session_id();
     $imageFileName = "session\\alien_$sessionId.png";
 
@@ -15,12 +17,8 @@
         exit();
     }
 
-    $db = new mysqli("localhost", "root", "", "alien");
-	if ($db->connect_error) {
-        echo "Connection error: " . mysqli_connect_error();
-        exit();
-    }
-    
+    $db = connectToDB();
+
     $simulationId = $_GET["simulationId"];
     $response = $db->query("SELECT * FROM task WHERE STATE=1 AND SIMULATION_ID=$simulationId");
     //image ready to retrieve?
