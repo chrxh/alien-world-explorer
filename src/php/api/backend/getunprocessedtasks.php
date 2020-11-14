@@ -1,5 +1,5 @@
 <?php
-    include 'lib/helpers.php';
+    require '../lib/helpers.php';
 
     $db = connectToDB();
     $simId = $_POST["simulationId"];

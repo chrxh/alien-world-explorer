@@ -2,7 +2,7 @@
     header("Content-type: image/png");
     session_start();
 
-    include 'lib/helpers.php';
+    require '../lib/helpers.php';
 
     $sessionId = session_id();
     $imageFileName = "session\\alien_$sessionId.png";

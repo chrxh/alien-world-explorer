@@ -16,7 +16,7 @@ export class SimulationInfoService {
   getSimulationInfos(): Observable<SimulationInfo[]> {
     if (!this.dataRequested) {
       this.dataRequested = true;
-      return this.http.get<SimulationInfo[]>(`${this.baseUrl}/getsimulation`).pipe(
+      return this.http.get<SimulationInfo[]>(`${this.baseUrl}getsimulation`).pipe(
         map(result => {
           this.dataRequested = false;
           this.simulationInfos = result['data'];
@@ -36,6 +36,6 @@ export class SimulationInfoService {
     return throwError('Error! something went wrong.' + error.message);
   }
 
-  private baseUrl = 'http://localhost/api';
+  private baseUrl = 'http://localhost/api/frontend/';
   private dataRequested = false;
 }
