@@ -26,6 +26,9 @@
 
         $row = $response->fetch_array();
         $imageData = $row['DATA'];
+
+        echo $imageData;
+        /*
         $sizeX = $row['SIZE_X']; 
         $sizeY = $row['SIZE_Y'];
 
@@ -43,10 +46,10 @@
                 imagesetpixel($image, $x, $y, $color);
             }
         }
-        
         imagepng($image, $imageFileName);
         imagepng($image);
         imageDestroy($image);
+        */
         
         //delete task
         $id = $row['ID'];
