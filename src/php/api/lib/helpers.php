@@ -5,8 +5,7 @@
     {
         $db = new mysqli("localhost", "root", "", "alien");
         if ($db->connect_error) {
-            echo "Connection error: " . mysqli_connect_error();
-            exit;
+            exit("Connection error: " . mysqli_connect_error());
         }
         return $db;
     }
@@ -17,12 +16,12 @@
 
         if ($response == null) {
             $db->close();
-            exit;
+            exit();
         }
         $obj = $response->fetch_object();
         if ($obj == null) {
             $db->close();
-            exit;
+            exit();
         }
     
         if ($obj->token == null) {

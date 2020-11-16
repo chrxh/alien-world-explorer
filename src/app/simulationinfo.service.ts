@@ -6,36 +6,66 @@ import { map, catchError } from 'rxjs/operators';
 import { SimulationInfo } from './simulationinfo';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SimulationInfoService {
-  public simulationInfos: SimulationInfo[];
+    public simulationInfos: SimulationInfo[];
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-  getSimulationInfos(): Observable<SimulationInfo[]> {
-    if (!this.dataRequested) {
-      this.dataRequested = true;
-      return this.http.get<SimulationInfo[]>(`${this.baseUrl}getsimulationinfos`).pipe(
-        map(result => {
-          this.dataRequested = false;
-          this.simulationInfos = result['data'];
-          return this.simulationInfos;
-        }),
-        catchError(this.handleError));
+    getSimulationInfos(): Observable<SimulationInfo[]> {
+        if (!this.simulationInfoRequested) {
+            this.simulationInfoRequested = true;
+            return this.http.get<SimulationInfo[]>(`${this.baseUrl}getsimulationinfos`).pipe(
+                map(result => {
+                this.simulationInfoRequested = false;
+                this.simulationInfos = result['data'];
+                return this.simulationInfos;
+            }),
+            catchError(this.handleError));
+        }
+        else {
+            return of(this.simulationInfos);
+        }
     }
-    else {
-      return of(this.simulationInfos);
+
+    requestSimulationImage(simulationId : string, pos : number[], size : number[]): Observable<string> {
+        const address = this.baseUrl
+            + "requestsimulationimage"
+            + "?simulationId=" + simulationId
+            + "&posX=" + pos[0]
+            + "&posY=" + pos[1]
+            + "&sizeX=" + size[0]
+            + "&sizeY=" + size[1];
+
+        return this.http.get<string>(address).pipe(
+            map(result => {
+                return result['data'];
+            }),
+            catchError(this.handleError)
+        );
     }
-  }
 
-  private handleError(error: HttpErrorResponse) {
-    console.log(error);
+    isSimulationImageAvailable(taskId : string): Observable<boolean> {
+        const address = this.baseUrl
+            + "issimulationimageavailable"
+            + "?taskId=" + taskId;
 
-    // return an observable with a user friendly message
-    return throwError('Error! something went wrong.' + error.message);
-  }
+        return this.http.get<boolean>(address).pipe(
+            map(result => {
+                return result['data'];
+            }),
+            catchError(this.handleError)
+        );
+    }
 
-  private baseUrl = 'http://localhost/api/';
-  private dataRequested = false;
+    private handleError(error: HttpErrorResponse) {
+        console.log(error);
+
+        // return an observable with a user friendly message
+        return throwError('Error! something went wrong.' + error.message);
+    }
+
+    private baseUrl = 'http://localhost/api/';
+    private simulationInfoRequested = false;
 }

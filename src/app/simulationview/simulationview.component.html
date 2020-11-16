@@ -7,6 +7,6 @@
     <button class="SimulationButtonRight" mat-mini-fab (click)="onRightClicked()"></button>
     <button class="SimulationButtonTop" mat-mini-fab (click)="onTopClicked()"></button>
     <button class="SimulationButtonDown" mat-mini-fab (click)="onDownClicked()"></button>
-    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="scrollbarSizeX" [(step)]="scrollbarStepX" [(value)]="scrollbarPosX" (click)="onUpdateImage()" color="warn"></mat-slider>
-    <mat-slider class="SimulationScrollbarY" #simulationScrollbarYRef [(style.height.px)]="SimulationScrollbarYheight" tickInterval="1000" min="0" [(max)]="scrollbarSizeY" [(step)]="scrollbarStepY" [(value)]="scrollbarPosY" (click)="onUpdateImage()" vertical="true" invert="true" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="scrollbarSizeX" [(step)]="scrollbarStepX" [(value)]="scrollbarPosX" (click)="onRequestImage()" color="warn"></mat-slider>
+    <mat-slider class="SimulationScrollbarY" #simulationScrollbarYRef [(style.height.px)]="SimulationScrollbarYheight" tickInterval="1000" min="0" [(max)]="scrollbarSizeY" [(step)]="scrollbarStepY" [(value)]="scrollbarPosY" (click)="onRequestImage()" vertical="true" invert="true" color="warn"></mat-slider>
 </div>
