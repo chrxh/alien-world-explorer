@@ -2,10 +2,10 @@
     header("Content-type: image/png");
     session_start();
 
-    require '../lib/helpers.php';
+    require './lib/helpers.php';
 
     $sessionId = session_id();
-    $imageFileName = "session\\alien_$sessionId.png";
+    $imageFileName = "cache\\alien_$sessionId.png";
 
     //no parameters? => show blank image
     if($_GET == null) {
@@ -26,30 +26,10 @@
 
         $row = $response->fetch_array();
         $imageData = $row['DATA'];
-
-        echo $imageData;
-        /*
-        $sizeX = $row['SIZE_X']; 
-        $sizeY = $row['SIZE_Y'];
-
-        $image = imagecreatetruecolor($sizeX, $sizeY);
-
-        $color = imagecolorallocate($image, 55, 55, 180);
-        $len = strlen($imageData)-4;
-        $data = unpack("n2size/n*", $imageData);
-        
-        for ($i = 1; $i < $len/4; $i++) {
-            $x = $data[$i*2 - 1];
-            $y = $data[$i*2];
-            if ($x < $sizeX && $y < $sizeY) {
-                $color = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
-                imagesetpixel($image, $x, $y, $color);
-            }
-        }
+        $image = imagecreatefromstring($imageData);
         imagepng($image, $imageFileName);
         imagepng($image);
         imageDestroy($image);
-        */
         
         //delete task
         $id = $row['ID'];

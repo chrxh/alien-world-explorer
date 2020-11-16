@@ -17,7 +17,7 @@ export class SimulationViewComponent implements AfterViewInit {
   public scrollbarStepY = 100;
   public SimulationScrollbarYheight = 300;
 
-  private zoom = 4;
+  private zoom = 2;
 
 
   @ViewChild('simulationImageRef') simulationImageAccess: ElementRef;
