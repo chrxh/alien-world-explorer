@@ -18,8 +18,13 @@
     $sizeX = $_GET["sizeX"];
     $sizeY = $_GET["sizeY"];
 
-    $db->query("INSERT INTO task (ID, SIMULATION_ID, SESSION_ID, STATE, POS_X, POS_Y, SIZE_X, SIZE_Y, DATA) VALUES (NULL, $simId, '', 0, $posX, $posY, $sizeX, $sizeY, NULL)");
-    echo json_encode(['data'=>$db->insert_id]);
+    $db->query("INSERT INTO task (ID, SIMULATION_ID, STATE, POS_X, POS_Y, SIZE_X, SIZE_Y, DATA, LAST_UPDATE) VALUES (NULL, $simId, 0, $posX, $posY, $sizeX, $sizeY, NULL, NULL)");
+    $insertedId = $db->insert_id;
+    echo json_encode(['data'=>$insertedId]);
+
+    if (intval($insertedId) % 100 == 0) {
+        deleteOutdatedTasks($db);
+    }
 
     $db->close();
 ?>

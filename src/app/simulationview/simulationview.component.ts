@@ -3,23 +3,16 @@ import {SimulationInfo} from "../simulationinfo";
 import {SimulationInfoService} from "../simulationinfo.service"
 
 @Component({
-  selector: 'app-simulationview',
-  templateUrl: './simulationview.component.html',
-  styleUrls: ['./simulationview.component.css']
+    selector: 'app-simulationview',
+    templateUrl: './simulationview.component.html',
+    styleUrls: ['./simulationview.component.css']
 })
 export class SimulationViewComponent implements AfterViewInit {
 
-    public simulationImageSrc = "http://localhost/api/getsimulationimage.php";
-    public scrollbarSizeX = 0;
-    public scrollbarSizeY = 0;
-    public scrollbarPosX = 500;
-    public scrollbarPosY = 500;
-    public scrollbarStepX = 50;
-    public scrollbarStepY = 100;
-    public SimulationScrollbarYheight = 300;
-
-    private zoom = 2;
-    private taskId;
+    private readonly SERVER_ADDRESS = "http://localhost/api/getsimulationimage.php"; 
+    private readonly ZOOM = 2;
+    private readonly REQUEST_IMAGE_INTERVAL = 1000;
+    private readonly POLLING_IMAGE_INTERVAL = 300;
 
 
     @ViewChild('simulationImageRef') simulationImageAccess: ElementRef;
@@ -35,6 +28,9 @@ export class SimulationViewComponent implements AfterViewInit {
         this.scrollbarPosX = simulationInfo.worldSize[0] / 2;
         this.scrollbarPosY = simulationInfo.worldSize[1] / 2;
 
+        this._imageRequested = false;
+        this._taskId = null;
+
         this.onRequestImage();
     }
 
@@ -42,36 +38,39 @@ export class SimulationViewComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         setInterval(()=>{
-//              this.onRequestImage();
-            }, 1000);
+              this.onRequestImage();
+            }, this.REQUEST_IMAGE_INTERVAL);
 
         setInterval(()=>{
                 this.onCheckIfImageAvailable();
-            }, 1000);
+            }, this.POLLING_IMAGE_INTERVAL);
     }
 
     onRequestImage()
     {
-        if(this._simulationInfo == null) {
+        if(this._simulationInfo == null || this._imageRequested) {
             return;
         }
-        var width = Math.floor(this.simulationImageAccess.nativeElement.width) / this.zoom;
-        var height = Math.floor(this.simulationImageAccess.nativeElement.height) / this.zoom;
+        this._imageRequested = true;
+        var width = Math.floor(this.simulationImageAccess.nativeElement.width) / this.ZOOM;
+        var height = Math.floor(this.simulationImageAccess.nativeElement.height) / this.ZOOM;
         this.simulationInfoService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPosX, this.scrollbarPosY], [width, height])
             .subscribe(
                 (result : string) => {
-                    this.taskId = result;
+                    this._taskId = result;
                 },
-                (err) => {}
+                (err) => {
+                    this._imageRequested = false;
+                }
             );
     }
 
     onCheckIfImageAvailable()
     {
-        if(this._simulationInfo == null || this.taskId == null) {
+        if(this._simulationInfo == null || !this._imageRequested) {
             return;
         }
-        this.simulationInfoService.isSimulationImageAvailable(this.taskId)
+        this.simulationInfoService.isSimulationImageAvailable(this._taskId)
             .subscribe(
                 (result : boolean) => {
                     if (result) {
@@ -85,48 +84,57 @@ export class SimulationViewComponent implements AfterViewInit {
 
     onGetSimulationImage()
     {
-        if(this._simulationInfo == null || this.taskId == null) {
-            return;
-        }
-        this.simulationImageSrc = "http://localhost/api/getsimulationimage.php"
+        this.simulationImageSrc = this.SERVER_ADDRESS
             + "?r=" + Math.floor(Math.random()*100000)
-            + "&taskId=" + this.taskId;
-        this.taskId = null;
+            + "&taskId=" + this._taskId;
+        this._taskId = null;
     }
 
-  onImageLoad()
-  {
-    var height = Math.floor(this.simulationImageAccess.nativeElement.height);
-    this.SimulationScrollbarYheight = height + 45;
-  }
-
-  onLeftClicked() {
-    if(this.scrollbarPosX - this.scrollbarStepX >= 0) {
-      this.scrollbarPosX -= this.scrollbarStepX;
-      this.onRequestImage();
+    onImageLoad()
+    {
+        var height = Math.floor(this.simulationImageAccess.nativeElement.height);
+        this.SimulationScrollbarYheight = height + 45;
+        this._imageRequested = false;
     }
-  }
 
-  onRightClicked() {
-    if(this.scrollbarPosX + this.scrollbarStepX <= this._simulationInfo.worldSize[0]) {
-      this.scrollbarPosX += this.scrollbarStepX;
-      this.onRequestImage();
+    onLeftClicked() {
+        if(this.scrollbarPosX - this.scrollbarStepX >= 0) {
+        this.scrollbarPosX -= this.scrollbarStepX;
+        this.onRequestImage();
+        }
     }
-  }
 
-  onTopClicked() {
-    if(this.scrollbarPosY - this.scrollbarStepY >= 0) {
-      this.scrollbarPosY -= this.scrollbarStepY;
-      this.onRequestImage();
+    onRightClicked() {
+        if(this.scrollbarPosX + this.scrollbarStepX <= this._simulationInfo.worldSize[0]) {
+        this.scrollbarPosX += this.scrollbarStepX;
+        this.onRequestImage();
+        }
     }
-  }
 
-  onDownClicked() {
-    if(this.scrollbarPosY + this.scrollbarStepY <= this._simulationInfo.worldSize[1]) {
-      this.scrollbarPosY += this.scrollbarStepY;
-      this.onRequestImage();
+    onTopClicked() {
+        if(this.scrollbarPosY - this.scrollbarStepY >= 0) {
+        this.scrollbarPosY -= this.scrollbarStepY;
+        this.onRequestImage();
+        }
     }
-  }
 
-  private _simulationInfo : SimulationInfo;
+    onDownClicked() {
+        if(this.scrollbarPosY + this.scrollbarStepY <= this._simulationInfo.worldSize[1]) {
+        this.scrollbarPosY += this.scrollbarStepY;
+        this.onRequestImage();
+        }
+    }
+
+    public simulationImageSrc = this.SERVER_ADDRESS;
+    public scrollbarSizeX = 0;
+    public scrollbarSizeY = 0;
+    public scrollbarPosX = 500;
+    public scrollbarPosY = 500;
+    public scrollbarStepX = 50;
+    public scrollbarStepY = 100;
+    public SimulationScrollbarYheight = 300;
+
+    private _simulationInfo : SimulationInfo;
+    private _taskId : string;
+    private _imageRequested : boolean = false;
 }

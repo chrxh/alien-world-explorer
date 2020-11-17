@@ -65,4 +65,9 @@
     {
         $db->query("UPDATE simulation SET LAST_UPDATE=CURRENT_TIMESTAMP WHERE ID = " . $simId);
     }
+
+    function deleteOutdatedTasks($db)
+    {
+        $db->query("DELETE FROM task WHERE LAST_UPDATE < SUBTIME(CURRENT_TIMESTAMP(), '00:01:00')");
+    }
 ?>

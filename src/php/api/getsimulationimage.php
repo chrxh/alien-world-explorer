@@ -17,7 +17,6 @@
     $db = connectToDB();
     $response = $db->query("SELECT * FROM task WHERE STATE=1 AND ID=$taskId");
     
-
     //image ready to retrieve?
     if (isset($response) && $response->num_rows > 0) {
         $row = $response->fetch_array();
@@ -27,7 +26,7 @@
         imageDestroy($image);
         
         //delete task
-//        $db->query("DELETE FROM task WHERE ID=$taskId");
+        $db->query("DELETE FROM task WHERE ID=$taskId");
     }
     else {
         $image = imagecreatetruecolor(3, 1);
