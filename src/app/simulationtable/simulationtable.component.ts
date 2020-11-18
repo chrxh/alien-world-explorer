@@ -18,7 +18,7 @@ export class SimulationTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['isActive', 'simulationName', 'userName', 'worldSize', 'timestep'];
+  displayedColumns: string[] = ['simulationName', 'isActive', 'userName', 'worldSize', 'timestep'];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel(false, []);
 

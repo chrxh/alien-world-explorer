@@ -13,10 +13,10 @@
     }
 
     //make request
-    $posX = $_GET["posX"];
-    $posY = $_GET["posY"];
-    $sizeX = $_GET["sizeX"];
-    $sizeY = $_GET["sizeY"];
+    $posX = max($_GET["posX"], 0);
+    $posY = max($_GET["posY"], 0);
+    $sizeX = max(min($_GET["sizeX"], 2000), 1);
+    $sizeY = max(min($_GET["sizeY"], 2000), 1);
 
     $db->query("INSERT INTO task (ID, SIMULATION_ID, STATE, POS_X, POS_Y, SIZE_X, SIZE_Y, DATA, LAST_UPDATE) VALUES (NULL, $simId, 0, $posX, $posY, $sizeX, $sizeY, NULL, NULL)");
     $insertedId = $db->insert_id;

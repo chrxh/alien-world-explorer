@@ -15,12 +15,16 @@ export class SimulationViewComponent implements AfterViewInit {
     private readonly POLLING_IMAGE_INTERVAL = 300;
 
 
-    @ViewChild('simulationImageRef') simulationImageAccess: ElementRef;
-    @ViewChild('simulationScrollbarYRef') simulationScrollbarYaccess: ElementRef;
+    @ViewChild('simulationImageRef') simulationImageAccess : ElementRef;
+    @ViewChild('simulationScrollbarYRef') simulationScrollbarYaccess : ElementRef;
     
     @Input()
-    get simulationInfo() : SimulationInfo { return this._simulationInfo; };
-    set simulationInfo(simulationInfo : SimulationInfo) {
+    get simulationInfo() : SimulationInfo 
+    { 
+        return this._simulationInfo; 
+    };
+    set simulationInfo(simulationInfo : SimulationInfo) 
+    {
         this._simulationInfo = simulationInfo;
         this.scrollbarSizeX = simulationInfo.worldSize[0];
         this.scrollbarSizeY = simulationInfo.worldSize[1];
@@ -36,7 +40,8 @@ export class SimulationViewComponent implements AfterViewInit {
 
     constructor(private simulationService: SimulationService) { }
 
-    ngAfterViewInit(): void {
+    ngAfterViewInit(): void 
+    {
         setInterval(()=>{
               this.onRequestImage();
             }, this.REQUEST_IMAGE_INTERVAL);
@@ -67,7 +72,7 @@ export class SimulationViewComponent implements AfterViewInit {
 
     onCheckIfImageAvailable()
     {
-        if(this._simulationInfo == null || !this._imageRequested) {
+        if(this._simulationInfo == null || this._taskId == null) {
             return;
         }
         this.simulationService.isSimulationImageAvailable(this._taskId)
@@ -75,6 +80,7 @@ export class SimulationViewComponent implements AfterViewInit {
                 (result : boolean) => {
                     if (result) {
                         this.onGetSimulationImage();
+                        this._taskId = null;
                     }
                 },
                 (err) => {
@@ -87,7 +93,6 @@ export class SimulationViewComponent implements AfterViewInit {
         this.simulationImageSrc = this.SERVER_ADDRESS
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + this._taskId;
-        this._taskId = null;
     }
 
     onImageLoad()
@@ -97,28 +102,32 @@ export class SimulationViewComponent implements AfterViewInit {
         this._imageRequested = false;
     }
 
-    onLeftClicked() {
+    onLeftClicked()
+    {
         if(this.scrollbarPosX - this.scrollbarStepX >= 0) {
         this.scrollbarPosX -= this.scrollbarStepX;
         this.onRequestImage();
         }
     }
 
-    onRightClicked() {
+    onRightClicked()
+    {
         if(this.scrollbarPosX + this.scrollbarStepX <= this._simulationInfo.worldSize[0]) {
         this.scrollbarPosX += this.scrollbarStepX;
         this.onRequestImage();
         }
     }
 
-    onTopClicked() {
+    onTopClicked() 
+    {
         if(this.scrollbarPosY - this.scrollbarStepY >= 0) {
         this.scrollbarPosY -= this.scrollbarStepY;
         this.onRequestImage();
         }
     }
 
-    onDownClicked() {
+    onDownClicked() 
+    {
         if(this.scrollbarPosY + this.scrollbarStepY <= this._simulationInfo.worldSize[1]) {
         this.scrollbarPosY += this.scrollbarStepY;
         this.onRequestImage();

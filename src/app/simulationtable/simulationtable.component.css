@@ -5,8 +5,9 @@
 }
 
 .TableContainer {
+    max-height: 100%;
     width: 100%;
-    height: 100%;
+    overflow: auto;
     position: absolute;
 }
 .RefreshButton {
@@ -19,16 +20,11 @@ table {
     width: 100%;
     height: 100%;
 }
-.mat-cell {
-}
-.mat-header-cell {
-    font-weight: bold;
-}
 .mat-row.hovered {
-    background: #D7FFF0;
+    background: #b4dbff;
 }
 .mat-row.highlighted {
-    background: #D7FFF0;
+    background: #6bc4ff;
 }
 mat-paginator {
 }
