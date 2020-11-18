@@ -3,10 +3,6 @@
 </mat-toolbar>
 
 <div class="gridbox">
-  <mat-card class="InfoBox">
-    Please select an active simulation from below to observe.
-  </mat-card>
-
   <app-simulation-table class="SimulationTable" (selectedSimulationEvent)="selectedSimulationInfo = $event">
   </app-simulation-table>
 

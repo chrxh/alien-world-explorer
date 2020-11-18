@@ -1,0 +1,68 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$my-app-primary: mat-palette($mat-light-green);
+$my-app-accent:  mat-palette($mat-light-green);
+$my-app-warn:    mat-palette($mat-red);
+$my-app-theme: mat-dark-theme((
+    color: (
+        primary: $my-app-primary,
+        accent: $my-app-accent,
+        warn: $my-app-warn,
+    )
+));
+
+@include angular-material-theme($my-app-theme);
+
+
+.mat-toolbar
+{
+    background: #132e7e;
+    color: #97f4dd;
+    text-shadow: 0 0 1.4em rgb(255, 0, 155), 0 0 0.9em  rgb(255, 0, 255)
+    /*text-shadow: rgb(155, 0, 255) 0.2em 0.2em 0.2em;*/
+}
+
+.mat-card
+{
+    background: #357ce6;
+    color: #ffffffcc;
+    text-shadow: #000 0.0em 0.0em 0.9em;
+}
+
+.SimulationDescription
+{
+    background: #132e7e;
+}
+
+.mat-header-row
+{
+    background: #018a35;
+    color: #ff0000;
+    text-shadow: #0f0 0.0em 0.0em 0.9em;
+}
+
+.mat-row
+{
+    background: #00752d;
+    text-shadow: #000 0.0em 0.0em 0.9em;
+}
+.mat-row.hovered
+{
+    background: #179b5d;
+}
+.mat-row.highlighted
+{
+    background: #1cb86f;
+}
+
+.mat-paginator
+{
+    background: #018a35;
+}
+
+.mat-raised-button
+{
+    background: #132e7e;
+    color: #eff0ff;
+    text-shadow: #0f0 0.0em 0.0em 0.9em;
+}

@@ -3,14 +3,11 @@ mat-toolbar {
   height: 3em;
 }
 
-mat-card {
-}
-
 .gridbox {
   height: calc(100% - 10em);
   display: grid;
   grid-template-columns: 70% 30%;
-  grid-template-rows: 4em 50% 70%;
+  grid-template-rows: 50% 70%;
   grid-gap: 1em;
 
   display: -ms-grid;
@@ -21,28 +18,20 @@ mat-card {
   padding-right: 2em;
 }
 
-.InfoBox {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row: 1;
-  padding-top: 1%;
-}
-
 .SimulationTable {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
   height: calc(100% - 4em);
 }
 
 .SimulationDescription {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
 }
 
 .SimulationView {
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row: 3;
+  grid-row: 2;
   padding-top: 1%;
 }
-
