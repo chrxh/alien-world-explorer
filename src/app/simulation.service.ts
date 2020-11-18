@@ -8,7 +8,7 @@ import { SimulationInfo } from './simulationinfo';
 @Injectable({
     providedIn: 'root'
 })
-export class SimulationInfoService {
+export class SimulationService {
     public simulationInfos: SimulationInfo[];
 
     constructor(private http: HttpClient) { }

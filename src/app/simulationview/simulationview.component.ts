@@ -1,6 +1,6 @@
 import {Component, Input, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
-import {SimulationInfoService} from "../simulationinfo.service"
+import {SimulationService} from "../simulation.service"
 
 @Component({
     selector: 'app-simulationview',
@@ -34,7 +34,7 @@ export class SimulationViewComponent implements AfterViewInit {
         this.onRequestImage();
     }
 
-    constructor(private simulationInfoService: SimulationInfoService) { }
+    constructor(private simulationService: SimulationService) { }
 
     ngAfterViewInit(): void {
         setInterval(()=>{
@@ -54,7 +54,7 @@ export class SimulationViewComponent implements AfterViewInit {
         this._imageRequested = true;
         var width = Math.floor(this.simulationImageAccess.nativeElement.width) / this.ZOOM;
         var height = Math.floor(this.simulationImageAccess.nativeElement.height) / this.ZOOM;
-        this.simulationInfoService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPosX, this.scrollbarPosY], [width, height])
+        this.simulationService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPosX, this.scrollbarPosY], [width, height])
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -70,7 +70,7 @@ export class SimulationViewComponent implements AfterViewInit {
         if(this._simulationInfo == null || !this._imageRequested) {
             return;
         }
-        this.simulationInfoService.isSimulationImageAvailable(this._taskId)
+        this.simulationService.isSimulationImageAvailable(this._taskId)
             .subscribe(
                 (result : boolean) => {
                     if (result) {

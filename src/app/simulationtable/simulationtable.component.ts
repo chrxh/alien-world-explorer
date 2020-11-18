@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from "@angular/cdk/collections";
-import {SimulationInfoService} from "../simulationinfo.service"
+import {SimulationService} from "../simulation.service"
 import {SimulationInfo} from "../simulationinfo";
 
 @Component({
@@ -22,7 +22,7 @@ export class SimulationTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   selection = new SelectionModel(false, []);
 
-  constructor(private simulationInfoService: SimulationInfoService) { }
+  constructor(private simulationService : SimulationService) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -45,7 +45,7 @@ export class SimulationTableComponent implements AfterViewInit {
   }
   
   getSimulationInfo(): void {
-    this.simulationInfoService.getSimulationInfos().subscribe(
+    this.simulationService.getSimulationInfos().subscribe(
       (result: SimulationInfo[]) => {
         this.dataSource.data = result;
       },
