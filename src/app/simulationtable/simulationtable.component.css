@@ -9,6 +9,7 @@
     width: 100%;
     overflow: auto;
     position: absolute;
+    scrollbar-color: red green; 
 }
 .RefreshButton {
     top: calc(100% + 1em);;
@@ -28,10 +29,6 @@ table {
     background-color: transparent;
 }
 ::ng-deep .mat-select-value {
-    font-weight: bold;
     font-size: 15px;
     
 }
-::ng-deep .mat-select-arrow {
-}
-  
