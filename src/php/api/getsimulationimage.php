@@ -4,11 +4,8 @@
     require './lib/helpers.php';
 
     if ($_GET == null) {
-        $image = imagecreatetruecolor(3, 1);
-        $blue = imagecolorallocate($image, 0x13, 0x2e, 0x7e);
-        imagefill($image, 0, 0, $blue);
-        imagepng($image);
-        imageDestroy($image);
+        $fp = fopen("nosimulation.png", 'rb');
+        fpassthru($fp);
         exit();
     }
 
@@ -29,11 +26,8 @@
         $db->query("DELETE FROM task WHERE ID=$taskId");
     }
     else {
-        $image = imagecreatetruecolor(3, 1);
-        $blue = imagecolorallocate($image, 0x13, 0x2e, 0x7e);
-        imagefill($image, 0, 0, $blue);
-        imagepng($image);
-        imageDestroy($image);
+        $fp = fopen("nosimulation.png", 'rb');
+        fpassthru($fp);
     }
     $db->close();
 ?>
