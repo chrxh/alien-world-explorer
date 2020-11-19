@@ -1,7 +1,7 @@
 export enum ActivityState {
     Inactive = "inactive",
     Active = "active",
-    Streaming = "streaming ..."
+    Streaming = "streaming"
 }
 
 export class SimulationInfoIntern {

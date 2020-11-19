@@ -8,8 +8,18 @@
             </ng-container>
     
             <ng-container matColumnDef="activityState">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Active </th>
-            <td mat-cell *matCellDef="let element"> {{element.activityState}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Activity state </th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.activityState === 'active'">
+                    <div class="ActiveState">active</div>
+                </span>
+                <span *ngIf="element.activityState === 'inactive'">
+                    <div class="InactiveState">inactive</div>
+                </span>
+                <span *ngIf="element.activityState === 'streaming'">
+                    <div class="StreamingState">streaming ...</div>
+                </span>
+            </td>
             </ng-container>
 
             <ng-container matColumnDef="userName">
@@ -19,7 +29,7 @@
 
             <ng-container matColumnDef="worldSize">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>World size </th>
-            <td mat-cell *matCellDef="let element"> {{element.worldSize | numberArrayRenderer: " x ":"3.0"}} </td>
+            <td mat-cell *matCellDef="let element">{{element.worldSize | numberArrayRenderer: " x ":"3.0"}}</td>
             </ng-container>
 
             <ng-container matColumnDef="timestep">

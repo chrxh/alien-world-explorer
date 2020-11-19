@@ -82,4 +82,20 @@ $my-app-theme: mat-dark-theme((
     background-color: #bfb;
     border-radius: 10px;
     border: 2px solid #1cb86f;
-  }
+}
+
+.InactiveState
+{
+    font-weight: bold;
+    color: #d70;
+}
+.ActiveState
+{
+    font-weight: bold;
+    color: #0fb;
+}
+.StreamingState
+{
+    font-weight: bold;
+    color: #0ff;
+}
