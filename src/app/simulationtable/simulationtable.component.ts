@@ -40,6 +40,13 @@ export class SimulationTableComponent implements AfterViewInit {
             this.selectedRow.activityState = this.origSelectedRowState;
         }
 
+        if (this.selection.selected.length === 0) {
+            this.selectedRow = null;    
+            this.origSelectedRowState = null;
+            this.selectedSimulationEvent.emit(null);
+            return;
+        }
+        
         this.selectedRow = this.selection.selected[0];
         this.origSelectedRowState = this.selectedRow.activityState;
 

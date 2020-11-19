@@ -25,17 +25,24 @@ export class SimulationViewComponent implements AfterViewInit {
     };
     set simulationInfo(simulationInfo : SimulationInfo) 
     {
-        this._simulationInfo = simulationInfo;
-        this.scrollbarSizeX = simulationInfo.worldSize[0];
-        this.scrollbarSizeY = simulationInfo.worldSize[1];
+        if (simulationInfo !== null) {
+            this._simulationInfo = simulationInfo;
+            this.scrollbarSizeX = simulationInfo.worldSize[0];
+            this.scrollbarSizeY = simulationInfo.worldSize[1];
 
-        this.scrollbarPosX = simulationInfo.worldSize[0] / 2;
-        this.scrollbarPosY = simulationInfo.worldSize[1] / 2;
+            this.scrollbarPosX = simulationInfo.worldSize[0] / 2;
+            this.scrollbarPosY = simulationInfo.worldSize[1] / 2;
 
-        this._imageRequested = false;
-        this._taskId = null;
+            this._imageRequested = false;
+            this._taskId = null;
 
-        this.onRequestImage();
+            this.onRequestImage();
+        }
+        else {
+            this._simulationInfo = null;
+            this._imageRequested = false;
+            this._taskId = null;
+        }
     }
 
     constructor(private simulationService: SimulationService) { }
@@ -143,7 +150,7 @@ export class SimulationViewComponent implements AfterViewInit {
     public scrollbarStepY = 100;
     public SimulationScrollbarYheight = 300;
 
-    private _simulationInfo : SimulationInfo;
-    private _taskId : string;
+    private _simulationInfo : SimulationInfo = null;
+    private _taskId : string = null;
     private _imageRequested : boolean = false;
 }

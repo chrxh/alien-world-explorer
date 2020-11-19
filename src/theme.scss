@@ -65,6 +65,10 @@ $my-app-theme: mat-dark-theme((
     text-shadow: #0f0 0.0em 0.0em 0.9em;
 }
 
+.TableContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #00752d #bfb;
+}
 
 .TableContainer::-webkit-scrollbar {
     width: 12px;
