@@ -60,7 +60,7 @@ $my-app-theme: mat-dark-theme((
 
 .mat-raised-button
 {
-    background: #132e7e;
+    background: #005320;
     color: #eff0ff;
     text-shadow: #0f0 0.0em 0.0em 0.9em;
 }
@@ -98,4 +98,10 @@ $my-app-theme: mat-dark-theme((
 {
     font-weight: bold;
     color: #0ff;
+}
+
+.Description
+{
+    font-weight: bold;
+    color: #bbb;
 }

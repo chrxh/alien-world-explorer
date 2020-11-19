@@ -25,6 +25,7 @@ export class SimulationViewComponent implements AfterViewInit {
     };
     set simulationInfo(simulationInfo : SimulationInfo) 
     {
+        var activeSimulationSelected : boolean = false;
         if (simulationInfo !== null) {
             this._simulationInfo = simulationInfo;
             this.scrollbarSize[0] = simulationInfo.worldSize[0];
@@ -43,11 +44,19 @@ export class SimulationViewComponent implements AfterViewInit {
             this._taskId = null;
 
             this.onRequestImage();
+
+            if (simulationInfo.isActive) {
+                activeSimulationSelected = true;
+            }
         }
         else {
             this._simulationInfo = null;
             this._imageRequested = false;
             this._taskId = null;
+        }
+
+        if (!activeSimulationSelected) {
+            this.simulationImageSrc = this.SERVER_ADDRESS;
         }
     }
 

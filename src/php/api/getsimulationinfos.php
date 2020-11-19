@@ -4,7 +4,16 @@
     $db = connectToDB();
     
     if ($response= $db->query(
-        "SELECT sim.ID as id, sim.TOKEN as token, sim.NAME as simulationName, u.NAME as userName, sim.TIMESTEP as timestep, sim.SIZE_X as sizeX, sim.SIZE_Y as sizeY, sim.LAST_UPDATE as lastUpdate
+        "SELECT 
+            sim.ID as id, 
+            sim.TOKEN as token, 
+            sim.NAME as simulationName, 
+            u.NAME as userName,
+            sim.TIMESTEP as timestep, 
+            sim.SIZE_X as sizeX, 
+            sim.SIZE_Y as sizeY, 
+            sim.LAST_UPDATE as lastUpdate,
+            sim.DESCRIPTION as descr
         FROM simulation sim, user u
         WHERE sim.USER_ID=u.ID")) {
 
@@ -18,7 +27,8 @@
                 "simulationName" => $obj->simulationName, 
                 "userName" => $obj->userName, 
                 "timestep" => (int)$obj->timestep, 
-                "worldSize" => [(int)$obj->sizeX, (int)$obj->sizeY]
+                "worldSize" => [(int)$obj->sizeX, (int)$obj->sizeY],
+                "description" => $obj->descr
             ];
         }
 

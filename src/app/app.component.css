@@ -7,8 +7,8 @@ mat-toolbar {
   height: calc(100% - 10em);
   display: grid;
   grid-template-columns: 70% 30%;
-  grid-template-rows: 50% 70%;
-  grid-gap: 1em;
+  grid-template-rows: 50% auto 70%;
+  grid-gap: 0em;
 
   display: -ms-grid;
 
@@ -19,19 +19,22 @@ mat-toolbar {
 }
 
 .SimulationTable {
-  grid-column: 1;
-  grid-row: 1;
-  height: calc(100% - 4em);
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 1;
+    height: calc(100% - 4em);
 }
 
 .SimulationDescription {
-  grid-column: 2;
-  grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 2;
+    top: 1em;
 }
 
 .SimulationView {
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row: 2;
+  grid-row: 3;
   padding-top: 1%;
 }

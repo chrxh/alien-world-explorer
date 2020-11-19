@@ -6,7 +6,10 @@
   <app-simulation-table class="SimulationTable" (selectedSimulationEvent)="selectedSimulationInfo = $event">
   </app-simulation-table>
 
-  <mat-card class="SimulationDescription">
+  <mat-card class="SimulationDescription" *ngIf="selectedSimulationInfo?.description">
+    <div class="Description">
+        Description:
+    </div>
     {{selectedSimulationInfo?.description}}
   </mat-card>
 
