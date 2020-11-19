@@ -27,11 +27,17 @@ export class SimulationViewComponent implements AfterViewInit {
     {
         if (simulationInfo !== null) {
             this._simulationInfo = simulationInfo;
-            this.scrollbarSizeX = simulationInfo.worldSize[0];
-            this.scrollbarSizeY = simulationInfo.worldSize[1];
+            this.scrollbarSize[0] = simulationInfo.worldSize[0];
+            this.scrollbarSize[1] = simulationInfo.worldSize[1];
 
-            this.scrollbarPosX = simulationInfo.worldSize[0] / 2;
-            this.scrollbarPosY = simulationInfo.worldSize[1] / 2;
+            const imageSize = this.getImageSize();
+            this.scrollbarSize[0] -= imageSize[0];
+            this.scrollbarSize[1] -= imageSize[1];
+    
+            this.scrollbarPos[0] = this.scrollbarSize[0] / 2;
+            this.scrollbarPos[1] = this.scrollbarSize[1] / 2;
+            this.scrollbarStep[0] = this.scrollbarSize[0] / 20;
+            this.scrollbarStep[1] = this.scrollbarSize[1] / 20;
 
             this._imageRequested = false;
             this._taskId = null;
@@ -64,9 +70,8 @@ export class SimulationViewComponent implements AfterViewInit {
             return;
         }
         this._imageRequested = true;
-        var width = Math.floor(this.simulationImageAccess.nativeElement.width) / this.ZOOM;
-        var height = Math.floor(this.simulationImageAccess.nativeElement.height) / this.ZOOM;
-        this.simulationService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPosX, this.scrollbarPosY], [width, height])
+        const imageSize = this.getImageSize();
+        this.simulationService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPos[0], this.scrollbarPos[1]], [imageSize[0], imageSize[1]])
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -111,45 +116,49 @@ export class SimulationViewComponent implements AfterViewInit {
 
     onLeftClicked()
     {
-        if(this.scrollbarPosX - this.scrollbarStepX >= 0) {
-        this.scrollbarPosX -= this.scrollbarStepX;
+        if(this.scrollbarPos[0] - this.scrollbarStep[0] >= 0) {
+        this.scrollbarPos[0] -= this.scrollbarStep[0];
         this.onRequestImage();
         }
     }
 
     onRightClicked()
     {
-        if(this.scrollbarPosX + this.scrollbarStepX <= this._simulationInfo.worldSize[0]) {
-        this.scrollbarPosX += this.scrollbarStepX;
+        if(this.scrollbarPos[0] + this.scrollbarStep[0] <= this._simulationInfo.worldSize[0]) {
+        this.scrollbarPos[0] += this.scrollbarStep[0];
         this.onRequestImage();
         }
     }
 
     onTopClicked() 
     {
-        if(this.scrollbarPosY - this.scrollbarStepY >= 0) {
-        this.scrollbarPosY -= this.scrollbarStepY;
+        if(this.scrollbarPos[1] - this.scrollbarStep[1] >= 0) {
+        this.scrollbarPos[1] -= this.scrollbarStep[1];
         this.onRequestImage();
         }
     }
 
     onDownClicked() 
     {
-        if(this.scrollbarPosY + this.scrollbarStepY <= this._simulationInfo.worldSize[1]) {
-        this.scrollbarPosY += this.scrollbarStepY;
+        if(this.scrollbarPos[1] + this.scrollbarStep[1] <= this._simulationInfo.worldSize[1]) {
+        this.scrollbarPos[1] += this.scrollbarStep[1];
         this.onRequestImage();
         }
     }
 
     public simulationImageSrc = this.SERVER_ADDRESS;
-    public scrollbarSizeX = 0;
-    public scrollbarSizeY = 0;
-    public scrollbarPosX = 500;
-    public scrollbarPosY = 500;
-    public scrollbarStepX = 50;
-    public scrollbarStepY = 100;
+    public scrollbarSize : number[] = [0, 0];
+    public scrollbarPos : number[] = [0, 0];
+    public scrollbarStep : number[] = [0, 0];
     public SimulationScrollbarYheight = 300;
 
+    private getImageSize() : number[]
+    {
+        return [
+            Math.floor(this.simulationImageAccess.nativeElement.width) / this.ZOOM, 
+            Math.floor(this.simulationImageAccess.nativeElement.height) / this.ZOOM
+        ];
+    }
     private _simulationInfo : SimulationInfo = null;
     private _taskId : string = null;
     private _imageRequested : boolean = false;
