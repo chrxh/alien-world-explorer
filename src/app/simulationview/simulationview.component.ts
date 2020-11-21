@@ -42,7 +42,7 @@ export class SimulationViewComponent implements AfterViewInit {
         }
 
         if (!activeSimulationSelected) {
-            this.simulationImageSrc = this.SERVER_ADDRESS;
+            this.hideImage();
         }
     }
 
@@ -111,6 +111,7 @@ export class SimulationViewComponent implements AfterViewInit {
 
     onGetSimulationImage(taskId : string)
     {
+        this.imageVisible = true;
         this.simulationImageSrc = this.SERVER_ADDRESS
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + taskId;
@@ -119,6 +120,12 @@ export class SimulationViewComponent implements AfterViewInit {
     onImageLoad()
     {
         this._imageRequested = false;
+    }
+
+    private hideImage()
+    {
+        this.imageVisible = false;
+        this.scrollContentSize = [0, 0];
     }
 
     private readonly SERVER_ADDRESS = "http://localhost/api/getsimulationimage.php"; 
@@ -131,6 +138,7 @@ export class SimulationViewComponent implements AfterViewInit {
     private _imageRequested : boolean = false;
 
     public simulationImageSrc = this.SERVER_ADDRESS;
-    public scrollContentSize : number[] = [2800, 1200]; 
+    public scrollContentSize : number[] = [0, 0]; 
     public scrollContentPos : number[] = [0, 0];
+    public imageVisible : boolean = false;
 }

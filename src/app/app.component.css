@@ -7,7 +7,7 @@ mat-toolbar {
   height: calc(100% - 10em);
   display: grid;
   grid-template-columns: 70% 30%;
-  grid-template-rows: 50% auto 70%;
+  grid-template-rows: 50% auto 50%;
   grid-gap: 0em;
 
   display: -ms-grid;
