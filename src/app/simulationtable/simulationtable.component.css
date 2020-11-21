@@ -5,8 +5,7 @@
 }
 
 .TableContainer {
-    max-height: 100%;
-    height: calc(100% - 4em);
+    max-height: calc(100% - 4em);
     width: 100%;
     overflow: auto;
     position: absolute;
