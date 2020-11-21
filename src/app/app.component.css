@@ -6,17 +6,19 @@ mat-toolbar
 
 .FlexContainer
 {
+    margin-top: 1.0em;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     height: 90%
 }
 
 .SimulationTable
 {
-	margin: .5em;
+    margin: 0.5em;
     padding: .5em;
-    width: 30%;
-    min-width: 40em;
+    flex-grow: 1;
+    min-width: 50em;
     max-width: 50em;
     height: 26em;
 }
@@ -25,9 +27,8 @@ mat-toolbar
 {
 	margin: .5em;
     padding: .5em;
-    width: 20%;
+    flex-grow: 1;
     min-width: 15em;
-    max-width: 50em;
     height: 26em;
 }
 
@@ -35,7 +36,7 @@ mat-toolbar
 {
 	margin: .5em;
     padding: .5em;
-    width: 20%;
+    flex-grow: 1;
     min-width: 15em;
     height: 26em;
 }
@@ -44,7 +45,7 @@ mat-toolbar
 {
 	margin: .5em;
     padding: .5em;
-    width: 20%;
+    flex-grow: 1;
     min-width: 15em;
     height: 26em;
 }
