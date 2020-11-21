@@ -5,6 +5,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { SimulationInfo } from './simulationinfo';
 
+import {AppConfig} from "./appconfig";
+
 @Injectable({
     providedIn: 'root'
 })
@@ -16,7 +18,7 @@ export class SimulationService {
     getSimulationInfos(): Observable<SimulationInfo[]> {
         if (!this.simulationInfoRequested) {
             this.simulationInfoRequested = true;
-            return this.http.get<SimulationInfo[]>(`${this.baseUrl}getsimulationinfos`).pipe(
+            return this.http.get<SimulationInfo[]>(`${AppConfig.Address}getsimulationinfos`).pipe(
                 map(result => {
                 this.simulationInfoRequested = false;
                 this.simulationInfos = result['data'];
@@ -30,7 +32,7 @@ export class SimulationService {
     }
 
     requestSimulationImage(simulationId : string, pos : number[], size : number[]): Observable<string> {
-        const address = this.baseUrl
+        const address = AppConfig.Address
             + "requestsimulationimage"
             + "?simulationId=" + simulationId
             + "&posX=" + pos[0]
@@ -47,7 +49,7 @@ export class SimulationService {
     }
 
     isSimulationImageAvailable(taskId : string): Observable<boolean> {
-        const address = this.baseUrl
+        const address = AppConfig.Address
             + "issimulationimageavailable"
             + "?taskId=" + taskId;
 
@@ -66,6 +68,5 @@ export class SimulationService {
         return throwError('Error! something went wrong.' + error.message);
     }
 
-    private baseUrl = 'http://localhost/api/';
     private simulationInfoRequested = false;
 }
