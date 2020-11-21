@@ -1,53 +1,26 @@
+                      
 .MainContainer
 {
     height: 100%;
     position: relative;
 }
+
+.ScrollArea {
+    position: absolute;
+    color: aliceblue;
+    overflow: auto;
+    max-height: 30em;
+    width: calc(100%);
+    height: calc(100%);
+  }
+
 .SimulationImage
 {
-  left: 1.5em;
-  top: 3em;
-  width: calc(100% - 3em);
-  height: calc(100% - 0em);
-  position: absolute;
-}
-.SimulationButtonLeft
-{
-  top: 7em;
-  left: 3em;
-  position: absolute;
-}
-.SimulationButtonRight
-{
-  top: 7em;
-  left: 8em;
-  position: absolute;
-}
-.SimulationButtonTop
-{
-  top: 4.5em;
-  left: 5.5em;
-  position: absolute;
-}
-.SimulationButtonDown
-{
-  top: 9.5em;
-  left: 5.5em;
+  max-height: 30em;
+  width: 100%;
   position: absolute;
 }
 
-.SimulationScrollbarX {
-  position: absolute;
-  top: 0em;
-  left: 0em;
-  width: 100%;
-}
-.SimulationScrollbarY {
-  position: absolute;
-  left: -1.5em;
-  top: 1.5em;
-  height: calc(100% + 3em);
-}
 img {
     image-rendering: auto;
     image-rendering: crisp-edges;

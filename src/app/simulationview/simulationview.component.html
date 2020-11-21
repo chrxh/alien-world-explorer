@@ -1,12 +1,9 @@
-<div class="MainContainer">
+<div class="MainContainer" >
     <div class="SimulationImage">
-
-        <img #simulationImageRef width="100%" [(src)]="simulationImageSrc" (load)="onImageLoad()" class="figure-img img-fluid rounded">
+        <img width="100%" [(src)]="simulationImageSrc" (load)="onImageLoad()" class="figure-img img-fluid rounded">
     </div>
-    <button class="SimulationButtonLeft" mat-mini-fab (click)="onLeftClicked()"></button>
-    <button class="SimulationButtonRight" mat-mini-fab (click)="onRightClicked()"></button>
-    <button class="SimulationButtonTop" mat-mini-fab (click)="onTopClicked()"></button>
-    <button class="SimulationButtonDown" mat-mini-fab (click)="onDownClicked()"></button>
-    <mat-slider class="SimulationScrollbarX" tickInterval="1000" min="0" [(max)]="scrollbarSize[0]" [(step)]="scrollbarStep[0]" [(value)]="scrollbarPos[0]" (click)="onRequestImage()" color="warn"></mat-slider>
-    <mat-slider class="SimulationScrollbarY" #simulationScrollbarYRef [(style.height.px)]="SimulationScrollbarYheight" tickInterval="1000" min="0" [(max)]="scrollbarSize[1]" [(step)]="scrollbarStep[1]" [(value)]="scrollbarPos[1]" (click)="onRequestImage()" vertical="true" invert="true" color="warn"></mat-slider>
+    <div #scrollAreaRef class="ScrollArea" id="prop1" (scroll)="onScroll($event)">
+        <div #scrollContentRef class="ScrollContent" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
+        </div>
+    </div>
 </div>

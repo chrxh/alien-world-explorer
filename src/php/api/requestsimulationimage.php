@@ -7,7 +7,7 @@
     //too many requests made?
     $request = $db->query("SELECT * FROM task WHERE STATE=0 AND SIMULATION_ID=$simId");
 
-    if ($request->num_rows > 10) {
+    if ($request->num_rows > 100) {
         $db->close();
         exit();
     }

@@ -9,7 +9,6 @@
     width: 100%;
     overflow: auto;
     position: absolute;
-    scrollbar-color: red green; 
 }
 .RefreshButton {
     top: calc(100% + 1em);

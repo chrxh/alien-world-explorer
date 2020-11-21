@@ -1,4 +1,4 @@
-import {Component, Input, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, Input, AfterViewInit, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
 import {SimulationService} from "../simulation.service"
 
@@ -9,14 +9,8 @@ import {SimulationService} from "../simulation.service"
 })
 export class SimulationViewComponent implements AfterViewInit {
 
-    private readonly SERVER_ADDRESS = "http://localhost/api/getsimulationimage.php"; 
-    private readonly ZOOM = 2;
-    private readonly REQUEST_IMAGE_INTERVAL = 1000;
-    private readonly POLLING_IMAGE_INTERVAL = 300;
-
-
-    @ViewChild('simulationImageRef') simulationImageAccess : ElementRef;
-    @ViewChild('simulationScrollbarYRef') simulationScrollbarYaccess : ElementRef;
+    @ViewChild('scrollAreaRef') scrollAreaAccess : ElementRef;
+    @ViewChild('scrollContentRef') scrollContentAccess : ElementRef;
     
     @Input()
     get simulationInfo() : SimulationInfo 
@@ -28,17 +22,9 @@ export class SimulationViewComponent implements AfterViewInit {
         var activeSimulationSelected : boolean = false;
         if (simulationInfo !== null) {
             this._simulationInfo = simulationInfo;
-            this.scrollbarSize[0] = simulationInfo.worldSize[0];
-            this.scrollbarSize[1] = simulationInfo.worldSize[1];
 
-            const imageSize = this.getImageSize();
-            this.scrollbarSize[0] -= imageSize[0];
-            this.scrollbarSize[1] -= imageSize[1];
-    
-            this.scrollbarPos[0] = this.scrollbarSize[0] / 2;
-            this.scrollbarPos[1] = this.scrollbarSize[1] / 2;
-            this.scrollbarStep[0] = this.scrollbarSize[0] / 20;
-            this.scrollbarStep[1] = this.scrollbarSize[1] / 20;
+            this.scrollContentSize[0] = simulationInfo.worldSize[0] * this.ZOOM; 
+            this.scrollContentSize[1] = simulationInfo.worldSize[1] * this.ZOOM;
 
             this._imageRequested = false;
             this._taskId = null;
@@ -62,12 +48,17 @@ export class SimulationViewComponent implements AfterViewInit {
 
     constructor(private simulationService: SimulationService) { }
 
+    onScroll($event) {
+        this.scrollContentPos[0] = $event.target.scrollLeft;
+        this.scrollContentPos[1] = $event.target.scrollTop;
+        this.onRequestImage();
+    }
+
     ngAfterViewInit(): void 
     {
         setInterval(()=>{
               this.onRequestImage();
             }, this.REQUEST_IMAGE_INTERVAL);
-
         setInterval(()=>{
                 this.onCheckIfImageAvailable();
             }, this.POLLING_IMAGE_INTERVAL);
@@ -79,8 +70,16 @@ export class SimulationViewComponent implements AfterViewInit {
             return;
         }
         this._imageRequested = true;
-        const imageSize = this.getImageSize();
-        this.simulationService.requestSimulationImage(this.simulationInfo.id, [this.scrollbarPos[0], this.scrollbarPos[1]], [imageSize[0], imageSize[1]])
+        
+        const imageSize = [
+            this.scrollAreaAccess.nativeElement.clientWidth / this.ZOOM, 
+            this.scrollAreaAccess.nativeElement.clientHeight / this.ZOOM,
+        ];
+        const simulationPos = [
+            this.scrollContentPos[0] / this.ZOOM, 
+            this.scrollContentPos[1] / this.ZOOM
+        ];
+        this.simulationService.requestSimulationImage(this.simulationInfo.id, simulationPos, imageSize)
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -100,8 +99,9 @@ export class SimulationViewComponent implements AfterViewInit {
             .subscribe(
                 (result : boolean) => {
                     if (result) {
-                        this.onGetSimulationImage();
+                        const taskId = this._taskId;
                         this._taskId = null;
+                        this.onGetSimulationImage(taskId);
                     }
                 },
                 (err) => {
@@ -109,66 +109,28 @@ export class SimulationViewComponent implements AfterViewInit {
             );
     }
 
-    onGetSimulationImage()
+    onGetSimulationImage(taskId : string)
     {
         this.simulationImageSrc = this.SERVER_ADDRESS
             + "?r=" + Math.floor(Math.random()*100000)
-            + "&taskId=" + this._taskId;
+            + "&taskId=" + taskId;
     }
 
     onImageLoad()
     {
-        var height = Math.floor(this.simulationImageAccess.nativeElement.height);
-        this.SimulationScrollbarYheight = height + 45;
         this._imageRequested = false;
     }
 
-    onLeftClicked()
-    {
-        if(this.scrollbarPos[0] - this.scrollbarStep[0] >= 0) {
-        this.scrollbarPos[0] -= this.scrollbarStep[0];
-        this.onRequestImage();
-        }
-    }
+    private readonly SERVER_ADDRESS = "http://localhost/api/getsimulationimage.php"; 
+    private readonly ZOOM = 2;
+    private readonly REQUEST_IMAGE_INTERVAL = 1000;
+    private readonly POLLING_IMAGE_INTERVAL = 300;
 
-    onRightClicked()
-    {
-        if(this.scrollbarPos[0] + this.scrollbarStep[0] <= this._simulationInfo.worldSize[0]) {
-        this.scrollbarPos[0] += this.scrollbarStep[0];
-        this.onRequestImage();
-        }
-    }
-
-    onTopClicked() 
-    {
-        if(this.scrollbarPos[1] - this.scrollbarStep[1] >= 0) {
-        this.scrollbarPos[1] -= this.scrollbarStep[1];
-        this.onRequestImage();
-        }
-    }
-
-    onDownClicked() 
-    {
-        if(this.scrollbarPos[1] + this.scrollbarStep[1] <= this._simulationInfo.worldSize[1]) {
-        this.scrollbarPos[1] += this.scrollbarStep[1];
-        this.onRequestImage();
-        }
-    }
-
-    public simulationImageSrc = this.SERVER_ADDRESS;
-    public scrollbarSize : number[] = [0, 0];
-    public scrollbarPos : number[] = [0, 0];
-    public scrollbarStep : number[] = [0, 0];
-    public SimulationScrollbarYheight = 300;
-
-    private getImageSize() : number[]
-    {
-        return [
-            Math.floor(this.simulationImageAccess.nativeElement.width) / this.ZOOM, 
-            Math.floor(this.simulationImageAccess.nativeElement.height) / this.ZOOM
-        ];
-    }
     private _simulationInfo : SimulationInfo = null;
     private _taskId : string = null;
     private _imageRequested : boolean = false;
+
+    public simulationImageSrc = this.SERVER_ADDRESS;
+    public scrollContentSize : number[] = [2800, 1200]; 
+    public scrollContentPos : number[] = [0, 0];
 }
