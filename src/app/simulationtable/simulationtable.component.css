@@ -6,12 +6,14 @@
 
 .TableContainer {
     max-height: 100%;
+    height: calc(100% - 4em);
     width: 100%;
     overflow: auto;
     position: absolute;
 }
 .RefreshButton {
-    top: calc(100% + 1em);
+    bottom: 0em;
+    height: 3em;
     position: absolute;
 }
 

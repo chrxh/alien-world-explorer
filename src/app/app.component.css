@@ -1,40 +1,58 @@
 
-mat-toolbar {
+mat-toolbar
+{
   height: 3em;
 }
 
-.gridbox {
-  height: calc(100% - 10em);
-  display: grid;
-  grid-template-columns: 70% 30%;
-  grid-template-rows: 50% auto 50%;
-  grid-gap: 0em;
-
-  display: -ms-grid;
-
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-left: 1em;
-  padding-right: 2em;
+.FlexContainer
+{
+    display: flex;
+    flex-wrap: wrap;
+    height: 90%
 }
 
-.SimulationTable {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row: 1;
-    height: calc(100% - 4em);
+.SimulationTable
+{
+	margin: .5em;
+    padding: .5em;
+    width: 30%;
+    min-width: 40em;
+    max-width: 50em;
+    height: 25em;
 }
 
-.SimulationDescription {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row: 2;
-    top: 1em;
+.SimulationDescription
+{
+	margin: .5em;
+    padding: .5em;
+    width: 20%;
+    min-width: 15em;
+    max-width: 50em;
+    height: 25em;
 }
 
-.SimulationView {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row: 3;
-  padding-top: 1%;
+.SimulationMonitor
+{
+	margin: .5em;
+    padding: .5em;
+    width: 20%;
+    min-width: 15em;
+    height: 25em;
+}
+
+.SimulationActions
+{
+	margin: .5em;
+    padding: .5em;
+    width: 20%;
+    min-width: 15em;
+    height: 25em;
+}
+
+.SimulationView
+{
+	margin: .5em;
+    padding: .5em;
+    width: 100%;
+    height: 30em;
 }

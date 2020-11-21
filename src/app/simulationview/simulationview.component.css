@@ -7,7 +7,6 @@
 
 .ScrollArea {
     position: absolute;
-    color: aliceblue;
     overflow: auto;
     max-height: 30em;
     width: calc(100%);

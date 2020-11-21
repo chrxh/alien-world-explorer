@@ -2,18 +2,29 @@
   <span><i>alien </i> <b>world explorer</b></span>
 </mat-toolbar>
 
-<div class="gridbox">
-  <app-simulation-table class="SimulationTable" (selectedSimulationEvent)="selectedSimulationInfo = $event">
-  </app-simulation-table>
+<div class="FlexContainer">
+    <app-simulation-table class="SimulationTable FlexItem" (selectedSimulationEvent)="selectedSimulationInfo = $event">
+    </app-simulation-table>
 
-  <mat-card class="SimulationDescription" *ngIf="selectedSimulationInfo?.description">
-    <div class="Description">
-        Description:
-    </div>
-    {{selectedSimulationInfo?.description}}
-  </mat-card>
+    <mat-card class="SimulationDescription FlexItem" *ngIf="selectedSimulationInfo?.description">
+        <div>
+            <b>Description</b>
+        </div>
+        {{selectedSimulationInfo?.description}}
+    </mat-card>
 
-  <app-simulationview class="SimulationView" [simulationInfo]="selectedSimulationInfo">
-  </app-simulationview>
+    <mat-card class="SimulationMonitor FlexItem" *ngIf="selectedSimulationInfo !== null">
+        <div>
+            <b>Monitor</b>
+        </div>
+    </mat-card>
+
+    <mat-card class="SimulationActions FlexItem" *ngIf="selectedSimulationInfo !== null">
+        <div>
+            <b>Actions</b>
+        </div>
+    </mat-card>
+
+    <app-simulationview class="SimulationView FlexItem" [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'" [simulationInfo]="selectedSimulationInfo">
+    </app-simulationview>
 </div>
-

@@ -1,8 +1,4 @@
-import {AfterViewInit, Component, SimpleChanges, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import {SelectionModel} from "@angular/cdk/collections";
+import {Component} from '@angular/core';
 import { SimulationInfo } from './simulationinfo';
 
 @Component({
@@ -10,12 +6,9 @@ import { SimulationInfo } from './simulationinfo';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   public title = 'world explorer';
 
-  public selectedSimulationInfo : SimulationInfo;
-
-  ngAfterViewInit() {
-  }
+  public selectedSimulationInfo : SimulationInfo = null;
 }
 
