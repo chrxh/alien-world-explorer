@@ -28,7 +28,8 @@
                 "userName" => $obj->userName, 
                 "timestep" => (int)$obj->timestep, 
                 "worldSize" => [(int)$obj->sizeX, (int)$obj->sizeY],
-                "description" => $obj->descr
+                "description" => $obj->descr,
+                "lastUpdate" => $obj->lastUpdate
             ];
         }
 

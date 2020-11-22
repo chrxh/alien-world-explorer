@@ -12,4 +12,5 @@ export class SimulationInfoIntern {
     worldSize: number[];
     timestep: number;
     description: string;
+    lastUpdate: Date;
   }

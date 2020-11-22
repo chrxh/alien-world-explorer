@@ -4,8 +4,6 @@
     require './lib/helpers.php';
 
     if ($_GET == null) {
-        $fp = fopen("nosimulation.png", 'rb');
-        fpassthru($fp);
         exit();
     }
 
@@ -24,10 +22,6 @@
         
         //delete task
         $db->query("DELETE FROM task WHERE ID=$taskId");
-    }
-    else {
-        $fp = fopen("nosimulation.png", 'rb');
-        fpassthru($fp);
     }
     $db->close();
 ?>

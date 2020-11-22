@@ -18,7 +18,8 @@ mat-toolbar
     margin: 0.5em;
     padding: .5em;
     flex-grow: 1;
-    min-width: 50em;
+    min-width: 30em;
+    width: 50em;
     max-width: 50em;
     height: 26em;
 }

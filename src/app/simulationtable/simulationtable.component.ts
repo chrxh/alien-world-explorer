@@ -19,7 +19,7 @@ export class SimulationTableComponent implements AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    displayedColumns: string[] = ['simulationName', 'activityState', 'userName', 'worldSize', 'timestep'];
+    displayedColumns: string[] = ['simulationName', 'activityState', 'userName', 'worldSize', 'timestep', 'lastUpdate'];
     dataSource = new MatTableDataSource();
     selection = new SelectionModel(false, []);
     private selectedRow? : SimulationInfoIntern = null;
@@ -46,7 +46,7 @@ export class SimulationTableComponent implements AfterViewInit {
             this.selectedSimulationEvent.emit(null);
             return;
         }
-        
+
         this.selectedRow = this.selection.selected[0];
         this.origSelectedRowState = this.selectedRow.activityState;
 
@@ -85,7 +85,8 @@ export class SimulationTableComponent implements AfterViewInit {
             userName: simInfo.userName,
             worldSize: simInfo.worldSize,
             timestep: simInfo.timestep,
-            description: simInfo.description
+            description: simInfo.description,
+            lastUpdate: simInfo.lastUpdate
         };
     }
 
@@ -99,7 +100,8 @@ export class SimulationTableComponent implements AfterViewInit {
             userName: simInfoIntern.userName,
             worldSize: simInfoIntern.worldSize,
             timestep: simInfoIntern.timestep,
-            description: simInfoIntern.description
+            description: simInfoIntern.description,
+            lastUpdate: simInfoIntern.lastUpdate
         };
     }
 }

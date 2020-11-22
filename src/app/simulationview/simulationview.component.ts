@@ -130,11 +130,11 @@ export class SimulationViewComponent implements AfterViewInit {
         this.simulationImageSrc = SimulationViewComponent.ImageAddress
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + taskId;
+        this._imageRequested = false;
     }
 
     onImageLoad()
     {
-        this._imageRequested = false;
     }
 
     private hideImage()

@@ -6,4 +6,5 @@ export interface SimulationInfo {
     worldSize: number[];
     timestep: number;
     description: string;
+    lastUpdate: Date;
   }
