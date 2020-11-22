@@ -6,24 +6,15 @@
     <app-simulation-table class="SimulationTable FlexItem" (selectedSimulationEvent)="selectedSimulationInfo = $event">
     </app-simulation-table>
 
-    <mat-card class="SimulationDescription FlexItem" *ngIf="selectedSimulationInfo?.description">
-        <div>
-            <b>Description</b>
-        </div>
+    <app-aliencard class="SimulationDescription FlexItem" [title]="'Description'" *ngIf="selectedSimulationInfo?.description">
         {{selectedSimulationInfo?.description}}
-    </mat-card>
+    </app-aliencard>
 
-    <mat-card class="SimulationMonitor FlexItem" *ngIf="selectedSimulationInfo !== null">
-        <div>
-            <b>Monitor</b>
-        </div>
-    </mat-card>
+    <app-aliencard class="SimulationMonitor FlexItem" [title]="'Monitor'" *ngIf="selectedSimulationInfo !== null">
+    </app-aliencard>
 
-    <mat-card class="SimulationActions FlexItem" *ngIf="selectedSimulationInfo !== null">
-        <div>
-            <b>Actions</b>
-        </div>
-    </mat-card>
+    <app-aliencard class="SimulationActions FlexItem" [title]="'Actions'" *ngIf="selectedSimulationInfo !== null">
+    </app-aliencard>
 
     <app-simulationview class="SimulationView FlexItem" [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'" [simulationInfo]="selectedSimulationInfo">
     </app-simulationview>

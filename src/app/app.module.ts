@@ -18,13 +18,15 @@ import {NumberArrayRenderer} from './numberarrayrenderer.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { SimulationTableComponent } from './simulationtable/simulationtable.component';
 import { SimulationViewComponent } from './simulationview/simulationview.component';
+import { AlienCardComponent } from './aliencard/aliencard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NumberArrayRenderer,
     SimulationTableComponent,
-    SimulationViewComponent
+    SimulationViewComponent,
+    AlienCardComponent
   ],
   imports: [
     BrowserModule,

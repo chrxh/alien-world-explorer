@@ -33,6 +33,16 @@ $my-app-theme: mat-dark-theme((
     background: #132e7e;
 }
 
+.CardContent
+{
+    background: #272727;
+}
+
+.CardTitle
+{
+    text-shadow: #fff 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em;
+}
+
 .mat-header-row
 {
     background: #018a35;
@@ -63,6 +73,12 @@ $my-app-theme: mat-dark-theme((
     background: #005320;
     color: #eff0ff;
     text-shadow: #0f0 0.0em 0.0em 0.9em;
+}
+
+.CloseButton
+{
+    background: #272727;
+    color: #eff0ff;
 }
 
 .ScrollArea {

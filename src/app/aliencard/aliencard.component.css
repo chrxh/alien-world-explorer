@@ -1,0 +1,30 @@
+.CardContainer
+{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.CardTitle
+{
+    flex-grow: 1;
+}
+
+.CloseButton
+{
+    margin-left: .5em;
+    width: 2em;
+    height: 2.5em;
+}
+
+.CardContent
+{
+    margin-top: .5em;
+    width: 100%;
+    height: calc(100% - 4em);
+}
+
+mat-card
+{
+    padding: 0.5em;
+}
