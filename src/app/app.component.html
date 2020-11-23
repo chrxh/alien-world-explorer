@@ -2,6 +2,8 @@
   <span><i>alien </i> <b>world explorer</b></span>
 </mat-toolbar>
 
+<app-closedcards></app-closedcards>
+
 <div class="FlexContainer">
     <app-simulation-table class="SimulationTable FlexItem" (selectedSimulationEvent)="selectedSimulationInfo = $event">
     </app-simulation-table>
@@ -10,7 +12,7 @@
         {{selectedSimulationInfo?.description}}
     </app-aliencard>
 
-    <app-aliencard class="SimulationMonitor FlexItem" [title]="'Monitor'" *ngIf="selectedSimulationInfo !== null">
+    <app-aliencard class="SimulationMonitor FlexItem" [title]="'Statistics'" *ngIf="selectedSimulationInfo !== null">
     </app-aliencard>
 
     <app-aliencard class="SimulationActions FlexItem" [title]="'Actions'" *ngIf="selectedSimulationInfo !== null">

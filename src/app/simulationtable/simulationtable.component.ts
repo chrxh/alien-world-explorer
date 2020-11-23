@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, SimpleChanges, ViewChild, Output, EventEmitter} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, Output, EventEmitter} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';

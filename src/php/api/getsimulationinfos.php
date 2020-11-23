@@ -2,7 +2,7 @@
     require './lib/helpers.php';
 
     $db = connectToDB();
-    
+
     if ($response= $db->query(
         "SELECT 
             sim.ID as id, 

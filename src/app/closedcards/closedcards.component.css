@@ -1,0 +1,15 @@
+.ClosedCardsContainer
+{
+    padding-top: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    width: 100%;
+}
+
+.ClosedCard
+{
+    margin: 0.5em;
+    padding: 0.25em;
+    border-radius: 1.5em 1.5em 1.5em 1.5em;
+}

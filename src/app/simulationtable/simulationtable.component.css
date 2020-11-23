@@ -14,6 +14,7 @@
     bottom: 0em;
     height: 3em;
     position: absolute;
+    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 table {

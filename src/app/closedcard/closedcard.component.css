@@ -1,0 +1,13 @@
+.ClosedCardContainer
+{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.OpenButton
+{
+    flex-grow: 1;
+    border-radius: 1.5em 1.5em 1.5em 1.5em;
+    height: 2.5em;
+}
