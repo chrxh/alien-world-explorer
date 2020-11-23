@@ -2,7 +2,7 @@
 @include mat-core();
 $my-app-primary: mat-palette($mat-green);
 $my-app-accent:  mat-palette($mat-green);
-$my-app-warn:    mat-palette($mat-red);
+$my-app-warn:    mat-palette($mat-green);
 $my-app-theme: mat-dark-theme((
     color: (
         primary: $my-app-primary,
@@ -12,7 +12,6 @@ $my-app-theme: mat-dark-theme((
 ));
 
 @include angular-material-theme($my-app-theme);
-
 
 .mat-toolbar
 {
@@ -87,6 +86,7 @@ $my-app-theme: mat-dark-theme((
 }
 .ScrollArea::-webkit-scrollbar {
     width: 12px;
+    height: 12px;
 }
 .ScrollArea::-webkit-scrollbar-track {
     background: rgb(53, 53, 53);

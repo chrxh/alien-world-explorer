@@ -10,6 +10,7 @@
     $taskId = $_GET["taskId"];
 
     $db = connectToDB();
+    $db->begin_transaction();
     $response = $db->query("SELECT * FROM task WHERE STATE=1 AND ID=$taskId");
     
     //image ready to retrieve?
@@ -23,5 +24,6 @@
         //delete task
         $db->query("DELETE FROM task WHERE ID=$taskId");
     }
+    $db->commit();
     $db->close();
 ?>

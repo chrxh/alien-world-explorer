@@ -2,6 +2,7 @@
     require './lib/helpers.php';
 
     $db = connectToDB();
+    $db->begin_transaction();
     $simId = $_GET["simulationId"];
 
     //too many requests made?
@@ -26,5 +27,6 @@
         deleteOutdatedTasks($db);
     }
 
+    $db->commit();
     $db->close();
 ?>

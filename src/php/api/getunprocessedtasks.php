@@ -2,6 +2,8 @@
     require './lib/helpers.php';
 
     $db = connectToDB();
+    $db->begin_transaction();
+
     $simId = $_POST["simulationId"];
     $token = $_POST["token"];
 
@@ -25,5 +27,6 @@
 
     echo json_encode(['data'=>$result]);
 
+    $db->commit();
     $db->close();
 ?>
