@@ -19,8 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SimulationTableComponent } from './simulationtable/simulationtable.component';
 import { SimulationViewComponent } from './simulationview/simulationview.component';
 import { AlienCardComponent } from './aliencard/aliencard.component';
-import { ClosedcardsComponent } from './closedcards/closedcards.component';
-import { ClosedcardComponent } from './closedcard/closedcard.component';
+import { ClosedCardsComponent } from './closedcards/closedcards.component';
+import { ClosedCardComponent } from './closedcard/closedcard.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { ClosedcardComponent } from './closedcard/closedcard.component';
     SimulationTableComponent,
     SimulationViewComponent,
     AlienCardComponent,
-    ClosedcardsComponent,
-    ClosedcardComponent
+    ClosedCardsComponent,
+    ClosedCardComponent
   ],
   imports: [
     BrowserModule,

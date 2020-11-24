@@ -1,4 +1,4 @@
-import {LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {DecimalPipe} from "@angular/common";
 
 @Pipe({

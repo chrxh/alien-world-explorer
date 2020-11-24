@@ -1,9 +1,9 @@
 <div class="CardContainer">
     <mat-card class="CardTitle">
-        {{title}}
+        {{cardName}}
     </mat-card>
 
-    <button class="CloseButton Button">
+    <button class="CloseButton Button" (click)="closeButtonClicked()">
         X
     </button>
 

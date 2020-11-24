@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CardName } from '../cardname';
 
 @Component({
   selector: 'app-closedcard',
   templateUrl: './closedcard.component.html',
   styleUrls: ['./closedcard.component.css']
 })
-export class ClosedcardComponent implements OnInit {
+export class ClosedCardComponent implements OnInit {
 
     @Input()
-    title : string;
+    cardName : CardName;
 
     ngOnInit(): void {
     }

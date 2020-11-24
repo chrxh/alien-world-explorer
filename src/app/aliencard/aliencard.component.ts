@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {CardName} from "../cardname";
 
 @Component({
     selector: 'app-aliencard',
@@ -8,6 +9,14 @@ import { Component, Input } from '@angular/core';
 export class AlienCardComponent {
 
     @Input()
-    title : string;
+    cardName : CardName;
 
+    @Output()
+    cardClosedChange = new EventEmitter<CardName>();
+
+
+    closeButtonClicked()
+    {
+        this.cardClosedChange.emit(this.cardName);
+    }
 }

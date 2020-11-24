@@ -1,28 +1,21 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { CardName } from '../cardname';
 
 @Component({
     selector: 'app-closedcards',
     templateUrl: './closedcards.component.html',
     styleUrls: ['./closedcards.component.css']
 })
-export class ClosedcardsComponent implements OnInit {
+export class ClosedCardsComponent implements OnInit {
 
     @Input()
-    get cardNames()
-    {
-        return this._cardNames;
-    } 
-    set cardNames(value : string[])
-    {
-        this._cardNames = this._cardNames;
-    }
+    shownCards = new Set<string>([]);
 
     @Output()
-    cardNamesEvent = new EventEmitter<string[]>();
+    shownCardsChange = new EventEmitter<Set<string>>();
 
     ngOnInit(): void {
     }
 
-    private _cardNames : string[] = ["Test1", "Test2", "Test3"];
 
 }
