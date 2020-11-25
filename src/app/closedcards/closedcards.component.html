@@ -1,4 +1,4 @@
 <div class="ClosedCardsContainer">
-    <app-closedcard *ngFor="let cardName of shownCards" class="ClosedCard" cardName={{cardName}}>
+    <app-closedcard *ngFor="let cardName of shownCards" class="ClosedCard" cardName={{cardName}} (cardClicked)="cardClicked(cardName)">
     </app-closedcard>
 </div>

@@ -9,6 +9,7 @@
     width: 100%;
     overflow: auto;
     position: absolute;
+    border-radius: 0.1em 1.5em 0.2em 0em;
 }
 .RefreshButton {
     bottom: 0em;

@@ -17,5 +17,9 @@ export class ClosedCardsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-
+    cardClicked(cardName : string)
+    {
+        this.shownCards.delete(cardName);
+        this.shownCardsChange.emit(this.shownCards);
+    }
 }

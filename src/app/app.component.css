@@ -4,7 +4,12 @@ mat-toolbar
   height: 3em;
 }
 
-.FlexContainer
+.closedCardsSpacer
+{
+    height: 4.5em;
+}
+
+.flexContainer
 {
     display: flex;
     flex-wrap: wrap;
@@ -12,51 +17,43 @@ mat-toolbar
     height: 50%
 }
 
-.SimulationTable
+.alienCard
 {
+    flex-grow: 1;
     margin: 0.5em;
     padding: .5em;
-    flex-grow: 1;
+    border-radius: 0.1em 1.5em 0.2em 2em;
+}
+
+.SimulationTable
+{
     min-width: 30em;
     width: 50em;
     max-width: 50em;
     height: 26em;
-    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 .SimulationDescription
 {
-	margin: .5em;
-    padding: .5em;
-    flex-grow: 1;
     min-width: 15em;
     height: 26em;
-    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 .SimulationMonitor
 {
-	margin: .5em;
-    padding: .5em;
-    flex-grow: 1;
     min-width: 15em;
     height: 26em;
-    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 .SimulationActions
 {
-	margin: .5em;
-    padding: .5em;
-    flex-grow: 1;
     min-width: 15em;
     height: 26em;
-    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 .SimulationView
 {
-	margin: .5em;
+    margin: 0.5em;
     padding: .5em;
     width: 100%;
     height: 28em;

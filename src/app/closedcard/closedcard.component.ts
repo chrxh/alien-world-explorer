@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CardName } from '../cardname';
 
 @Component({
@@ -11,7 +11,15 @@ export class ClosedCardComponent implements OnInit {
     @Input()
     cardName : CardName;
 
+    @Output()
+    cardClicked = new EventEmitter<string>();
+
     ngOnInit(): void {
+    }
+
+    buttonClicked()
+    {
+        this.cardClicked.emit(CardName[this.cardName]);
     }
   
 }

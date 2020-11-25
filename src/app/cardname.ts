@@ -1,6 +1,6 @@
 export enum CardName {
-    Description = "description",
-    Statistics = "statistics",
-    Actions = "actions",
-    Chat = "chat"
+    Description = "Description",
+    Statistics = "Statistics",
+    Actions = "Actions",
+    Chat = "Chat"
 }

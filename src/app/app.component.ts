@@ -14,21 +14,13 @@ export class AppComponent {
 
     public shownCards = new Set<string>([CardName.Description, CardName.Actions, CardName.Statistics]);
     
-    get closedCards()
+    get closedCards() : Set<string>
     {
-        var result = new Set<string>([CardName.Description, CardName.Actions, CardName.Statistics]);
-        for (let card of this.shownCards) {
-            result.delete(card);
-        }
-        return result;
+        return this.complement(this.shownCards);;
     }
     set closedCards(value)
     {
-        var result = new Set<string>([CardName.Description, CardName.Actions, CardName.Statistics]);
-        for (let card of value) {
-            result.delete(card);
-        }
-        this.shownCards = result;
+        this.shownCards = this.complement(value);
     }
 
     @ViewChild("closedCardsRef") closedCardsAccess : ClosedCardsComponent;
@@ -36,6 +28,15 @@ export class AppComponent {
     cardClosed($event : CardName)
     {
         this.shownCards.delete(CardName[$event]);
+    }
+
+    private complement(value : Set<string>) : Set<string>
+    {
+        let result = new Set<string>([CardName.Description, CardName.Actions, CardName.Statistics, CardName.Chat]);
+        for (let name of value) {
+            result.delete(name);
+        }
+        return result;
     }
 
 }
