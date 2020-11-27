@@ -21,6 +21,8 @@ import { SimulationViewComponent } from './simulationview/simulationview.compone
 import { AlienCardComponent } from './aliencard/aliencard.component';
 import { ClosedCardsComponent } from './closedcards/closedcards.component';
 import { ClosedCardComponent } from './closedcard/closedcard.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ClosedCardComponent } from './closedcard/closedcard.component';
     SimulationViewComponent,
     AlienCardComponent,
     ClosedCardsComponent,
-    ClosedCardComponent
+    ClosedCardComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { ClosedCardComponent } from './closedcard/closedcard.component';
     CdkTableModule,
     MatButtonModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    GoogleChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,26 +3,51 @@
 </mat-toolbar>
 
 <div class="closedCardsSpacer">
-    <app-closedcards #closedCardsRef [(shownCards)]="closedCards" [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'"></app-closedcards>
+    <app-closedcards 
+        #closedCardsRef [(shownCards)]="closedCards" 
+        [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'">
+    </app-closedcards>
 </div>
 
 <div class="flexContainer">
-    <app-simulation-table class="alienCard SimulationTable FlexItem" (selectedSimulationEvent)="selectedSimulationInfo = $event">
+    <app-simulation-table 
+        class="alienCard SimulationTable FlexItem" 
+        (selectedSimulationEvent)="selectedSimulationInfo = $event">
     </app-simulation-table>
 
-    <app-aliencard class="alienCard SimulationDescription FlexItem" [cardName]="'Description'" (cardClosedChange)="cardClosed($event)" *ngIf="selectedSimulationInfo !== null && shownCards.has('Description')">
+    <app-aliencard 
+        class="alienCard SimulationDescription FlexItem" 
+        [cardName]="'Description'" 
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Description')">
         {{selectedSimulationInfo?.description}}
     </app-aliencard>
 
-    <app-aliencard class="alienCard SimulationMonitor FlexItem" [cardName]="'Statistics'" (cardClosedChange)="cardClosed($event)" *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
+    <app-aliencard 
+        class="alienCard SimulationMonitor FlexItem" 
+        [cardName]="'Statistics'" 
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
+        <app-statistics [simulationInfo]="selectedSimulationInfo"></app-statistics>
     </app-aliencard>
 
-    <app-aliencard class="alienCard SimulationActions FlexItem" [cardName]="'Actions'" (cardClosedChange)="cardClosed($event)" *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
+    <app-aliencard 
+        class="alienCard SimulationActions FlexItem" 
+        [cardName]="'Actions'"
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
     </app-aliencard>
 
-    <app-aliencard class="alienCard SimulationChat FlexItem" [cardName]="'Chat'" (cardClosedChange)="cardClosed($event)" *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
+    <app-aliencard 
+        class="alienCard SimulationChat FlexItem" 
+        [cardName]="'Chat'" 
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
     </app-aliencard>
 
-    <app-simulationview class="SimulationView FlexItem" [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'" [simulationInfo]="selectedSimulationInfo">
+    <app-simulationview
+        class="SimulationView FlexItem" 
+        [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'" 
+        [simulationInfo]="selectedSimulationInfo">
     </app-simulationview>
 </div>

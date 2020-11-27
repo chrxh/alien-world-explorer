@@ -38,6 +38,5 @@ export class AppComponent {
         }
         return result;
     }
-
 }
 

@@ -1,4 +1,5 @@
-export interface SimulationInfo {
+export interface SimulationInfo
+{
     id: string
     isActive: boolean;
     simulationName: string;

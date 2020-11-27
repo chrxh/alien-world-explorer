@@ -61,7 +61,7 @@ export class SimulationViewComponent implements AfterViewInit {
         }
     }
 
-    constructor(private simulationService: SimulationService) { }
+    constructor(private _simulationService: SimulationService) { }
 
     onScroll($event) {
         this.scrollContentPos[0] = $event.target.scrollLeft;
@@ -94,7 +94,7 @@ export class SimulationViewComponent implements AfterViewInit {
             this.scrollContentPos[0] / SimulationViewComponent.Zoom, 
             this.scrollContentPos[1] / SimulationViewComponent.Zoom
         ];
-        this.simulationService.requestSimulationImage(this.simulationInfo.id, simulationPos, imageSize)
+        this._simulationService.requestSimulationImage(this.simulationInfo.id, simulationPos, imageSize)
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -110,7 +110,7 @@ export class SimulationViewComponent implements AfterViewInit {
         if(this._simulationInfo == null || this._taskId == null) {
             return;
         }
-        this.simulationService.isSimulationImageAvailable(this._taskId)
+        this._simulationService.isSimulationImageAvailable(this._taskId)
             .subscribe(
                 (result : boolean) => {
                     if (result) {

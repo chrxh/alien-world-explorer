@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { SimulationInfo } from './simulationinfo';
+import { MonitorData } from './monitordata';
 
 import {AppConfig} from "./appconfig";
 
@@ -29,6 +30,21 @@ export class SimulationService {
         else {
             return of(this.simulationInfos);
         }
+    }
+
+    getMonitorDatas(simulationId : string, timestepFrom : number, timestepTo : number) : Observable<MonitorData[]>
+    {
+        const address = AppConfig.Address
+            + "getmonitordata"
+            + "?simulationId=" + simulationId
+            + "&timestepFrom=" + timestepFrom
+            + "&timestepTo=" + timestepTo;
+
+        return this.http.get<MonitorData[]>(address).pipe(
+            map(result => {
+            return result['data'];
+        },
+        catchError(this.handleError)));
     }
 
     requestSimulationImage(simulationId : string, pos : number[], size : number[]): Observable<string> {
