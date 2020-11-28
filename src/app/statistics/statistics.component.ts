@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { SimulationInfo } from "../simulationinfo";
 import { SimulationService } from "../simulation.service";
 import { MonitorData } from '../monitordata';
@@ -28,6 +28,11 @@ export class StatisticsComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    public sized()
+    {
+        this.updateChart();
+    }
+    
     private updateChart()
     {
         this._simulationService.getMonitorDatas(this.simulationInfo.id, 0, this.simulationInfo.timestep).subscribe(
@@ -76,6 +81,8 @@ export class StatisticsComponent implements OnInit {
         explorer: { axis: 'vertical, horizontal' },
         legend: {textStyle: {color: '#bbb'}},
     };
+
+    chartResize = true;
 
     private _simulationInfo : SimulationInfo;
 }

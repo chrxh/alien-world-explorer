@@ -1,7 +1,8 @@
-import {Component, Input, Output, ViewChild} from '@angular/core';
+import {Component, Input, Output, ViewChild, EventEmitter} from '@angular/core';
 import { ClosedCardsComponent } from './closedcards/closedcards.component';
 import { SimulationInfo } from './simulationinfo';
 import { CardName}  from "./cardname";
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @Component({
     selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
     public selectedSimulationInfo : SimulationInfo = null;
 
     public shownCards = new Set<string>([CardName.Details, CardName.Actions, CardName.Statistics]);
-    
+
     get closedCards() : Set<string>
     {
         return this.complement(this.shownCards);;
@@ -21,13 +22,17 @@ export class AppComponent {
     set closedCards(value)
     {
         this.shownCards = this.complement(value);
+        this.statisticsAccess.sized();
     }
 
     @ViewChild("closedCardsRef") closedCardsAccess : ClosedCardsComponent;
 
+    @ViewChild("statisticsRef") statisticsAccess : StatisticsComponent;
+
     cardClosed($event : CardName)
     {
         this.shownCards.delete(CardName[$event]);
+        this.statisticsAccess.sized();
     }
 
     private complement(value : Set<string>) : Set<string>
