@@ -17,9 +17,9 @@
 
     <app-aliencard 
         class="alienCard SimulationDescription FlexItem" 
-        [cardName]="'Description'" 
+        [cardName]="'Details'" 
         (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Description')">
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Details')">
         {{selectedSimulationInfo?.description}}
     </app-aliencard>
 
@@ -29,6 +29,13 @@
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
         <app-statistics [simulationInfo]="selectedSimulationInfo"></app-statistics>
+    </app-aliencard>
+
+    <app-aliencard 
+        class="alienCard FlexItem" 
+        [cardName]="'Parameters'" 
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
     </app-aliencard>
 
     <app-aliencard 

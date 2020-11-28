@@ -23,6 +23,7 @@ mat-toolbar
     margin: 0.5em;
     padding: .5em;
     border-radius: 0.1em 1.5em 0.2em 2em;
+    height: 26em;
 }
 
 .SimulationTable
@@ -36,20 +37,17 @@ mat-toolbar
 .SimulationDescription
 {
     min-width: 15em;
-    height: 26em;
 }
 
 .SimulationMonitor
 {
     min-width: 30em;
     width: 30em;
-    height: 26em;
 }
 
 .SimulationActions
 {
     min-width: 15em;
-    height: 26em;
 }
 
 .SimulationView

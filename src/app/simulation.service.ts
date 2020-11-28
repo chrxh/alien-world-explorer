@@ -42,8 +42,8 @@ export class SimulationService {
 
         return this.http.get<MonitorData[]>(address).pipe(
             map(result => {
-            return result['data'];
-        },
+                return result['data'];
+            },
         catchError(this.handleError)));
     }
 

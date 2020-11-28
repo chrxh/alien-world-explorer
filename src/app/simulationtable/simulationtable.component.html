@@ -11,13 +11,13 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Activity state </th>
             <td mat-cell *matCellDef="let element">
                 <span *ngIf="element.activityState === 'active'">
-                    <div class="ActiveState">active</div>
+                    <div class="ActiveState">1 worker connected</div>
                 </span>
                 <span *ngIf="element.activityState === 'inactive'">
                     <div class="InactiveState">inactive</div>
                 </span>
                 <span *ngIf="element.activityState === 'streaming'">
-                    <div class="StreamingState">streaming ...</div>
+                    <div class="StreamingState">1 worker connected</div>
                 </span>
             </td>
             </ng-container>

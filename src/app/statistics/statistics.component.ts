@@ -51,7 +51,7 @@ export class StatisticsComponent implements OnInit {
     chartColumnNames = ["", "all", "active"];
     
     chartOptions = {
-        title: "clusters",
+        title: "number of clusters",
         titleTextStyle: { color: '#FFF' },
         backgroundColor: '#272727',
         chartArea: {
