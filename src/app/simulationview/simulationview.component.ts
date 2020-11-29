@@ -1,4 +1,4 @@
-import {Component, Input, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, Input, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
 import {SimulationService} from "../simulation.service";
 import {AppConfig} from "../appconfig";
@@ -8,7 +8,7 @@ import {AppConfig} from "../appconfig";
     templateUrl: './simulationview.component.html',
     styleUrls: ['./simulationview.component.css']
 })
-export class SimulationViewComponent implements AfterViewInit {
+export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     public simulationImageSrc = SimulationViewComponent.ImageAddress;
     public scrollContentSize : number[] = [0, 0]; 
@@ -69,15 +69,24 @@ export class SimulationViewComponent implements AfterViewInit {
         this.onRequestImage();
     }
 
-    ngAfterViewInit(): void 
+    timer1 : any;
+    timer2 : any;
+    ngAfterViewInit() : void 
     {
-        setInterval(()=>{
+        this.timer1 = setInterval(()=>{
               this.onRequestImage();
             }, SimulationViewComponent.RequestImageInterval);
-        setInterval(()=>{
+        this.timer2 = setInterval(()=>{
                 this.onCheckIfImageAvailable();
             }, SimulationViewComponent.PollingImageInterval);
     }
+
+    ngOnDestroy() : void
+    { 
+        clearInterval(this.timer1);
+        clearInterval(this.timer2);
+    }
+
 
     onRequestImage()
     {
@@ -85,7 +94,8 @@ export class SimulationViewComponent implements AfterViewInit {
             return;
         }
         this._imageRequested = true;
-        
+
+       
         const imageSize = [
             this.scrollAreaAccess.nativeElement.clientWidth / SimulationViewComponent.Zoom, 
             this.scrollAreaAccess.nativeElement.clientHeight / SimulationViewComponent.Zoom,

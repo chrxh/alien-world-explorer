@@ -52,9 +52,14 @@
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
     </app-aliencard>
 
-    <app-simulationview
-        class="SimulationView FlexItem" 
-        [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'" 
-        [simulationInfo]="selectedSimulationInfo">
-    </app-simulationview>
+    <app-aliencard 
+        class="alienCard FlexItem SimulationView"
+        [cardName]="'Simulation'" 
+        (cardClosedChange)="cardClosed($event)" 
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
+        <app-simulationview
+            [simulationInfo]="selectedSimulationInfo"
+            *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
+        </app-simulationview>
+    </app-aliencard>
 </div>

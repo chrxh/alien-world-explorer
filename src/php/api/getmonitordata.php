@@ -17,7 +17,9 @@
             NUM_TOKENS as numTokens
         FROM statistics
         WHERE
-            SIMULATION_ID=$simulationId")) {
+            SIMULATION_ID=$simulationId
+        ORDER BY
+            TIMESTEP")) {
 
         $result = array();
         while($obj = $response->fetch_object()){
