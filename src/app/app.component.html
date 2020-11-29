@@ -58,7 +58,6 @@
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
         <app-simulationview
-            [simulationInfo]="selectedSimulationInfo"
             *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
         </app-simulationview>
     </app-aliencard>

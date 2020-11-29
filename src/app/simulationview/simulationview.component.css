@@ -24,4 +24,5 @@ img {
     image-rendering: auto;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
+    border-radius: 0.1em 1.5em 0.2em 2em;
 }

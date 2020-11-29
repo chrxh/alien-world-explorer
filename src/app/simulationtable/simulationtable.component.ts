@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from "@angular/cdk/collections";
 import {SimulationService} from "../simulation.service"
+import {SimulationDataService} from "../simulationdata.service";
 import {SimulationInfo} from "../simulationinfo";
 import {SimulationInfoIntern, ActivityState} from "./simulationinfointern";
 
@@ -25,7 +26,7 @@ export class SimulationTableComponent implements AfterViewInit {
     private selectedRow? : SimulationInfoIntern = null;
     private origSelectedRowState? : ActivityState = null;
 
-    constructor(private simulationService : SimulationService) { }
+    constructor(private simulationService : SimulationService, private _simulationDataService : SimulationDataService) { }
 
     ngAfterViewInit()
     {
@@ -44,6 +45,7 @@ export class SimulationTableComponent implements AfterViewInit {
             this.selectedRow = null;    
             this.origSelectedRowState = null;
             this.selectedSimulationEvent.emit(null);
+            this._simulationDataService.changeSelectedSimulation(null);
             return;
         }
 
@@ -56,6 +58,7 @@ export class SimulationTableComponent implements AfterViewInit {
 
         const simulationInfo = this.convertToSimulationInfo(this.selectedRow);
         this.selectedSimulationEvent.emit(simulationInfo);
+        this._simulationDataService.changeSelectedSimulation(simulationInfo);
     }
 
     onRefreshClicked()
