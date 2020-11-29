@@ -35,7 +35,7 @@ export class SimulationService {
     getMonitorDatas(simulationId : string, timestepFrom : number, timestepTo : number) : Observable<MonitorData[]>
     {
         const address = AppConfig.Address
-            + "getmonitordata"
+            + "getstatistics"
             + "?simulationId=" + simulationId
             + "&timestepFrom=" + timestepFrom
             + "&timestepTo=" + timestepTo;
