@@ -24,7 +24,7 @@ export class StatisticsComponent implements OnInit {
         }
     }
 
-    public chartAvailable = false;
+    chartAvailable = false;
 
     constructor(private _simulationService: SimulationService) {
     }
@@ -32,7 +32,12 @@ export class StatisticsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    public update()
+    selectionChange($event)
+    {
+        this.updateChart();
+    }
+
+    update()
     {
         this.updateChart();
     }
@@ -41,11 +46,36 @@ export class StatisticsComponent implements OnInit {
     {
         this._simulationService.getMonitorDatas(this.simulationInfo.id, 0, this.simulationInfo.timestep).subscribe(
             (result : MonitorData[]) => {
+                if(this.selectedEntities.length === 0) {
+                    this.chartAvailable = false;
+                    return;
+                }
                 const chartData = result.map( (monitorData : MonitorData) => {
-                    return [monitorData.timestep, monitorData.numClusters, monitorData.numActiveClusters];
+                    let data = this.selectedEntities.map( (selectedEntity : string) => {
+                        if(selectedEntity === this.entities[0]) {
+                            return monitorData.numCells;
+                        }
+                        if(selectedEntity === this.entities[1]) {
+                            return monitorData.numParticles;
+                        }
+                        if(selectedEntity === this.entities[2]) {
+                            return monitorData.numClusters;
+                        }
+                        if(selectedEntity === this.entities[3]) {
+                            return monitorData.numActiveClusters;
+                        }
+                        if(selectedEntity === this.entities[4]) {
+                            return monitorData.numTokens;
+                        }
+                        return 0;
+                    });
+                    data.unshift(monitorData.timestep);
+                    return data;
                 });
                 this.chartAvailable = chartData.length > 0;
                 this.chartData = chartData;
+                this.chartColumnNames = this.selectedEntities;
+                this.chartColumnNames.unshift("");
             },
             (err) => {
             }
@@ -53,7 +83,6 @@ export class StatisticsComponent implements OnInit {
     }
 
     //selection data
-    public selectEntitiesForm = new FormControl();
     entities: any[] = [
         "cells",
         "particles",
@@ -68,7 +97,7 @@ export class StatisticsComponent implements OnInit {
     chartType = 'AreaChart';
     chartData = [
     ];
-    chartColumnNames = ["", "all", "active"];
+    chartColumnNames = [];
     
     chartOptions = {
         titleTextStyle: { color: '#FFF' },
