@@ -1,8 +1,20 @@
-<google-chart
-    [type]="chartType"
-    [data]="chartData"
-    [columns]="chartColumnNames"
-    [options]="chartOptions"
-    [dynamicResize]="chartResize"
-    >
-</google-chart>
+<div class="container" *ngIf="chartAvailable">
+    <mat-form-field appearance="outline">
+        <mat-label class="selectEntitiesLabel">Select entity types:</mat-label>
+        <mat-select class="selectEntitiesControl" [value]="selectedEntities" [formControl]="selectEntitiesForm" multiple>
+            <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <google-chart
+        [type]="chartType"
+        [data]="chartData"
+        [columns]="chartColumnNames"
+        [options]="chartOptions"
+        [dynamicResize]="chartResize">
+    </google-chart>
+</div>
+
+<div *ngIf="!chartAvailable">
+    <i>no information available</i>
+</div>

@@ -1,5 +1,15 @@
+.container
+{
+
+}
+mat-form-field
+{
+    width: 100%;
+    height: 4em;
+}
+
 google-chart
 {
     width: 90%;
-    height: 20em;
+    height: 25em;
 }

@@ -23,6 +23,7 @@ import { ClosedCardsComponent } from './closedcards/closedcards.component';
 import { ClosedCardComponent } from './closedcard/closedcard.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

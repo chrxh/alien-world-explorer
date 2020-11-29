@@ -13,7 +13,7 @@ export class AppComponent {
     public title = 'world explorer';
     public selectedSimulationInfo : SimulationInfo = null;
 
-    public shownCards = new Set<string>([CardName.Details, CardName.Actions, CardName.Statistics]);
+    public shownCards = new Set<string>([CardName.Details, CardName.Statistics]);
 
     get closedCards() : Set<string>
     {
@@ -22,7 +22,7 @@ export class AppComponent {
     set closedCards(value)
     {
         this.shownCards = this.complement(value);
-        this.statisticsAccess.sized();
+        this.statisticsAccess.update();
     }
 
     @ViewChild("closedCardsRef") closedCardsAccess : ClosedCardsComponent;
@@ -32,7 +32,7 @@ export class AppComponent {
     cardClosed($event : CardName)
     {
         this.shownCards.delete(CardName[$event]);
-        this.statisticsAccess.sized();
+        this.statisticsAccess.update();
     }
 
     private complement(value : Set<string>) : Set<string>

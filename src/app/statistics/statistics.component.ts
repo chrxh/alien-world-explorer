@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SimulationInfo } from "../simulationinfo";
 import { SimulationService } from "../simulation.service";
 import { MonitorData } from '../monitordata';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-statistics',
@@ -23,16 +24,19 @@ export class StatisticsComponent implements OnInit {
         }
     }
 
-    constructor(private _simulationService: SimulationService) { }
+    public chartAvailable = false;
+
+    constructor(private _simulationService: SimulationService) {
+    }
 
     ngOnInit(): void {
     }
 
-    public sized()
+    public update()
     {
         this.updateChart();
     }
-    
+
     private updateChart()
     {
         this._simulationService.getMonitorDatas(this.simulationInfo.id, 0, this.simulationInfo.timestep).subscribe(
@@ -40,23 +44,33 @@ export class StatisticsComponent implements OnInit {
                 const chartData = result.map( (monitorData : MonitorData) => {
                     return [monitorData.timestep, monitorData.numClusters, monitorData.numActiveClusters];
                 });
-                if(chartData.length !== 0) {
-                    this.chartData = chartData;
-                }
+                this.chartAvailable = chartData.length > 0;
+                this.chartData = chartData;
             },
             (err) => {
             }
         );
     }
 
+    //selection data
+    public selectEntitiesForm = new FormControl();
+    entities: any[] = [
+        "cells",
+        "particles",
+        "clusters",
+        "active clusters",
+        "tokens"
+    ];
+    selectedEntities = [this.entities[2], this.entities[3]];
 
+
+    //chart data
     chartType = 'AreaChart';
     chartData = [
     ];
     chartColumnNames = ["", "all", "active"];
     
     chartOptions = {
-        title: "number of clusters",
         titleTextStyle: { color: '#FFF' },
         backgroundColor: '#272727',
         chartArea: {
@@ -72,6 +86,8 @@ export class StatisticsComponent implements OnInit {
             }
         },
         vAxis: {
+            title: "number",
+            titleTextStyle: { color: '#bbb'},
             textStyle: {color: '#bbb'},
             gridlines: { 
                 count: 20,
