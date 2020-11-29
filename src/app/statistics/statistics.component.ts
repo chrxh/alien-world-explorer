@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SimulationInfo } from "../simulationinfo";
 import { SimulationService } from "../simulation.service";
+import {SimulationDataService} from "../simulationdata.service";
 import { MonitorData } from '../monitordata';
 import {FormControl} from '@angular/forms';
 
@@ -11,42 +12,37 @@ import {FormControl} from '@angular/forms';
 })
 export class StatisticsComponent implements OnInit {
 
-    @Input()
-    get simulationInfo() : SimulationInfo 
-    { 
-        return this._simulationInfo; 
-    };
-    set simulationInfo(value : SimulationInfo) 
-    {
-        this._simulationInfo = value;
-        if(this._simulationInfo !== null) {
-            this.updateChart();
-        }
-    }
-
     chartAvailable = false;
 
-    constructor(private _simulationService: SimulationService) {
+    constructor(private _simulationService: SimulationService, private _simulationDataService : SimulationDataService) {
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
+        this._simulationDataService.getSelectedSimulation().subscribe(simulationInfo => {
+            this.simulationChanged(simulationInfo);
+        });
+
+    }
+
+    private simulationChanged(simulationInfo : SimulationInfo)
+    {
+        this._simulationInfo = simulationInfo;
+        if(this._simulationInfo !== null) {
+            this.update();
+        }
     }
 
     selectionChange($event)
     {
-        this.updateChart();
+        this.update();
     }
 
     update()
     {
-        this.updateChart();
-    }
-
-    private updateChart()
-    {
-        this._simulationService.getMonitorDatas(this.simulationInfo.id, 0, this.simulationInfo.timestep).subscribe(
+        this._simulationService.getMonitorDatas(this._simulationInfo.id, 0, this._simulationInfo.timestep).subscribe(
             (result : MonitorData[]) => {
-                if(this.selectedEntities.length === 0) {
+                if (this.selectedEntities.length === 0) {
                     this.chartAvailable = false;
                     return;
                 }
@@ -74,7 +70,7 @@ export class StatisticsComponent implements OnInit {
                 });
                 this.chartAvailable = chartData.length > 0;
                 this.chartData = chartData;
-                this.chartColumnNames = this.selectedEntities;
+                this.chartColumnNames = [...this.selectedEntities];
                 this.chartColumnNames.unshift("");
             },
             (err) => {

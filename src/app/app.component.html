@@ -28,7 +28,7 @@
         [cardName]="'Statistics'" 
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
-        <app-statistics #statisticsRef [simulationInfo]="selectedSimulationInfo"></app-statistics>
+        <app-statistics #statisticsRef></app-statistics>
     </app-aliencard>
 
     <app-aliencard 

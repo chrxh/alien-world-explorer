@@ -29,7 +29,7 @@
                 "numParticles" => (int)$obj->numParticles,
                 "numClusters" => (int)$obj->numClusters,
                 "numActiveClusters" => (int)$obj->numActiveClusters,
-                "numTokens" => 100
+                "numTokens" => (int)$obj->numTokens
             ];
         }
 
