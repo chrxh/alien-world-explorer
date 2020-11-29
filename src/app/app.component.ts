@@ -13,7 +13,7 @@ export class AppComponent {
     public title = 'world explorer';
     public selectedSimulationInfo : SimulationInfo = null;
 
-    public shownCards = new Set<string>([CardName.Details, CardName.Statistics, CardName.Simulation]);
+    public shownCards = new Set<string>([CardName.Details, CardName.Statistics, CardName.View]);
 
     get closedCards() : Set<string>
     {
@@ -37,7 +37,7 @@ export class AppComponent {
 
     private complement(value : Set<string>) : Set<string>
     {
-        let result = new Set<string>([CardName.Details, CardName.Parameters, CardName.Actions, CardName.Statistics, CardName.Chat, CardName.Simulation]);
+        let result = new Set<string>([CardName.Details, CardName.Parameters, CardName.Actions, CardName.Statistics, CardName.Chat, CardName.View]);
         for (let name of value) {
             result.delete(name);
         }

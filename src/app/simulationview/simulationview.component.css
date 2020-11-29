@@ -26,3 +26,10 @@ img {
     image-rendering: pixelated;
     border-radius: 0.1em 1.5em 0.2em 2em;
 }
+
+mat-slide-toggle
+{
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+}

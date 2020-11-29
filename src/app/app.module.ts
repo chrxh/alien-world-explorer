@@ -24,37 +24,39 @@ import { ClosedCardComponent } from './closedcard/closedcard.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NumberArrayRenderer,
-    SimulationTableComponent,
-    SimulationViewComponent,
-    AlienCardComponent,
-    ClosedCardsComponent,
-    ClosedCardComponent,
-    StatisticsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    MatToolbarModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatSortModule,
-    MatDividerModule,
-    CdkTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSliderModule,
-    GoogleChartsModule,
-    MatSelectModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NumberArrayRenderer,
+        SimulationTableComponent,
+        SimulationViewComponent,
+        AlienCardComponent,
+        ClosedCardsComponent,
+        ClosedCardComponent,
+        StatisticsComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        MatToolbarModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCardModule,
+        MatSortModule,
+        MatDividerModule,
+        CdkTableModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSliderModule,
+        GoogleChartsModule,
+        MatSelectModule,
+        MatSlideToggleModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

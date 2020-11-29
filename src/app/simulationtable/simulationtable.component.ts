@@ -9,9 +9,9 @@ import {SimulationInfo} from "../simulationinfo";
 import {SimulationInfoIntern, ActivityState} from "./simulationinfointern";
 
 @Component({
-  selector: 'app-simulation-table',
-  templateUrl: './simulationtable.component.html',
-  styleUrls: ['./simulationtable.component.css']
+    selector: 'app-simulation-table',
+    templateUrl: './simulationtable.component.html',
+    styleUrls: ['./simulationtable.component.css']
 })
 export class SimulationTableComponent implements AfterViewInit {
 

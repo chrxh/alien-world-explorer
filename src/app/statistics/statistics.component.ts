@@ -111,7 +111,7 @@ export class StatisticsComponent implements OnInit {
             }
         },
         vAxis: {
-            title: "number",
+            title: "quantity",
             titleTextStyle: { color: '#bbb'},
             textStyle: {color: '#bbb'},
             gridlines: { 

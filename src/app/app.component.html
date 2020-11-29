@@ -32,7 +32,7 @@
     </app-aliencard>
 
     <app-aliencard 
-        class="alienCard FlexItem" 
+        class="alienCard SimulationParameters FlexItem" 
         [cardName]="'Parameters'" 
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
@@ -54,11 +54,10 @@
 
     <app-aliencard 
         class="alienCard FlexItem SimulationView"
-        [cardName]="'Simulation'" 
+        [cardName]="'View'" 
         (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
-        <app-simulationview
-            *ngIf="selectedSimulationInfo !== null && shownCards.has('Simulation')">
+        *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
+        <app-simulationview>
         </app-simulationview>
     </app-aliencard>
 </div>

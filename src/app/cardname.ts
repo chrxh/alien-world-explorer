@@ -4,5 +4,5 @@ export enum CardName {
     Parameters = "Parameters",
     Actions = "Actions",
     Chat = "Chat",
-    Simulation = "Simulation"
+    View = "View"
 }
