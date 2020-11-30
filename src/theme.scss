@@ -29,7 +29,7 @@ $my-app-theme: mat-dark-theme((
 
 .FlexItem
 {
-    background: #132e7e;
+    background: #0e2464;
 }
 
 .CardContent
@@ -55,11 +55,11 @@ $my-app-theme: mat-dark-theme((
 }
 .mat-row.hovered
 {
-    background: rgb(25, 25, 99);
+    background: #444;
 }
 .mat-row.highlighted
 {
-    background: rgb(19, 32, 119);
+    background: #555;
 }
 
 .mat-paginator

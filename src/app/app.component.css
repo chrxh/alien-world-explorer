@@ -32,13 +32,13 @@ mat-toolbar
     height: 29.5em;
 }
 
-.SimulationDescription
+.SimulationDetails
 {
     min-width: 19em;
     width: 19em;
 }
 
-.SimulationMonitor
+.SimulationStatistics
 {
     min-width: 38em;
     width: 38em;

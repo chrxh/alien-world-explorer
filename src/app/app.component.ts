@@ -13,7 +13,7 @@ export class AppComponent {
     public title = 'world explorer';
     public selectedSimulationInfo : SimulationInfo = null;
 
-    public shownCards = new Set<string>([CardName.Details, CardName.Statistics, CardName.Actions, CardName.View]);
+    public shownCards = new Set<string>([CardName.Details, CardName.Statistics, CardName.View]);
 
     get closedCards() : Set<string>
     {

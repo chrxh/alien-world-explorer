@@ -10,8 +10,7 @@ import { SimulationInfo } from '../simulationinfo';
 export class DetailsComponent implements OnInit {
 
     selectedSimulation : SimulationInfo;
-    selectable = false;
-
+    
     constructor(private _simulationDataService : SimulationDataService) { }
 
     ngOnInit(): void {

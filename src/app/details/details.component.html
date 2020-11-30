@@ -1,21 +1,30 @@
-<div class="DetailContainer">
-    <div class="AimLabel">
-        <b>Aim</b><br/>
-        <mat-divider></mat-divider>
-    </div>
-    <div class="NormalText">
-        {{selectedSimulation?.description}}
-    </div>
-    <div class="PermissionsLabel">
-        <b>Permissions</b><br/>
-        <mat-divider></mat-divider>
-    </div>
-    <div class="Access">
+<mat-accordion multi>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Goal
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="NormalText">
+            {{selectedSimulation?.description}}
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Permissions
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
         <div class="AccessContainer">
-            <div class="AccessElement NormalText">visual&#10004;&#65039;</div>
-            <div class="AccessElement NormalText">download&#10060;</div>
-            <div class="AccessElement NormalText">upload&#10060;</div>
+            <div class="AccessElement NormalText">&#10004;&#65039;visual</div>
+            <div class="AccessElement NormalText">&#10060;download</div>
+            <div class="AccessElement NormalText">&#10060;upload</div>
             <div class="Spacer"> </div>
         </div>
-    </div>
-</div>
+      </mat-expansion-panel>
+    </mat-accordion>
