@@ -20,8 +20,7 @@
         [cardName]="'Details'" 
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Details')">
-        {{selectedSimulationInfo?.description}}
-        <mat-divider></mat-divider>
+        <app-details></app-details>
     </app-aliencard>
 
     <app-aliencard 
@@ -37,7 +36,7 @@
         [cardName]="'Parameters'" 
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
-        <i>not implemented yet</i>
+        <i class="NormalText">not implemented yet</i>
     </app-aliencard>
 
     <app-aliencard 
@@ -45,7 +44,7 @@
         [cardName]="'Actions'"
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
-        <i>not implemented yet</i>
+        <i class="NormalText">not implemented yet</i>
     </app-aliencard>
 
     <app-aliencard 
@@ -54,7 +53,7 @@
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
         <br/>
-        <i>not implemented yet</i>
+        <i class="NormalText">not implemented yet</i>
     </app-aliencard>
 
     <app-aliencard 

@@ -22,7 +22,7 @@ $my-app-theme: mat-dark-theme((
 
 .mat-card
 {
-    background: #3c8158;
+    background: #132e7e;
     color: #ffffffcc;
     text-shadow: #000 0.0em 0.0em 0.9em;
 }
@@ -39,50 +39,50 @@ $my-app-theme: mat-dark-theme((
 
 .CardTitle
 {
-    text-shadow: #fff 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em;
+    text-shadow: #0f0 0.0em 0.0em 0.9em, #0f0 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em;
 }
 
 .mat-header-row
 {
-    background: #018a35;
+    background: #132e7e;
     text-shadow: #0f0 0.0em 0.0em 0.9em, #0f0 0.0em 0.0em 0.9em, #fff 0.0em 0.0em 0.9em;
 }
 
 .mat-row
 {
-    background: #00752d;
+    background: #272727;
     text-shadow: #000 0.0em 0.0em 0.9em;
 }
 .mat-row.hovered
 {
-    background: #179b5d;
+    background: rgb(25, 25, 99);
 }
 .mat-row.highlighted
 {
-    background: #1cb86f;
+    background: rgb(19, 32, 119);
 }
 
 .mat-paginator
 {
-    background: #018a35;
+    background: #272727;
 }
 
 .mat-raised-button
 {
-    background: #005320;
+    background: #002053;
     color: #eff0ff;
     text-shadow: #0f0 0.0em 0.0em 0.9em;
 }
 
 .Button
 {
-    background: rgb(6, 75, 23);
+    background: rgb(6, 23, 75);
     color: #eff0ff;
 }
 
 .ScrollArea {
     scrollbar-width: thin;
-    scrollbar-color: rgb(53, 53, 53) #bfb;
+    scrollbar-color: rgb(53, 53, 53) #bbf;
 }
 .ScrollArea::-webkit-scrollbar {
     width: 12px;
@@ -92,9 +92,9 @@ $my-app-theme: mat-dark-theme((
     background: rgb(53, 53, 53);
 }
 .ScrollArea::-webkit-scrollbar-thumb {
-    background-color: #bfb;
+    background-color: #bbf;
     border-radius: 10px;
-    border: 2px solid #1cb86f;
+    border: 2px solid #1c6fb8;
 }
 
 .InactiveState
@@ -110,5 +110,10 @@ $my-app-theme: mat-dark-theme((
 .StreamingState
 {
     font-weight: bold;
-    color: #0ff;
+    color: #0fb;
+}
+
+.NormalText
+{
+    color: #bbb;
 }

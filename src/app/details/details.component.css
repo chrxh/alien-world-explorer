@@ -1,0 +1,49 @@
+.DetailContainer
+{
+    padding-top: 0.5em;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: right;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.AimLabel
+{
+    width: 100%;
+}
+
+.NormalText
+{
+    margin-top: 1em;
+    width: 100%;
+    min-height: 22em;
+}
+
+.PermissionsLabel
+{
+    width: 100%;
+
+}
+.Access
+{
+    width: 100%;
+}
+.AccessContainer
+{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    height: 100%;
+}
+
+.AccessElement
+{
+    margin: 0.5em;
+}
+
+.Spacer
+{
+}

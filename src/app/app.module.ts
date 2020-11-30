@@ -25,6 +25,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         AlienCardComponent,
         ClosedCardsComponent,
         ClosedCardComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        DetailsComponent
     ],
     imports: [
         BrowserModule,
