@@ -89,6 +89,8 @@ export class SimulationTableComponent implements AfterViewInit {
             worldSize: simInfo.worldSize,
             timestep: simInfo.timestep,
             description: simInfo.description,
+            numBlocks: simInfo.numBlocks,
+            numThreadsPerBlock: simInfo.numThreadsPerBlock,
             lastUpdate: simInfo.lastUpdate
         };
     }
@@ -104,6 +106,8 @@ export class SimulationTableComponent implements AfterViewInit {
             worldSize: simInfoIntern.worldSize,
             timestep: simInfoIntern.timestep,
             description: simInfoIntern.description,
+            numBlocks: simInfoIntern.numBlocks,
+            numThreadsPerBlock: simInfoIntern.numThreadsPerBlock,
             lastUpdate: simInfoIntern.lastUpdate
         };
     }

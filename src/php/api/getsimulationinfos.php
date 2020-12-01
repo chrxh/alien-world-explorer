@@ -13,7 +13,9 @@
             sim.SIZE_X as sizeX, 
             sim.SIZE_Y as sizeY, 
             sim.LAST_UPDATE as lastUpdate,
-            sim.DESCRIPTION as descr
+            sim.DESCRIPTION as descr,
+            sim.NUM_BLOCKS as numBlocks,
+            sim.NUM_THREADS_PER_BLOCK as numThreadsPerBlock
         FROM simulation sim, user u
         WHERE sim.USER_ID=u.ID")) {
 
@@ -29,6 +31,8 @@
                 "timestep" => (int)$obj->timestep, 
                 "worldSize" => [(int)$obj->sizeX, (int)$obj->sizeY],
                 "description" => htmlspecialchars($obj->descr),
+                "numBlocks" => (int)$obj->numBlocks,
+                "numThreadsPerBlock" => (int)$obj->numThreadsPerBlock,
                 "lastUpdate" => $obj->lastUpdate
             ];
         }

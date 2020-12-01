@@ -1,20 +1,57 @@
+.DetailContainer
+{
+    height: 100%;
+    overflow: auto;
+}
+
 .Access
 {
     width: 100%;
 }
-.AccessContainer
+.PermissionsContainer
 {
     display: flex;
     justify-content: left;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: row;
+    width: 100%;
 }
-
-.AccessElement
+.PermissionElement
 {
     margin: 0.5em;
 }
 
-.Spacer
+.DetailCuda
+{
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+}
+
+.DetailContent
+{
+    margin-top: 1em;
+}
+.ThreadblocksLabel
 {
 }
+.ThreadblocksValue
+{
+}
+.ThreadsPerBlockLabel
+{
+}
+.ThreadsPerBlockValue
+{
+
+}
+.TotalThreadsLabel
+{
+
+}
+.TotalThreadsValue
+{
+
+}
+

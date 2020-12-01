@@ -7,5 +7,7 @@ export interface SimulationInfo
     worldSize: number[];
     timestep: number;
     description: string;
+    numBlocks: number;
+    numThreadsPerBlock: number;
     lastUpdate: Date;
   }

@@ -69,20 +69,20 @@ $my-app-theme: mat-dark-theme((
 
 .mat-raised-button
 {
-    background: #002053;
+    background: #132e7e;
     color: #eff0ff;
     text-shadow: #0f0 0.0em 0.0em 0.9em;
 }
 
 .Button
 {
-    background: rgb(6, 23, 75);
+    background: rgb(7, 27, 88);
     color: #eff0ff;
 }
 
 .ScrollArea {
     scrollbar-width: thin;
-    scrollbar-color: rgb(53, 53, 53) #bbf;
+    scrollbar-color: rgb(53, 53, 53) #1f64e0;
 }
 .ScrollArea::-webkit-scrollbar {
     width: 12px;
@@ -92,9 +92,9 @@ $my-app-theme: mat-dark-theme((
     background: rgb(53, 53, 53);
 }
 .ScrollArea::-webkit-scrollbar-thumb {
-    background-color: #bbf;
+    background-color: #1f64e0;
     border-radius: 10px;
-    border: 2px solid #1c6fb8;
+    border: 2px solid rgb(18, 70, 116);
 }
 
 .InactiveState
@@ -113,7 +113,22 @@ $my-app-theme: mat-dark-theme((
     color: #0fb;
 }
 
+.mat-expansion-panel
+{
+    background: #222;
+}
+.mat-expansion-panel-header
+{
+    background: #333;
+}
+
 .NormalText
 {
     color: #bbb;
+}
+
+.AccentedText
+{
+    color: rgb(0, 194, 103);
+    text-shadow: #0f0 0.0em 0.0em 0.3em;
 }
