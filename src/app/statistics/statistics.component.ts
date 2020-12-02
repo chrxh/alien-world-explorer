@@ -1,36 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SimulationInfo } from "../simulationinfo";
-import { SimulationService } from "../simulation.service";
+import { Component, OnInit } from '@angular/core';
+import { SimulationHttpService } from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
 import { MonitorData } from '../monitordata';
-import {FormControl} from '@angular/forms';
+import { SimulationInfo } from '../simulationinfo';
 
 @Component({
     selector: 'app-statistics',
     templateUrl: './statistics.component.html',
     styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit{
 
     chartAvailable = false;
 
-    constructor(private _simulationService: SimulationService, private _simulationDataService : SimulationDataService) {
+
+    constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) {
     }
 
-    ngOnInit(): void
+    ngOnInit()
     {
-        this._simulationDataService.getSelectedSimulation().subscribe(simulationInfo => {
-            this.simulationChanged(simulationInfo);
-        });
-
-    }
-
-    private simulationChanged(simulationInfo : SimulationInfo)
-    {
-        this._simulationInfo = simulationInfo;
-        if(this._simulationInfo !== null) {
-            this.update();
-        }
+        this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => { this.update(); });
     }
 
     selectionChange($event)
@@ -40,9 +29,13 @@ export class StatisticsComponent implements OnInit {
 
     update()
     {
-        this._simulationService.getMonitorDatas(this._simulationInfo.id, 0, this._simulationInfo.timestep).subscribe(
+        const simInfo = this._simulationDataService.getSelectedSimulationInfo();
+        if (simInfo === null) {
+            return;
+        }
+        this._simulationHttpService.getMonitorDatas(simInfo.id, simInfo.timestep - 30000).subscribe(
             (result : MonitorData[]) => {
-                if (this.selectedEntities.length === 0) {
+                if (this.selectedEntities.length === 0 || result.length === 0) {
                     this.chartAvailable = false;
                     return;
                 }
@@ -108,7 +101,7 @@ export class StatisticsComponent implements OnInit {
             gridlines: { 
                 count: 20,
                 color: '#444'
-            }
+            },
         },
         vAxis: {
             title: "quantity",
@@ -124,6 +117,5 @@ export class StatisticsComponent implements OnInit {
     };
 
     chartResize = true;
-
-    private _simulationInfo : SimulationInfo;
 }
+

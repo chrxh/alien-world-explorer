@@ -3,7 +3,6 @@
 
     $simulationId = $_GET["simulationId"];
     $timestepFrom = $_GET["timestepFrom"];
-    $timestepTo = $_GET["timestepTo"];
 
     $db = connectToDB();
 
@@ -18,6 +17,8 @@
         FROM statistics
         WHERE
             SIMULATION_ID=$simulationId
+            AND
+            TIMESTEP>=$timestepFrom
         ORDER BY
             TIMESTEP")) {
 

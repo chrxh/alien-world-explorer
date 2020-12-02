@@ -50,6 +50,8 @@
             $numActiveClusters, 
             $numTokens)");
 
+    $db->query("UPDATE simulation SET TIMESTEP=$timestep WHERE ID = $simId;");
+
     $db->commit();
     $db->close();
 ?>

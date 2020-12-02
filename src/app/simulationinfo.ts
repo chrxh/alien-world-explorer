@@ -11,3 +11,9 @@ export interface SimulationInfo
     numThreadsPerBlock: number;
     lastUpdate: Date;
   }
+
+export interface ReducedSimulationInfo
+{
+    id: string
+    timestep: number;
+}

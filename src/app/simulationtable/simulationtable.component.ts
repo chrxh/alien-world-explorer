@@ -3,9 +3,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from "@angular/cdk/collections";
-import {SimulationService} from "../simulation.service"
+import {SimulationHttpService} from "../simulationhttp.service"
 import {SimulationDataService} from "../simulationdata.service";
-import {SimulationInfo} from "../simulationinfo";
+import {SimulationInfo, ReducedSimulationInfo} from "../simulationinfo";
 import {SimulationInfoIntern, ActivityState} from "./simulationinfointern";
 
 @Component({
@@ -26,7 +26,14 @@ export class SimulationTableComponent implements AfterViewInit {
     private selectedRow? : SimulationInfoIntern = null;
     private origSelectedRowState? : ActivityState = null;
 
-    constructor(private simulationService : SimulationService, private _simulationDataService : SimulationDataService) { }
+    constructor(private _simulationHttpService : SimulationHttpService, private _simulationDataService : SimulationDataService)
+    {
+        this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
+            if (this.selectedRow !== null) {
+                Object.assign(this.selectedRow, this.convertToSimulationInfoIntern(simInfo));
+            }
+        });
+    }
 
     ngAfterViewInit()
     {
@@ -68,7 +75,7 @@ export class SimulationTableComponent implements AfterViewInit {
     
     requestSimulationInfo(): void
     {
-        this.simulationService.getSimulationInfos().subscribe(
+        this._simulationHttpService.getSimulationInfos().subscribe(
         (simulationInfos: SimulationInfo[]) => {
             const result : SimulationInfoIntern[] = 
             this.dataSource.data = simulationInfos.map(this.convertToSimulationInfoIntern);

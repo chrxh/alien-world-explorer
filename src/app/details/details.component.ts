@@ -14,8 +14,8 @@ export class DetailsComponent implements OnInit {
     constructor(private _simulationDataService : SimulationDataService) { }
 
     ngOnInit(): void {
-        this._simulationDataService.getSelectedSimulation().subscribe(value => {
-            this.selectedSimulation = value;
+        this._simulationDataService.observeSelectedSimulationId().subscribe((id : string) => {
+            this.selectedSimulation = this._simulationDataService.getSelectedSimulationInfo();
         });
     }
 

@@ -1,6 +1,6 @@
 import {Component, Input, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
-import {SimulationService} from "../simulation.service";
+import {SimulationHttpService} from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
 import {AppConfig} from "../appconfig";
 
@@ -28,7 +28,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     @ViewChild('scrollAreaRef') scrollAreaAccess : ElementRef;
     @ViewChild('scrollContentRef') scrollContentAccess : ElementRef;
 
-    constructor(private _simulationService: SimulationService, private _simulationDataService : SimulationDataService) { }
+    constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) { }
 
     onScroll($event) {
         this.scrollContentPos[0] = $event.target.scrollLeft;
@@ -40,15 +40,12 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     private timerForPollingImage;
     ngAfterViewInit() : void 
     {
-        this.timerForRequestImage = setInterval(()=>{
-              this.onRequestImage();
-            }, SimulationViewComponent.RequestImageInterval);
-        this.timerForPollingImage = setInterval(()=>{
-                this.onCheckIfImageAvailable();
-            }, SimulationViewComponent.PollingImageInterval);
+        this.timerForRequestImage = setInterval(() => { this.onRequestImage(); }, SimulationViewComponent.RequestImageInterval);
+        this.timerForPollingImage = setInterval(() => { this.onCheckIfImageAvailable(); }, SimulationViewComponent.PollingImageInterval);
 
-        this._simulationDataService.getSelectedSimulation().subscribe(simulationInfo => {
-            this.simulationChanged(simulationInfo);
+        this._simulationDataService.observeSelectedSimulationId().subscribe((id : string) => {
+            const simInfo = this._simulationDataService.getSelectedSimulationInfo();
+            this.simulationChanged(simInfo);
         });
     }
 
@@ -74,7 +71,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this.scrollContentPos[0] / SimulationViewComponent.Zoom, 
             this.scrollContentPos[1] / SimulationViewComponent.Zoom
         ];
-        this._simulationService.requestSimulationImage(this._simulationInfo.id, simulationPos, imageSize)
+        this._simulationHttpService.requestSimulationImage(this._simulationInfo.id, simulationPos, imageSize)
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -90,7 +87,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         if(this._simulationInfo == null || this._taskId == null) {
             return;
         }
-        this._simulationService.isSimulationImageAvailable(this._taskId)
+        this._simulationHttpService.isSimulationImageAvailable(this._taskId)
             .subscribe(
                 (result : boolean) => {
                     if (result) {

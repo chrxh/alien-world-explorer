@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { SimulationInfo } from './simulationinfo';
+import { ReducedSimulationInfo, SimulationInfo } from './simulationinfo';
 import { MonitorData } from './monitordata';
 
 import {AppConfig} from "./appconfig";
@@ -11,12 +11,13 @@ import {AppConfig} from "./appconfig";
 @Injectable({
     providedIn: 'root'
 })
-export class SimulationService {
+export class SimulationHttpService {
     public simulationInfos: SimulationInfo[];
 
     constructor(private http: HttpClient) { }
 
-    getSimulationInfos(): Observable<SimulationInfo[]> {
+    getSimulationInfos(): Observable<SimulationInfo[]>
+    {
         if (!this.simulationInfoRequested) {
             this.simulationInfoRequested = true;
             return this.http.get<SimulationInfo[]>(`${AppConfig.Address}getsimulationinfos`).pipe(
@@ -32,13 +33,26 @@ export class SimulationService {
         }
     }
 
-    getMonitorDatas(simulationId : string, timestepFrom : number, timestepTo : number) : Observable<MonitorData[]>
+    getSimulationInfoUpdate(simulationId : string) : Observable<ReducedSimulationInfo>
+    {
+        const address = AppConfig.Address
+            + "getreducedsimulationinfo"
+            + "?simulationId=" + simulationId;
+
+        return this.http.get<ReducedSimulationInfo>(address).pipe(
+            map(result => {
+                return result['data'];
+            },
+        catchError(this.handleError)));
+    }
+
+    getMonitorDatas(simulationId : string, timestepFrom : number) : Observable<MonitorData[]>
     {
         const address = AppConfig.Address
             + "getstatistics"
             + "?simulationId=" + simulationId
-            + "&timestepFrom=" + timestepFrom
-            + "&timestepTo=" + timestepTo;
+            + "&timestepFrom=" + timestepFrom;
+
 
         return this.http.get<MonitorData[]>(address).pipe(
             map(result => {
