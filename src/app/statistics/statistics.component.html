@@ -1,11 +1,16 @@
 <div class="container">
-    <mat-form-field appearance="outline">
-        <mat-label class="selectEntitiesLabel">Select entity types:</mat-label>
-        <mat-select class="selectEntitiesControl" [(value)]="selectedEntities" (selectionChange)="selectionChange($event)" multiple>
-            <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-
+    <div class="FormContainer">
+        <mat-form-field appearance="outline">
+            <mat-label>Entity types:</mat-label>
+            <mat-select [(value)]="selectedEntities" (selectionChange)="selectionChange($event)" multiple>
+                <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Timesteps history:</mat-label>
+            <input matInput [type]="'number'">
+        </mat-form-field>
+    </div>
     <google-chart
         [type]="chartType"
         [data]="chartData"

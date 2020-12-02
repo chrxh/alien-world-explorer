@@ -26,6 +26,7 @@
     <app-aliencard 
         class="alienCard SimulationStatistics FlexItem" 
         [cardName]="'Statistics'" 
+        [liveToggle]="'true'"
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
         <app-statistics #statisticsRef></app-statistics>
@@ -59,6 +60,7 @@
     <app-aliencard 
         class="alienCard FlexItem SimulationView"
         [cardName]="'View'" 
+        [liveToggle]="'true'"
         (cardClosedChange)="cardClosed($event)" 
         *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
         <app-simulationview>

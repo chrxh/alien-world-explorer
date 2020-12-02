@@ -14,7 +14,7 @@
 
     $timestep = $_POST["timestep"];
 
-    $db->query("DELETE FROM statistics WHERE TIMESTEP >= $timestep");
+    $db->query("DELETE FROM statistics WHERE SIMULATION_ID=$simId AND TIMESTEP >= $timestep");
 
     $response = $db->query("SELECT * FROM statistics WHERE SIMULATION_ID=$simId AND TIMESTEP=$timestep");
     

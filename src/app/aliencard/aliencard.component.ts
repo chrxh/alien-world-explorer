@@ -11,6 +11,9 @@ export class AlienCardComponent {
     @Input()
     cardName : CardName;
 
+    @Input()
+    liveToggle : boolean = false;
+
     @Output()
     cardClosedChange = new EventEmitter<CardName>();
 

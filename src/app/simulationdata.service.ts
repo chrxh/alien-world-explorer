@@ -20,8 +20,8 @@ export class SimulationDataService {
     
     changeSelectedSimulation(simulationInfo : SimulationInfo)
     {
-        this._selectedSimulationId$.next(simulationInfo.id);
         this._selectedSimulationInfo$.next(simulationInfo);
+        this._selectedSimulationId$.next(simulationInfo.id);
     }
 
     observeSelectedSimulationId() : Observable<string>

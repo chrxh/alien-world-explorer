@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 @include mat-core();
-$my-app-primary: mat-palette($mat-green);
-$my-app-accent:  mat-palette($mat-green);
-$my-app-warn:    mat-palette($mat-green);
+$my-app-primary: mat-palette($mat-blue);
+$my-app-accent:  mat-palette($mat-blue);
+$my-app-warn:    mat-palette($mat-blue);
 $my-app-theme: mat-dark-theme((
     color: (
         primary: $my-app-primary,
@@ -81,11 +81,6 @@ $my-app-theme: mat-dark-theme((
     text-shadow: #0f0 0.0em 0.0em 0.9em;
 }
 
-.GreenGlow
-{
-    text-shadow: #0f0 0.0em 0.0em 0.4em, #0f0 0.0em 0.0em 0.9em;
-}
-
 .ScrollArea {
     scrollbar-width: thin;
     scrollbar-color: rgb(53, 53, 53) #1f64e0;
@@ -128,6 +123,10 @@ $my-app-theme: mat-dark-theme((
     background: #333;
 }
 
+.TitleText
+{
+    color: #ff0;
+}
 .NormalText
 {
     color: #bbb;
@@ -137,4 +136,9 @@ $my-app-theme: mat-dark-theme((
 {
     color: rgb(0, 194, 103);
     text-shadow: #0f0 0.0em 0.0em 0.3em;
+}
+
+.GreenGlow
+{
+    text-shadow: #0f0 0.0em 0.0em 0.4em, #0f0 0.0em 0.0em 0.9em;
 }

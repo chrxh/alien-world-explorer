@@ -1,7 +1,10 @@
 <div class="CardContainer">
-    <mat-card class="CardTitle">
-        {{cardName}}
-    </mat-card>
+    <div class="TitleToggle">
+        <mat-card class="CardTitle">
+            {{cardName}}
+        </mat-card>
+        <mat-slide-toggle *ngIf="liveToggle" class="TitleText" [checked]="'true'"><i>live</i></mat-slide-toggle>
+    </div>
 
     <button mat-raised-button class="CloseButton Button" (click)="closeButtonClicked()">
         X

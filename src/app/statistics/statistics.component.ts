@@ -33,7 +33,7 @@ export class StatisticsComponent implements OnInit{
         if (simInfo === null) {
             return;
         }
-        this._simulationHttpService.getMonitorDatas(simInfo.id, simInfo.timestep - 30000).subscribe(
+        this._simulationHttpService.getMonitorDatas(simInfo.id, simInfo.timestep - 50000).subscribe(
             (result : MonitorData[]) => {
                 if (this.selectedEntities.length === 0 || result.length === 0) {
                     this.chartAvailable = false;
