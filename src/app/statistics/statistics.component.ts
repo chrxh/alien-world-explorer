@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SimulationHttpService } from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
 import { MonitorData } from '../monitordata';
 import { SimulationInfo } from '../simulationinfo';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-statistics',
     templateUrl: './statistics.component.html',
     styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit{
+export class StatisticsComponent implements OnInit, OnDestroy{
 
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) {
     }
 
+
+    private _subscription : Subscription;
     ngOnInit()
     {
-        this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => { this.update(); });
+        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe(() => { this.update(); });
     }
+
+    ngOnDestroy() : void
+    { 
+        this._subscription.unsubscribe();
+    }
+
 
     selectionChange($event)
     {

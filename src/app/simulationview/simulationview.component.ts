@@ -1,8 +1,9 @@
-import {Component, Input, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
 import {SimulationHttpService} from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
 import {AppConfig} from "../appconfig";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-simulationview',
@@ -16,6 +17,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     scrollContentPos : number[] = [0, 0];
     imageVisible : boolean = false;
 
+    mapVisible = false;
     mapElementSize = ["0%", "0%"];
     mapElementPos = ["0%", "0%"];
 
@@ -23,6 +25,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     private static readonly Zoom = 2;
     private static readonly RequestImageInterval = 1000;
     private static readonly PollingImageInterval = 300;
+    private static readonly MapTimeout = 2000;
 
     private _simulationInfo : SimulationInfo = null;
     private _taskId : string = null;
@@ -33,6 +36,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) { }
 
+    private _timeout;
     onScroll($event)
     {
         this.scrollContentPos[0] = $event.target.scrollLeft;
@@ -40,6 +44,15 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
         this.updateMapElement();
         this.onRequestImage();
+        this.mapVisible = true;
+
+        if (this._timeout !== null) {
+            clearTimeout(this._timeout);
+        }
+        this._timeout = setTimeout(()=> {
+            this.mapVisible = false;
+            this._timeout = null;
+        }, SimulationViewComponent.MapTimeout); 
     }
 
     private updateMapElement()
@@ -56,24 +69,26 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         }
     }
 
-    private timerForRequestImage;
-    private timerForPollingImage;
+    private _timerForRequestImage;
+    private _timerForPollingImage;
+    private _subscription : Subscription;
     ngAfterViewInit() : void 
     {
-        this.timerForRequestImage = setInterval(() => { this.onRequestImage(); }, SimulationViewComponent.RequestImageInterval);
-        this.timerForPollingImage = setInterval(() => { this.onCheckIfImageAvailable(); }, SimulationViewComponent.PollingImageInterval);
+        this._timerForRequestImage = setInterval(() => { this.onRequestImage(); }, SimulationViewComponent.RequestImageInterval);
+        this._timerForPollingImage = setInterval(() => { this.onCheckIfImageAvailable(); }, SimulationViewComponent.PollingImageInterval);
 
-        this._simulationDataService.observeSelectedSimulationId().subscribe((id : string) => {
+        this._subscription = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
             const simInfo = this._simulationDataService.getSelectedSimulationInfo();
             this.simulationChanged(simInfo);
+            this.updateMapElement();
         });
-        this.updateMapElement();
     }
 
     ngOnDestroy() : void
     { 
-        clearInterval(this.timerForRequestImage);
-        clearInterval(this.timerForPollingImage);
+        clearInterval(this._timerForRequestImage);
+        clearInterval(this._timerForPollingImage);
+        this._subscription.unsubscribe();
     }
 
     onRequestImage()

@@ -1,19 +1,20 @@
-import {AfterViewInit, Component, ViewChild, Output, EventEmitter} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from "@angular/cdk/collections";
 import {SimulationHttpService} from "../simulationhttp.service"
 import {SimulationDataService} from "../simulationdata.service";
-import {SimulationInfo, ReducedSimulationInfo} from "../simulationinfo";
+import {SimulationInfo} from "../simulationinfo";
 import {SimulationInfoIntern, ActivityState} from "./simulationinfointern";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-simulation-table',
     templateUrl: './simulationtable.component.html',
     styleUrls: ['./simulationtable.component.css']
 })
-export class SimulationTableComponent implements AfterViewInit {
+export class SimulationTableComponent implements AfterViewInit, OnDestroy {
 
     @Output() selectedSimulationEvent = new EventEmitter<SimulationInfo>();
 
@@ -28,18 +29,24 @@ export class SimulationTableComponent implements AfterViewInit {
 
     constructor(private _simulationHttpService : SimulationHttpService, private _simulationDataService : SimulationDataService)
     {
-        this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
+    }
+
+    private _subscription: Subscription;
+    ngAfterViewInit()
+    {
+        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
             if (this.selectedRow !== null) {
                 Object.assign(this.selectedRow, this.convertToSimulationInfoIntern(simInfo));
             }
         });
-    }
 
-    ngAfterViewInit()
-    {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.requestSimulationInfo();
+    }
+
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
     }
 
     onSimulationClicked()
@@ -76,12 +83,12 @@ export class SimulationTableComponent implements AfterViewInit {
     requestSimulationInfo(): void
     {
         this._simulationHttpService.getSimulationInfos().subscribe(
-        (simulationInfos: SimulationInfo[]) => {
-            const result : SimulationInfoIntern[] = 
-            this.dataSource.data = simulationInfos.map(this.convertToSimulationInfoIntern);
-        },
-        (err) => {
-        }
+            (simulationInfos: SimulationInfo[]) => {
+                const result : SimulationInfoIntern[] = 
+                this.dataSource.data = simulationInfos.map(this.convertToSimulationInfoIntern);
+            },
+            (err) => {
+            }
         );
     }
 

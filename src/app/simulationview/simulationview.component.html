@@ -6,7 +6,7 @@
         <div #scrollContentRef class="ScrollContent" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
         </div>
     </div>
-    <div class="Map">
+    <div class="Map" *ngIf="mapVisible">
         <div class="MapContent">
             <div class="MapElement" [style.width]="mapElementSize[0]" [style.height]="mapElementSize[1]" [style.left]="mapElementPos[0]" [style.top]="mapElementPos[1]"></div>
         </div>
