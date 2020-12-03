@@ -15,13 +15,36 @@
 
 .SimulationImage
 {
-  max-height: 30em;
-  width: 100%;
-  position: absolute;
+    position: absolute;
+    max-height: 30em;
+    width: 100%;
 }
 
 img {
     image-rendering: auto;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
+}
+
+.Map
+{
+    background-color: rgba(0, 0, 0, 0.0);
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    width: 10em;
+    height: 6em;
+}
+
+.MapContent
+{
+    position: relative;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+}
+
+.MapElement
+{
+    position: absolute;
+    height: 10%;
 }

@@ -134,7 +134,7 @@ $my-app-theme: mat-dark-theme((
 
 .AccentedText
 {
-    color: rgb(0, 194, 103);
+    color: rgb(98, 185, 144);
     text-shadow: #0f0 0.0em 0.0em 0.3em;
 }
 
@@ -146,4 +146,13 @@ $my-app-theme: mat-dark-theme((
 mat-select-trigger
 {
     color: #ccc;
+}
+
+.Map
+{
+    border: 1px #1f64e0 solid;
+}
+.MapElement
+{
+    border: 1px #1f64e0 solid;
 }

@@ -11,10 +11,13 @@ import {AppConfig} from "../appconfig";
 })
 export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
-    public simulationImageSrc = SimulationViewComponent.ImageAddress;
-    public scrollContentSize : number[] = [0, 0]; 
-    public scrollContentPos : number[] = [0, 0];
-    public imageVisible : boolean = false;
+    simulationImageSrc = SimulationViewComponent.ImageAddress;
+    scrollContentSize : number[] = [0, 0]; 
+    scrollContentPos : number[] = [0, 0];
+    imageVisible : boolean = false;
+
+    mapElementSize = ["0%", "0%"];
+    mapElementPos = ["0%", "0%"];
 
     private static readonly ImageAddress = AppConfig.Address + "getsimulationimage.php"; 
     private static readonly Zoom = 2;
@@ -30,10 +33,27 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) { }
 
-    onScroll($event) {
+    onScroll($event)
+    {
         this.scrollContentPos[0] = $event.target.scrollLeft;
         this.scrollContentPos[1] = $event.target.scrollTop;
+
+        this.updateMapElement();
         this.onRequestImage();
+    }
+
+    private updateMapElement()
+    {
+        const imageSize = [
+            this.scrollAreaAccess.nativeElement.clientWidth, 
+            this.scrollAreaAccess.nativeElement.clientHeight,
+        ];
+
+        let i : number;
+        for(i = 0; i < 2; i++) {
+            this.mapElementPos[i] = (Math.min(1, this.scrollContentPos[i] / this.scrollContentSize[0]) * 100) + "%";
+            this.mapElementSize[i] = (Math.min(1, imageSize[i] / this.scrollContentSize[i]) * 100) + "%";
+        }
     }
 
     private timerForRequestImage;
@@ -47,6 +67,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             const simInfo = this._simulationDataService.getSelectedSimulationInfo();
             this.simulationChanged(simInfo);
         });
+        this.updateMapElement();
     }
 
     ngOnDestroy() : void
@@ -63,7 +84,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._imageRequested = true;
 
        
-        const imageSize = [
+        const simImageSize = [
             this.scrollAreaAccess.nativeElement.clientWidth / SimulationViewComponent.Zoom, 
             this.scrollAreaAccess.nativeElement.clientHeight / SimulationViewComponent.Zoom,
         ];
@@ -71,7 +92,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this.scrollContentPos[0] / SimulationViewComponent.Zoom, 
             this.scrollContentPos[1] / SimulationViewComponent.Zoom
         ];
-        this._simulationHttpService.requestSimulationImage(this._simulationInfo.id, simulationPos, imageSize)
+        this._simulationHttpService.requestSimulationImage(this._simulationInfo.id, simulationPos, simImageSize)
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
