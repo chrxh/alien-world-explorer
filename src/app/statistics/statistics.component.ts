@@ -11,9 +11,6 @@ import { SimulationInfo } from '../simulationinfo';
 })
 export class StatisticsComponent implements OnInit{
 
-    chartAvailable = false;
-
-
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) {
     }
 
@@ -33,7 +30,7 @@ export class StatisticsComponent implements OnInit{
         if (simInfo === null) {
             return;
         }
-        this._simulationHttpService.getMonitorDatas(simInfo.id, simInfo.timestep - 50000).subscribe(
+        this._simulationHttpService.getStatistics(simInfo.id, simInfo.timestep - this.lastTimesteps).subscribe(
             (result : MonitorData[]) => {
                 if (this.selectedEntities.length === 0 || result.length === 0) {
                     this.chartAvailable = false;
@@ -81,8 +78,20 @@ export class StatisticsComponent implements OnInit{
     ];
     selectedEntities = [this.entities[2], this.entities[3]];
 
+    //input data
+    get lastTimesteps() : number
+    {
+        return this._lastTimesteps;
+    }
+    set lastTimesteps(value : number)
+    {
+        this._lastTimesteps = value;
+        this.update();
+    }
+    _lastTimesteps = 50000;
 
     //chart data
+    chartAvailable = false;
     chartType = 'AreaChart';
     chartData = [
     ];

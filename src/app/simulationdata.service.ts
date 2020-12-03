@@ -51,6 +51,7 @@ export class SimulationDataService {
                 let simInfo = this.getSelectedSimulationInfo();
                 if (simInfo.id = result.id) {
                     simInfo.timestep = result.timestep;
+                    simInfo.lastUpdate = result.lastUpdate;
                     this._selectedSimulationInfo$.next(simInfo);
                 }
             }

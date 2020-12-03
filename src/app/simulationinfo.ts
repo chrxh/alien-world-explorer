@@ -16,4 +16,5 @@ export interface ReducedSimulationInfo
 {
     id: string
     timestep: number;
+    lastUpdate: Date;
 }

@@ -20,7 +20,8 @@ export class SimulationHttpService {
     {
         if (!this.simulationInfoRequested) {
             this.simulationInfoRequested = true;
-            return this.http.get<SimulationInfo[]>(`${AppConfig.Address}getsimulationinfos`).pipe(
+            const address = AppConfig.Address + "getsimulationinfos";
+            return this.http.get<SimulationInfo[]>(address).pipe(
                 map(result => {
                 this.simulationInfoRequested = false;
                 this.simulationInfos = result['data'];
@@ -36,7 +37,7 @@ export class SimulationHttpService {
     getSimulationInfoUpdate(simulationId : string) : Observable<ReducedSimulationInfo>
     {
         const address = AppConfig.Address
-            + "getreducedsimulationinfo"
+            + "getsimulationinfoupdate"
             + "?simulationId=" + simulationId;
 
         return this.http.get<ReducedSimulationInfo>(address).pipe(
@@ -46,13 +47,12 @@ export class SimulationHttpService {
         catchError(this.handleError)));
     }
 
-    getMonitorDatas(simulationId : string, timestepFrom : number) : Observable<MonitorData[]>
+    getStatistics(simulationId : string, timestepFrom : number) : Observable<MonitorData[]>
     {
         const address = AppConfig.Address
             + "getstatistics"
             + "?simulationId=" + simulationId
             + "&timestepFrom=" + timestepFrom;
-
 
         return this.http.get<MonitorData[]>(address).pipe(
             map(result => {
