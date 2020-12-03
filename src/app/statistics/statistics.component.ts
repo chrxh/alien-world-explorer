@@ -70,11 +70,11 @@ export class StatisticsComponent implements OnInit{
 
     //selection data
     entities: any[] = [
-        "cells",
-        "particles",
-        "clusters",
-        "active clusters",
-        "tokens"
+        "Cells",
+        "Particles",
+        "Clusters",
+        "Active clusters",
+        "Tokens"
     ];
     selectedEntities = [this.entities[2], this.entities[3]];
 

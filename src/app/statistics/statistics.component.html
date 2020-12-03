@@ -1,8 +1,11 @@
-<div class="container">
+<div class="StatisticsContainer">
     <div class="FormContainer">
         <mat-form-field appearance="outline">
             <mat-label>Entity types:</mat-label>
             <mat-select [(value)]="selectedEntities" (selectionChange)="selectionChange($event)" multiple>
+                <mat-select-trigger>
+                    <span *ngFor="let selectedEntity of selectedEntities; let i=index">{{i == 0 ? selectedEntity : ', ' + selectedEntity}} </span>
+                </mat-select-trigger>
                 <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
             </mat-select>
         </mat-form-field>

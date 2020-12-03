@@ -1,6 +1,7 @@
-.container
+.StatisticsContainer
 {
-
+    margin-top: 0.5em;
+    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 .FormContainer
@@ -20,5 +21,6 @@ mat-form-field
 google-chart
 {
     width: 90%;
-    height: 25em;
+    height: 22em;
+    border-radius: 0.1em 0.5em 0.2em 2em;
 }

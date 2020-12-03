@@ -36,6 +36,7 @@
     width: 100%;
     height: calc(100% - 4em);
     border-radius: 0.1em 0.5em 0.2em 2em;
+    padding: 0em;
 }
 
 mat-card
