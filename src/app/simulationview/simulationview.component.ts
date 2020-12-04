@@ -12,8 +12,10 @@ import { Subscription } from 'rxjs';
 })
 export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
-    simulationImageSrc = SimulationViewComponent.ImageAddress;
     inactiveSimulationImageSrc  = SimulationViewComponent.InactiveImageAddress;
+    isProgressSpinnerActive = false;
+
+    simulationImageSrc = SimulationViewComponent.ImageAddress;
     scrollContentSize : number[] = [0, 0]; 
     scrollContentPos : number[] = [0, 0];
     
@@ -126,6 +128,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     setInactiveImage()
     {
+        this.isProgressSpinnerActive = true;
         this.inactiveSimulationImageSrc = SimulationViewComponent.InactiveImageAddress
             + "?simulationId=" + this.simulationInfo.id;
     }
@@ -158,8 +161,9 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._imageRequested = false;
     }
 
-    onImageLoad()
+    onInactiveImageLoad()
     {
+        this.isProgressSpinnerActive = false;
     }
 
     private simulationChanged(simulationInfo : SimulationInfo)
