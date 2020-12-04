@@ -13,21 +13,24 @@ import { Subscription } from 'rxjs';
 export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     simulationImageSrc = SimulationViewComponent.ImageAddress;
+    inactiveSimulationImageSrc  = SimulationViewComponent.InactiveImageAddress;
     scrollContentSize : number[] = [0, 0]; 
     scrollContentPos : number[] = [0, 0];
-    imageVisible : boolean = false;
+    
+    simulationInfo : SimulationInfo = null;
+    imageReady = false;
 
     mapVisible = false;
     mapElementSize = ["0%", "0%"];
     mapElementPos = ["0%", "0%"];
 
     private static readonly ImageAddress = AppConfig.Address + "getsimulationimage.php"; 
+    private static readonly InactiveImageAddress = AppConfig.Address + "getinactivesimulationimage.php"; 
     private static readonly Zoom = 2;
     private static readonly RequestImageInterval = 1000;
     private static readonly PollingImageInterval = 300;
     private static readonly MapTimeout = 2000;
 
-    private _simulationInfo : SimulationInfo = null;
     private _taskId : string = null;
     private _imageRequested : boolean = false;
 
@@ -64,7 +67,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
         let i : number;
         for(i = 0; i < 2; i++) {
-            this.mapElementPos[i] = (Math.min(1, this.scrollContentPos[i] / this.scrollContentSize[0]) * 100) + "%";
+            this.mapElementPos[i] = (Math.min(1, this.scrollContentPos[i] / this.scrollContentSize[i]) * 100) + "%";
             this.mapElementSize[i] = (Math.min(1, imageSize[i] / this.scrollContentSize[i]) * 100) + "%";
         }
     }
@@ -93,7 +96,10 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     onRequestImage()
     {
-        if(this._simulationInfo == null || this._imageRequested) {
+        if (this.simulationInfo == null || this._imageRequested) {
+            return;
+        }
+        if (!this.simulationInfo.isActive) {
             return;
         }
         this._imageRequested = true;
@@ -107,7 +113,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this.scrollContentPos[0] / SimulationViewComponent.Zoom, 
             this.scrollContentPos[1] / SimulationViewComponent.Zoom
         ];
-        this._simulationHttpService.requestSimulationImage(this._simulationInfo.id, simulationPos, simImageSize)
+        this._simulationHttpService.requestSimulationImage(this.simulationInfo.id, simulationPos, simImageSize)
             .subscribe(
                 (result : string) => {
                     this._taskId = result;
@@ -118,9 +124,15 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             );
     }
 
+    setInactiveImage()
+    {
+        this.inactiveSimulationImageSrc = SimulationViewComponent.InactiveImageAddress
+            + "?simulationId=" + this.simulationInfo.id;
+    }
+
     onCheckIfImageAvailable()
     {
-        if(this._simulationInfo == null || this._taskId == null) {
+        if(this.simulationInfo == null || this._taskId == null) {
             return;
         }
         this._simulationHttpService.isSimulationImageAvailable(this._taskId)
@@ -139,7 +151,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     onGetSimulationImage(taskId : string)
     {
-        this.imageVisible = true;
+        this.imageReady = true;
         this.simulationImageSrc = SimulationViewComponent.ImageAddress
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + taskId;
@@ -152,24 +164,27 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     private simulationChanged(simulationInfo : SimulationInfo)
     {
-        var activeSimulationSelected : boolean = false;
+        let activeSimulationSelected : boolean = false;
         if (simulationInfo !== null) {
-            this._simulationInfo = simulationInfo;
+            this.simulationInfo = simulationInfo;
 
+            this.scrollContentPos = [0, 0];
             this.scrollContentSize[0] = simulationInfo.worldSize[0] * SimulationViewComponent.Zoom; 
             this.scrollContentSize[1] = simulationInfo.worldSize[1] * SimulationViewComponent.Zoom;
 
             this._imageRequested = false;
             this._taskId = null;
-
-            this.onRequestImage();
-
+            
             if (simulationInfo.isActive) {
+                this.onRequestImage();
                 activeSimulationSelected = true;
+            }
+            else {
+                this.setInactiveImage();
             }
         }
         else {
-            this._simulationInfo = null;
+            this.simulationInfo = null;
             this._imageRequested = false;
             this._taskId = null;
         }
@@ -181,7 +196,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     private hideImage()
     {
-        this.imageVisible = false;
-        this.scrollContentSize = [0, 0];
+        this.imageReady = false;
     }
 }

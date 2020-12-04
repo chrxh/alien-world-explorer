@@ -1,9 +1,12 @@
-<div class="MainContainer" >
-    <div class="SimulationImage" *ngIf="imageVisible">
+<div class="MainContainer">
+    <div class="SimulationImage" *ngIf="imageReady && simulationInfo?.isActive">
         <img width="100%" [(src)]="simulationImageSrc" (load)="onImageLoad()" class="figure-img img-fluid rounded">
     </div>
-    <div #scrollAreaRef class="ScrollArea" id="prop1" (scroll)="onScroll($event)">
-        <div #scrollContentRef class="ScrollContent" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
+    <div #scrollAreaRef class="ScrollArea" (scroll)="onScroll($event)">
+        <div #scrollContentRef class="ScrollContent" *ngIf="simulationInfo?.isActive" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
+        </div>
+        <div class="InactiveSimulationImage" *ngIf="!simulationInfo?.isActive">
+            <img [(src)]="inactiveSimulationImageSrc" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]" class="figure-img img-fluid rounded">
         </div>
     </div>
     <div class="Map" *ngIf="mapVisible">
