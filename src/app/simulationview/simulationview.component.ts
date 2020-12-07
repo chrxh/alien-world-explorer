@@ -20,7 +20,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     scrollContentPos : number[] = [0, 0];
     
     simulationInfo : SimulationInfo = null;
-    imageReady = false;
 
     mapVisible = false;
     mapElementSize = ["0%", "0%"];
@@ -126,13 +125,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             );
     }
 
-    setInactiveImage()
-    {
-        this.isProgressSpinnerActive = true;
-        this.inactiveSimulationImageSrc = SimulationViewComponent.InactiveImageAddress
-            + "?simulationId=" + this.simulationInfo.id;
-    }
-
     onCheckIfImageAvailable()
     {
         if(this.simulationInfo == null || this._taskId == null) {
@@ -154,25 +146,18 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     onGetSimulationImage(taskId : string)
     {
-        this.imageReady = true;
         this.simulationImageSrc = SimulationViewComponent.ImageAddress
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + taskId;
         this._imageRequested = false;
     }
 
-    onInactiveImageLoad()
-    {
-        this.isProgressSpinnerActive = false;
-    }
-
     private simulationChanged(simulationInfo : SimulationInfo)
     {
-        let activeSimulationSelected : boolean = false;
         if (simulationInfo !== null) {
             this.simulationInfo = simulationInfo;
 
-            this.scrollContentPos = [0, 0];
+//            this.scrollContentPos = [0, 0];
             this.scrollContentSize[0] = simulationInfo.worldSize[0] * SimulationViewComponent.Zoom; 
             this.scrollContentSize[1] = simulationInfo.worldSize[1] * SimulationViewComponent.Zoom;
 
@@ -181,7 +166,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             
             if (simulationInfo.isActive) {
                 this.onRequestImage();
-                activeSimulationSelected = true;
+                this.isProgressSpinnerActive = false;
             }
             else {
                 this.setInactiveImage();
@@ -192,14 +177,17 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this._imageRequested = false;
             this._taskId = null;
         }
-
-        if (!activeSimulationSelected) {
-            this.hideImage();
-        }
     }
 
-    private hideImage()
+    setInactiveImage()
     {
-        this.imageReady = false;
+        this.isProgressSpinnerActive = true;
+        this.inactiveSimulationImageSrc = SimulationViewComponent.InactiveImageAddress
+            + "?simulationId=" + this.simulationInfo.id;
+    }
+
+    onInactiveImageLoad()
+    {
+        this.isProgressSpinnerActive = false;
     }
 }

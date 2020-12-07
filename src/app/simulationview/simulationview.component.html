@@ -1,5 +1,5 @@
 <div class="MainContainer">
-    <div class="SimulationImage" *ngIf="imageReady && simulationInfo?.isActive">
+    <div class="SimulationImage" *ngIf="simulationInfo?.isActive">
         <img width="100%" [(src)]="simulationImageSrc" class="figure-img img-fluid rounded">
     </div>
     <div #scrollAreaRef class="ScrollArea" (scroll)="onScroll($event)">
