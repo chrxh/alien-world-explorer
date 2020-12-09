@@ -17,7 +17,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     simulationImageSrc = SimulationViewComponent.ImageAddress;
     scrollContentSize : number[] = [0, 0]; 
-    scrollContentPos : number[] = [0, 0];
     
     simulationInfo : SimulationInfo = null;
 
@@ -27,51 +26,18 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     private static readonly ImageAddress = AppConfig.Address + "getsimulationimage.php"; 
     private static readonly InactiveImageAddress = AppConfig.Address + "getinactivesimulationimage.php"; 
-    private static readonly Zoom = 2;
     private static readonly RequestImageInterval = 1000;
     private static readonly PollingImageInterval = 300;
     private static readonly MapTimeout = 2000;
 
     private _taskId : string = null;
     private _imageRequested : boolean = false;
+    private _zoom = 2;
 
     @ViewChild('scrollAreaRef') scrollAreaAccess : ElementRef;
     @ViewChild('scrollContentRef') scrollContentAccess : ElementRef;
 
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) { }
-
-    private _timeout;
-    onScroll($event)
-    {
-        this.scrollContentPos[0] = $event.target.scrollLeft;
-        this.scrollContentPos[1] = $event.target.scrollTop;
-
-        this.updateMapElement();
-        this.onRequestImage();
-        this.mapVisible = true;
-
-        if (this._timeout !== null) {
-            clearTimeout(this._timeout);
-        }
-        this._timeout = setTimeout(()=> {
-            this.mapVisible = false;
-            this._timeout = null;
-        }, SimulationViewComponent.MapTimeout); 
-    }
-
-    private updateMapElement()
-    {
-        const imageSize = [
-            this.scrollAreaAccess.nativeElement.clientWidth, 
-            this.scrollAreaAccess.nativeElement.clientHeight,
-        ];
-
-        let i : number;
-        for(i = 0; i < 2; i++) {
-            this.mapElementPos[i] = (Math.min(1, this.scrollContentPos[i] / this.scrollContentSize[i]) * 100) + "%";
-            this.mapElementSize[i] = (Math.min(1, imageSize[i] / this.scrollContentSize[i]) * 100) + "%";
-        }
-    }
 
     private _timerForRequestImage;
     private _timerForPollingImage;
@@ -95,6 +61,35 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._subscription.unsubscribe();
     }
 
+    private _timeout;
+    onScroll($event)
+    {
+        this.updateMapElement();
+        this.onRequestImage();
+
+        if (this._timeout !== null) {
+            clearTimeout(this._timeout);
+        }
+        this._timeout = setTimeout(()=> {
+            this.mapVisible = false;
+            this._timeout = null;
+        }, SimulationViewComponent.MapTimeout); 
+    }
+
+    private updateMapElement()
+    {
+        this.mapVisible = true;
+        const worldSize = this.simulationInfo.worldSize;
+        const simFractionSize = this.getWorldFractionSize();
+        const simFractionPos = this.getWorldFractionPos();
+
+        let i : number;
+        for(i = 0; i < 2; i++) {
+            this.mapElementPos[i] = (Math.min(1, simFractionPos[i] / worldSize[i]) * 100) + "%";
+            this.mapElementSize[i] = (Math.min(1, simFractionSize[i] / worldSize[i]) * 100) + "%";
+        }
+    }
+
     onRequestImage()
     {
         if (this.simulationInfo == null || this._imageRequested) {
@@ -106,14 +101,8 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._imageRequested = true;
 
        
-        const simImageSize = [
-            this.scrollAreaAccess.nativeElement.clientWidth / SimulationViewComponent.Zoom, 
-            this.scrollAreaAccess.nativeElement.clientHeight / SimulationViewComponent.Zoom,
-        ];
-        const simulationPos = [
-            this.scrollContentPos[0] / SimulationViewComponent.Zoom, 
-            this.scrollContentPos[1] / SimulationViewComponent.Zoom
-        ];
+        const simImageSize = this.getWorldFractionSize();
+        const simulationPos = this.getWorldFractionPos();
         this._simulationHttpService.requestSimulationImage(this.simulationInfo.id, simulationPos, simImageSize)
             .subscribe(
                 (result : string) => {
@@ -136,7 +125,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
                     if (result) {
                         const taskId = this._taskId;
                         this._taskId = null;
-                        this.onGetSimulationImage(taskId);
+                        this.setSimulationImage(taskId);
                     }
                 },
                 (err) => {
@@ -144,7 +133,59 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             );
     }
 
-    onGetSimulationImage(taskId : string)
+    onZoomInButtonClicked()
+    {
+        const worldFractionPos = this.getWorldFractionPos();
+        const worldFractionSize = this.getWorldFractionSize();
+        this._zoom *= 2;
+        this.updateScrollContentSize();
+        this.updateMapElement();
+
+        const worldFractionPosAfterZoom = [
+            worldFractionPos[0] + worldFractionSize[0] / 4, 
+            worldFractionPos[1] + worldFractionSize[1] / 4
+        ];
+        setTimeout(() => { this.setWorldFractionPos(worldFractionPosAfterZoom);}, 0);
+    }
+
+    onZoomOutButtonClicked()
+    {
+        const worldFractionPos = this.getWorldFractionPos();
+        const worldFractionSize = this.getWorldFractionSize();
+        this._zoom /= 2;
+        this.updateScrollContentSize();
+        this.updateMapElement();
+
+        const worldFractionPosAfterZoom = [
+            worldFractionPos[0] - worldFractionSize[0] / 2, 
+            worldFractionPos[1] - worldFractionSize[1] / 2
+        ];
+        setTimeout(() => { this.setWorldFractionPos(worldFractionPosAfterZoom);}, 0);
+    }
+
+    private getWorldFractionSize() : number[]
+    {
+        return [
+            this.scrollAreaAccess.nativeElement.clientWidth / this._zoom, 
+            this.scrollAreaAccess.nativeElement.clientHeight / this._zoom
+        ];
+    }
+
+    private getWorldFractionPos() : number[]
+    {
+        return [
+            this.scrollAreaAccess.nativeElement.scrollLeft / this._zoom, 
+            this.scrollAreaAccess.nativeElement.scrollTop / this._zoom
+        ];
+    }
+
+    private setWorldFractionPos(value : number[])
+    {
+        this.scrollAreaAccess.nativeElement.scrollLeft  = value[0] * this._zoom;
+        this.scrollAreaAccess.nativeElement.scrollTop = value[1] * this._zoom;
+    }
+
+    setSimulationImage(taskId : string)
     {
         this.simulationImageSrc = SimulationViewComponent.ImageAddress
             + "?r=" + Math.floor(Math.random()*100000)
@@ -158,8 +199,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this.simulationInfo = simulationInfo;
 
 //            this.scrollContentPos = [0, 0];
-            this.scrollContentSize[0] = simulationInfo.worldSize[0] * SimulationViewComponent.Zoom; 
-            this.scrollContentSize[1] = simulationInfo.worldSize[1] * SimulationViewComponent.Zoom;
+            this.updateScrollContentSize();
 
             this._imageRequested = false;
             this._taskId = null;
@@ -177,6 +217,12 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this._imageRequested = false;
             this._taskId = null;
         }
+    }
+
+    private updateScrollContentSize()
+    {
+        this.scrollContentSize[0] = this.simulationInfo.worldSize[0] * this._zoom; 
+        this.scrollContentSize[1] = this.simulationInfo.worldSize[1] * this._zoom;
     }
 
     setInactiveImage()

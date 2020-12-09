@@ -64,3 +64,17 @@ img {
     width: 2em;
     height: 2em;
 }
+
+.ZoomInButton
+{
+    position: absolute;
+    right: 4.5em;
+    top: 1em;
+}
+
+.ZoomOutButton
+{
+    position: absolute;
+    right: 1.5em;
+    top: 1em;
+}
