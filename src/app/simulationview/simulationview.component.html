@@ -15,10 +15,10 @@
         </div>
     </div>
     <mat-spinner class="ProgressSpinner" [diameter]="50" *ngIf="isProgressSpinnerActive"></mat-spinner>
-    <button mat-icon-button color="accent" class="ZoomInButton" (click)="onZoomInButtonClicked()">
+    <button mat-icon-button color="accent" [disabled]="!zoomInEnabled" class="ZoomInButton" (click)="onZoomInButtonClicked()">
         <mat-icon>zoom_in</mat-icon>
     </button>
-    <button mat-icon-button color="accent" class="ZoomOutButton" (click)="onZoomOutButtonClicked()">
+    <button mat-icon-button color="accent" [disabled]="!zoomOutEnabled" class="ZoomOutButton" (click)="onZoomOutButtonClicked()">
         <mat-icon>zoom_out</mat-icon>
     </button>
 </div>

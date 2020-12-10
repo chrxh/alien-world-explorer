@@ -23,6 +23,8 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     mapVisible = false;
     mapElementSize = ["0%", "0%"];
     mapElementPos = ["0%", "0%"];
+    zoomInEnabled = true;
+    zoomOutEnabled = true;
 
     private static readonly ImageAddress = AppConfig.Address + "getsimulationimage.php"; 
     private static readonly InactiveImageAddress = AppConfig.Address + "getinactivesimulationimage.php"; 
@@ -140,6 +142,9 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._zoom *= 2;
         this.updateScrollContentSize();
         this.updateMapElement();
+        if (this._zoom > 1.1) {
+            this.zoomOutEnabled = true;
+        }
 
         const worldFractionPosAfterZoom = [
             worldFractionPos[0] + worldFractionSize[0] / 4, 
@@ -155,6 +160,9 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._zoom /= 2;
         this.updateScrollContentSize();
         this.updateMapElement();
+        if (this._zoom < 1.1) {
+            this.zoomOutEnabled = false;
+        }
 
         const worldFractionPosAfterZoom = [
             worldFractionPos[0] - worldFractionSize[0] / 2, 
