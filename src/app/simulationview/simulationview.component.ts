@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, Input} from '@angular/core';
 import {SimulationInfo} from "../simulationinfo";
 import {SimulationHttpService} from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
