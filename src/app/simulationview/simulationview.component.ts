@@ -25,6 +25,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     mapElementPos = ["0%", "0%"];
     zoomInEnabled = true;
     zoomOutEnabled = true;
+    imageWidth = 1;
 
     private static readonly ImageAddress = AppConfig.Address + "getsimulationimage.php"; 
     private static readonly InactiveImageAddress = AppConfig.Address + "getinactivesimulationimage.php"; 
@@ -63,12 +64,17 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._subscription.unsubscribe();
     }
 
-    private _timeout;
     onScroll($event)
     {
         this.updateMapElement();
         this.onRequestImage();
 
+    }
+
+    private _timeout;
+    private updateMapElement()
+    {
+        this.mapVisible = true;
         if (this._timeout !== null) {
             clearTimeout(this._timeout);
         }
@@ -76,11 +82,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this.mapVisible = false;
             this._timeout = null;
         }, SimulationViewComponent.MapTimeout); 
-    }
-
-    private updateMapElement()
-    {
-        this.mapVisible = true;
+        
         const worldSize = this.simulationInfo.worldSize;
         const simFractionSize = this.getWorldFractionSize();
         const simFractionPos = this.getWorldFractionPos();
@@ -102,8 +104,13 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         }
         this._imageRequested = true;
 
+        const maxWidth = this.scrollAreaAccess.nativeElement.clientWidth;
+        const maxHeight = this.scrollAreaAccess.nativeElement.clientheight;
        
-        const simImageSize = this.getWorldFractionSize();
+        let simImageSize = this.getWorldFractionSize();
+        simImageSize[0] = Math.min(simImageSize[0], this.simulationInfo.worldSize[0]);
+        simImageSize[1] = Math.min(simImageSize[1], this.simulationInfo.worldSize[1]);
+        this.imageWidth = simImageSize[0] * this._zoom;
         const simulationPos = this.getWorldFractionPos();
         this._simulationHttpService.requestSimulationImage(this.simulationInfo.id, simulationPos, simImageSize)
             .subscribe(

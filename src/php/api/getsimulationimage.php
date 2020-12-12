@@ -16,10 +16,7 @@
     //image ready to retrieve?
     if (isset($response) && $response->num_rows > 0) {
         $row = $response->fetch_array();
-        $imageData = $row['DATA'];
-        $image = imagecreatefromstring($imageData);
-        imagepng($image);
-        imageDestroy($image);
+        echo $row['DATA'];
         
         //delete task
         $db->query("DELETE FROM task WHERE ID=$taskId");
