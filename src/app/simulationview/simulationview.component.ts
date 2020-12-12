@@ -104,13 +104,9 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         }
         this._imageRequested = true;
 
-        const maxWidth = this.scrollAreaAccess.nativeElement.clientWidth;
-        const maxHeight = this.scrollAreaAccess.nativeElement.clientheight;
-       
-        let simImageSize = this.getWorldFractionSize();
-        simImageSize[0] = Math.min(simImageSize[0], this.simulationInfo.worldSize[0]);
-        simImageSize[1] = Math.min(simImageSize[1], this.simulationInfo.worldSize[1]);
+        let simImageSize = this.getTruncatedWorldFractionSize();
         this.imageWidth = simImageSize[0] * this._zoom;
+
         const simulationPos = this.getWorldFractionPos();
         this._simulationHttpService.requestSimulationImage(this.simulationInfo.id, simulationPos, simImageSize)
             .subscribe(
@@ -183,6 +179,15 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         return [
             this.scrollAreaAccess.nativeElement.clientWidth / this._zoom, 
             this.scrollAreaAccess.nativeElement.clientHeight / this._zoom
+        ];
+    }
+
+    private getTruncatedWorldFractionSize() : number[]
+    {
+        let worldFractionSize = this.getWorldFractionSize();
+        return [
+            Math.min(worldFractionSize[0], this.simulationInfo.worldSize[0]),
+            Math.min(worldFractionSize[1], this.simulationInfo.worldSize[1])
         ];
     }
 
