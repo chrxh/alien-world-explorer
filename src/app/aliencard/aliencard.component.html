@@ -3,7 +3,7 @@
         <mat-card class="CardTitle">
             {{cardName}}
         </mat-card>
-        <mat-slide-toggle *ngIf="liveToggleVisible" class="TitleText" [disabled]="!liveToggleEnabled" [checked]="liveToggleChecked"><i>live update</i></mat-slide-toggle>
+        <mat-slide-toggle #liveToggleRef *ngIf="liveToggleVisible" class="TitleText" [disabled]="!liveToggleEnabled" (change)="onLiveToggleChange($event)"><i>live update</i></mat-slide-toggle>
     </div>
 
     <button mat-raised-button class="CloseButton Button" (click)="closeButtonClicked()">

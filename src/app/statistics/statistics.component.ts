@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { SimulationHttpService } from "../simulationhttp.service";
 import {SimulationDataService} from "../simulationdata.service";
 import { MonitorData } from '../monitordata';
@@ -10,22 +10,33 @@ import { Subscription } from 'rxjs';
     templateUrl: './statistics.component.html',
     styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit, OnDestroy{
+export class StatisticsComponent implements OnInit, OnDestroy {
+
+    @Input()
+    liveToggleChecked : boolean = false;
 
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) {
     }
 
-
-    private _subscription : Subscription;
     ngOnInit()
     {
-        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe(() => { this.update(); });
+        this._subscriptionSimInfo = this._simulationDataService.observeSelectedSimulationInfo().subscribe(() => {
+            if (this.liveToggleChecked) {
+                this.update();
+            }
+        });
+        this._subscriptionSimId = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
+            this.update();
+        });
     }
 
     ngOnDestroy() : void
     { 
-        this._subscription.unsubscribe();
+        this._subscriptionSimInfo.unsubscribe();
+        this._subscriptionSimId.unsubscribe();
     }
+    private _subscriptionSimInfo : Subscription;
+    private _subscriptionSimId : Subscription;
 
 
     selectionChange($event)
@@ -39,6 +50,7 @@ export class StatisticsComponent implements OnInit, OnDestroy{
         if (simInfo === null) {
             return;
         }
+
         this._simulationHttpService.getStatistics(simInfo.id, simInfo.timestep - this.lastTimesteps).subscribe(
             (result : MonitorData[]) => {
                 if (this.selectedEntities.length === 0 || result.length === 0) {

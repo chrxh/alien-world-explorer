@@ -28,6 +28,7 @@
         [cardName]="'Statistics'" 
         [liveToggleVisible]="'true'"
         (cardClosedChange)="cardClosed($event)" 
+        (liveToggleChange)="onStatisticsLiveToggleChange($event)"
         *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
         <app-statistics #statisticsRef></app-statistics>
     </app-aliencard>
@@ -64,8 +65,9 @@
         [cardName]="'View'" 
         [liveToggleVisible]="'true'"
         (cardClosedChange)="cardClosed($event)" 
+        (liveToggleChange)="onSimLiveToggleChange($event)"
         *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
-        <app-simulationview>
+        <app-simulationview #simViewRef [liveToggleChecked]="simLiveToggleChange">
         </app-simulationview>
     </app-aliencard>
 </div>

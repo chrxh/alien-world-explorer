@@ -3,6 +3,7 @@ import { ClosedCardsComponent } from './closedcards/closedcards.component';
 import { SimulationInfo } from './simulationinfo';
 import { CardName}  from "./cardname";
 import { StatisticsComponent } from './statistics/statistics.component';
+import { SimulationViewComponent } from './simulationview/simulationview.component';
 
 @Component({
     selector: 'app-root',
@@ -26,9 +27,9 @@ export class AppComponent {
     }
 
     @ViewChild("closedCardsRef") closedCardsAccess : ClosedCardsComponent;
-
     @ViewChild("statisticsRef") statisticsAccess : StatisticsComponent;
-
+    @ViewChild("simViewRef") simViewAccess : SimulationViewComponent;
+    
     cardClosed($event : CardName)
     {
         this.shownCards.delete(CardName[$event]);
@@ -42,6 +43,16 @@ export class AppComponent {
             result.delete(name);
         }
         return result;
+    }
+
+    onStatisticsLiveToggleChange(value : boolean)
+    {
+        setTimeout(() => { this.statisticsAccess.liveToggleChecked = value; }, 0);
+    }
+
+    onSimLiveToggleChange(value : boolean)
+    {
+        setTimeout(() => { this.simViewAccess.liveToggleChecked = value; }, 0);
     }
 }
 

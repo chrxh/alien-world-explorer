@@ -71,7 +71,7 @@ import {FormsModule} from '@angular/forms';
         ClosedCardsComponent,
         ClosedCardComponent,
         StatisticsComponent,
-        DetailsComponent
+        DetailsComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,11 +1,11 @@
 <div class="MainContainer">
-    <div class="SimulationImage" *ngIf="simulationInfo?.isActive">
+    <div class="SimulationImage" *ngIf="liveToggleChecked">
         <img [(style.width.px)]="imageWidth" [(src)]="simulationImageSrc" class="figure-img img-fluid rounded">
     </div>
     <div #scrollAreaRef class="ScrollArea" (scroll)="onScroll($event)">
-        <div #scrollContentRef class="ScrollContent" *ngIf="simulationInfo?.isActive" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
+        <div #scrollContentRef class="ScrollContent" *ngIf="liveToggleChecked" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]">
         </div>
-        <div class="InactiveSimulationImage" *ngIf="!simulationInfo?.isActive">
+        <div class="InactiveSimulationImage" *ngIf="!liveToggleChecked">
             <img [(src)]="inactiveSimulationImageSrc" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]" (load)="onInactiveImageLoad()" class="figure-img img-fluid rounded">
         </div>
     </div>

@@ -40,6 +40,18 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     @ViewChild('scrollAreaRef') scrollAreaAccess : ElementRef;
     @ViewChild('scrollContentRef') scrollContentAccess : ElementRef;
 
+    @Input()
+    get liveToggleChecked()
+    {
+        return this._liveToggleChecked;
+    }
+    set liveToggleChecked(value : boolean)
+    {
+        this._liveToggleChecked = value;
+        this.simulationChanged(this._simulationDataService.getSelectedSimulationInfo());
+    }
+    private _liveToggleChecked : boolean = false;
+
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) { }
 
     private _timerForRequestImage;
@@ -51,8 +63,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         this._timerForPollingImage = setInterval(() => { this.onCheckIfImageAvailable(); }, SimulationViewComponent.PollingImageInterval);
 
         this._subscription = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
-            const simInfo = this._simulationDataService.getSelectedSimulationInfo();
-            this.simulationChanged(simInfo);
+            this.simulationChanged(this._simulationDataService.getSelectedSimulationInfo());
             this.updateMapElement();
         });
     }
@@ -99,7 +110,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
         if (this.simulationInfo == null || this._imageRequested) {
             return;
         }
-        if (!this.simulationInfo.isActive) {
+        if (!this.liveToggleChecked) {
             return;
         }
         this._imageRequested = true;
@@ -215,6 +226,7 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     private simulationChanged(simulationInfo : SimulationInfo)
     {
+        this.isProgressSpinnerActive = false;
         if (simulationInfo !== null) {
             this.simulationInfo = simulationInfo;
 
@@ -224,9 +236,8 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
             this._imageRequested = false;
             this._taskId = null;
             
-            if (simulationInfo.isActive) {
+            if (this.liveToggleChecked) {
                 this.onRequestImage();
-                this.isProgressSpinnerActive = false;
             }
             else {
                 this.setInactiveImage();
@@ -254,6 +265,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     onInactiveImageLoad()
     {
-        this.isProgressSpinnerActive = false;
+        setTimeout(() => {this.isProgressSpinnerActive = false;}, 0);
     }
 }
