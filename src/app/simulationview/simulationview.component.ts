@@ -20,7 +20,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     
     simulationInfo : SimulationInfo = null;
 
-    mapVisible = false;
     mapElementSize = ["0%", "0%"];
     mapElementPos = ["0%", "0%"];
     zoomInEnabled = true;
@@ -31,7 +30,6 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     private static readonly InactiveImageAddress = AppConfig.Address + "getinactivesimulationimage.php"; 
     private static readonly RequestImageInterval = 1000;
     private static readonly PollingImageInterval = 300;
-    private static readonly MapTimeout = 2000;
 
     private _taskId : string = null;
     private _imageRequested : boolean = false;
@@ -82,18 +80,8 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     }
 
-    private _timeout;
     private updateMapElement()
     {
-        this.mapVisible = true;
-        if (this._timeout !== null) {
-            clearTimeout(this._timeout);
-        }
-        this._timeout = setTimeout(()=> {
-            this.mapVisible = false;
-            this._timeout = null;
-        }, SimulationViewComponent.MapTimeout); 
-        
         const worldSize = this.simulationInfo.worldSize;
         const simFractionSize = this.getWorldFractionSize();
         const simFractionPos = this.getWorldFractionPos();

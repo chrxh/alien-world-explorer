@@ -13,13 +13,16 @@ $my-app-theme: mat-dark-theme((
 
 @include angular-material-theme($my-app-theme);
 
-.mat-toolbar
+.Toolbar
 {
     background: #132e7e;
     color: #97f4dd;
     text-shadow: 0 0 1.4em rgb(255, 0, 155), 0 0 0.9em  rgb(255, 0, 255)
 }
-
+.ToolbarWebsite>a
+{
+    color: #1f64e0;
+}
 .mat-card
 {
     background: #132e7e;

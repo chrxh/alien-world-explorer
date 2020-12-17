@@ -9,8 +9,9 @@
             <img [(src)]="inactiveSimulationImageSrc" [(style.width.px)]="scrollContentSize[0]" [(style.height.px)]="scrollContentSize[1]" (load)="onInactiveImageLoad()" class="figure-img img-fluid rounded">
         </div>
     </div>
-    <div class="Map" *ngIf="mapVisible">
+    <div class="Map">
         <div class="MapContent">
+            <img class="OverviewMap figure-img img-fluid" *ngIf="!liveToggleChecked" [(src)]="inactiveSimulationImageSrc">
             <div class="MapElement" [style.width]="mapElementSize[0]" [style.height]="mapElementSize[1]" [style.left]="mapElementPos[0]" [style.top]="mapElementPos[1]"></div>
         </div>
     </div>

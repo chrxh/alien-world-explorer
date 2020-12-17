@@ -1,8 +1,8 @@
-
-mat-toolbar
+.Toolbar
 {
-  height: 3em;
+    height: 3em;
 }
+
 
 .closedCardsSpacer
 {

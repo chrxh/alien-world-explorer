@@ -43,6 +43,13 @@ img {
     height: 6em;
 }
 
+.OverviewMap
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .MapContent
 {
     position: relative;
