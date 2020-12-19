@@ -120,7 +120,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     
     chartOptions = {
         titleTextStyle: { color: '#FFF' },
-        backgroundColor: '#272727',
+        backgroundColor: '#000027',
         chartArea: {
             width: "60%"
         },

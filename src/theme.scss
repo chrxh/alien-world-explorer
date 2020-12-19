@@ -15,7 +15,7 @@ $my-app-theme: mat-dark-theme((
 
 .Sidebar
 {
-    background: #0e235f;
+    background: #000027;
 }
 
 .Toolbar
@@ -44,7 +44,7 @@ $my-app-theme: mat-dark-theme((
 
 .CardContent
 {
-    background: #272727;
+    background: #000027;
 }
 
 .CardTitle
@@ -60,21 +60,21 @@ $my-app-theme: mat-dark-theme((
 
 .mat-row
 {
-    background: #272727;
+    background: #000027;
     text-shadow: #000 0.0em 0.0em 0.9em;
 }
 .mat-row.hovered
 {
-    background: #444;
+    background: #0e2464;
 }
 .mat-row.highlighted
 {
-    background: #555;
+    background: #132e7e;
 }
 
 .mat-paginator
 {
-    background: #272727;
+    background: #000027;
 }
 
 .mat-raised-button

@@ -4,6 +4,16 @@
     overflow: auto;
 }
 
+mat-expansion-panel-header
+{
+    background: #0b1c50;
+}
+
+mat-expansion-panel
+{
+    background: #000027;
+}
+
 .Access
 {
     width: 100%;

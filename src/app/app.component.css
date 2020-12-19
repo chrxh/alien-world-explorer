@@ -51,7 +51,8 @@
 .SimulationTable
 {
     width: 100%;
-    height: 29.5em;
+    height: 26em;
+    max-height: 29.5em;
 }
 
 .SimulationDetails
@@ -99,5 +100,5 @@
 .ClosedCardsSpacer
 {
     width: 100%;
-    height: 6.5em;
+    height: 8.5em;
 }
