@@ -54,5 +54,10 @@ export class AppComponent {
     {
         setTimeout(() => { this.simViewAccess.liveToggleChecked = value; }, 0);
     }
+
+    onHomeButtonClicked()
+    {
+        window.open("https://alien-project.org");
+    }
 }
 

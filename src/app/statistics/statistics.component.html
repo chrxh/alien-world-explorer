@@ -1,6 +1,6 @@
 <div class="StatisticsContainer">
     <div class="FormContainer">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="EntityType" appearance="outline">
             <mat-label>Entity types:</mat-label>
             <mat-select [(value)]="selectedEntities" (selectionChange)="selectionChange($event)" multiple>
                 <mat-select-trigger>
@@ -9,7 +9,7 @@
                 <mat-option *ngFor="let entity of entities" [value]="entity">{{entity}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="LastTimesteps" appearance="outline">
             <mat-label>Last time steps:</mat-label>
             <input matInput [type]="'number'" [(ngModel)]="lastTimesteps">
         </mat-form-field>

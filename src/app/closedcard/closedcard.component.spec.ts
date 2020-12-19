@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClosedcardComponent } from './closedcard.component';
+import { ClosedCardComponent } from './closedcard.component';
 
-describe('ClosedcardComponent', () => {
-  let component: ClosedcardComponent;
-  let fixture: ComponentFixture<ClosedcardComponent>;
+describe('ClosedCardComponent', () => {
+  let component: ClosedCardComponent;
+  let fixture: ComponentFixture<ClosedCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClosedcardComponent ]
+      declarations: [ ClosedCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClosedcardComponent);
+    fixture = TestBed.createComponent(ClosedCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,76 +1,102 @@
-<mat-toolbar class="Toolbar">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span><i>alien </i> <b>world explorer</b></span>
-</mat-toolbar>
+<div class="MainContainer">
+    <mat-toolbar class="Toolbar">
+        <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span><i>&nbsp;&nbsp; alien </i> <b>world explorer</b></span>
+    </mat-toolbar>
+    <mat-drawer-container>
+        <mat-drawer #drawer class="Sidebar" mode="side">
+            <p>
+                <button mat-raised-button class="MenuButton" (click)="onHomeButtonClicked()">
+                <mat-icon>home</mat-icon>
+                <span>&nbsp;&nbsp;  alien-project.org</span>
+                </button>
+            </p>
+            <p>
+                <button mat-raised-button class="MenuButton">
+                <mat-icon>login</mat-icon>
+                <span>&nbsp;&nbsp; login</span>
+                </button>
+            </p>
+            <p>
+                <button mat-raised-button disabled class="MenuButton">
+                <mat-icon>logout</mat-icon>
+                <span>&nbsp;&nbsp; logout</span>
+                </button>
+            </p>
+        </mat-drawer>
 
-<div class="closedCardsSpacer">
-    <app-closedcards 
-        #closedCardsRef [(shownCards)]="closedCards" 
-        [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'">
-    </app-closedcards>
-</div>
+        <div class="Content">
+            <app-simulation-table 
+                class="alienCard SimulationTable FlexItem" 
+                (selectedSimulationEvent)="selectedSimulationInfo = $event">
+            </app-simulation-table>
 
-<div class="flexContainer">
-    <app-simulation-table 
-        class="alienCard SimulationTable FlexItem" 
-        (selectedSimulationEvent)="selectedSimulationInfo = $event">
-    </app-simulation-table>
+            <app-aliencard 
+                class="alienCard SimulationDetails FlexItem" 
+                [cardName]="'Details'" 
+                (cardClosedChange)="cardClosed($event)" 
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('Details')">
+                <app-details></app-details>
+            </app-aliencard>
 
-    <app-aliencard 
-        class="alienCard SimulationDetails FlexItem" 
-        [cardName]="'Details'" 
-        (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Details')">
-        <app-details></app-details>
-    </app-aliencard>
+            <app-aliencard 
+                class="alienCard SimulationStatistics FlexItem" 
+                [cardName]="'Statistics'" 
+                [liveToggleVisible]="'true'"
+                (cardClosedChange)="cardClosed($event)" 
+                (liveToggleChange)="onStatisticsLiveToggleChange($event)"
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
+                <app-statistics #statisticsRef></app-statistics>
+            </app-aliencard>
 
-    <app-aliencard 
-        class="alienCard SimulationStatistics FlexItem" 
-        [cardName]="'Statistics'" 
-        [liveToggleVisible]="'true'"
-        (cardClosedChange)="cardClosed($event)" 
-        (liveToggleChange)="onStatisticsLiveToggleChange($event)"
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
-        <app-statistics #statisticsRef></app-statistics>
-    </app-aliencard>
+            <app-aliencard 
+                class="alienCard SimulationParameters FlexItem" 
+                [cardName]="'Parameters'" 
+                (cardClosedChange)="cardClosed($event)" 
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
+                <br/>
+                <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
+            </app-aliencard>
 
-    <app-aliencard 
-        class="alienCard SimulationParameters FlexItem" 
-        [cardName]="'Parameters'" 
-        (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
-        <br/>
-        <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
-    </app-aliencard>
+            <app-aliencard 
+                class="alienCard SimulationActions FlexItem" 
+                [cardName]="'Actions'"
+                (cardClosedChange)="cardClosed($event)" 
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
+                <br/>
+                <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
+            </app-aliencard>
 
-    <app-aliencard 
-        class="alienCard SimulationActions FlexItem" 
-        [cardName]="'Actions'"
-        (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
-        <br/>
-        <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
-    </app-aliencard>
+            <app-aliencard 
+                class="alienCard SimulationChat FlexItem" 
+                [cardName]="'Chat'" 
+                (cardClosedChange)="cardClosed($event)" 
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
+                <br/>
+                <i class="NormalText">&nbsp; &nbsp;  not implemented yet</i>
+            </app-aliencard>
 
-    <app-aliencard 
-        class="alienCard SimulationChat FlexItem" 
-        [cardName]="'Chat'" 
-        (cardClosedChange)="cardClosed($event)" 
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
-        <br/>
-        <i class="NormalText">&nbsp; &nbsp;  not implemented yet</i>
-    </app-aliencard>
+            <app-aliencard 
+                class="alienCard FlexItem SimulationView"
+                [cardName]="'View'" 
+                [liveToggleVisible]="'true'"
+                (cardClosedChange)="cardClosed($event)" 
+                (liveToggleChange)="onSimLiveToggleChange($event)"
+                *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
+                <app-simulationview #simViewRef [liveToggleChecked]="simLiveToggleChange">
+                </app-simulationview>
+            </app-aliencard>
+            <div class="ClosedCardsSpacer">
 
-    <app-aliencard 
-        class="alienCard FlexItem SimulationView"
-        [cardName]="'View'" 
-        [liveToggleVisible]="'true'"
-        (cardClosedChange)="cardClosed($event)" 
-        (liveToggleChange)="onSimLiveToggleChange($event)"
-        *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
-        <app-simulationview #simViewRef [liveToggleChecked]="simLiveToggleChange">
-        </app-simulationview>
-    </app-aliencard>
+            </div>
+        </div>
+        <div class="ClosedCardsContainer">
+            <app-closedcards 
+                #closedCardsRef [(shownCards)]="closedCards" 
+                [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'">
+            </app-closedcards>
+        </div>
+    </mat-drawer-container>
 </div>

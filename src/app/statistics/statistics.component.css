@@ -1,6 +1,6 @@
 .StatisticsContainer
 {
-    margin-top: 0.5em;
+    margin-top: 1em;
 }
 
 .FormContainer
@@ -9,10 +9,18 @@
     width: 100%;
     height: 4em;
 }
-mat-form-field
+.EntityType
+{
+    margin-left: 2em;
+    margin-right: 0.5em;
+    flex-grow: 1;
+    height: 4em;
+}
+
+.LastTimesteps
 {
     margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin-right: 2em;
     flex-grow: 1;
     height: 4em;
 }

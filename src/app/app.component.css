@@ -1,20 +1,38 @@
+.MainContainer
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 4em auto;
+    grid-template-columns: 100%;
+}
+
 .Toolbar
 {
-    height: 3em;
+    height: 100%;
 }
 
-
-.closedCardsSpacer
+.Sidebar
 {
-    height: 4.5em;
+    padding: 1em;
+}
+.MenuButton
+{
+    width: calc(100%);
+    text-align: left;
 }
 
-.flexContainer
+.Content
 {
+    overflow: auto;
+    height: 100%;
+    background-image: url(/assets/background.png);
+    margin: 0em;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 50%
 }
 
 .alienCard
@@ -28,6 +46,7 @@
     border-radius: 0.1em 1.5em 0.2em 1em;
     height: 33em;
 }
+
 
 .SimulationTable
 {
@@ -43,7 +62,7 @@
 
 .SimulationStatistics
 {
-    min-width: 38em;
+    min-width: 30em;
     width: 38em;
 }
 
@@ -66,4 +85,19 @@
 {
     width: 40%;
     height: 33em;
+}
+
+.ClosedCardsContainer
+{
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: 7.5em;
+    bottom: 1em;
+}
+
+.ClosedCardsSpacer
+{
+    width: 100%;
+    height: 6.5em;
 }

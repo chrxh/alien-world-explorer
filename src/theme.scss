@@ -13,16 +13,23 @@ $my-app-theme: mat-dark-theme((
 
 @include angular-material-theme($my-app-theme);
 
+.Sidebar
+{
+    background: #0e235f;
+}
+
 .Toolbar
 {
     background: #132e7e;
     color: #97f4dd;
     text-shadow: 0 0 1.4em rgb(255, 0, 155), 0 0 0.9em  rgb(255, 0, 255)
 }
-.ToolbarWebsite>a
+
+.ClosedCardsContainer
 {
-    color: #1f64e0;
+    background: radial-gradient(closest-side, rgba(19,46,126,1), rgba(255,0,0,0));
 }
+
 .mat-card
 {
     background: #132e7e;
