@@ -25,7 +25,6 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
     dataSource = new MatTableDataSource();
     selection = new SelectionModel(false, []);
     private selectedRow? : SimulationInfoIntern = null;
-    private origSelectedRowState? : ActivityState = null;
 
     constructor(private _simulationHttpService : SimulationHttpService, private _simulationDataService : SimulationDataService)
     {
@@ -51,20 +50,14 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
 
     onSimulationClicked()
     {
-        if (this.selectedRow !== null) {
-            this.selectedRow.activityState = this.origSelectedRowState;
-        }
-
         if (this.selection.selected.length === 0) {
             this.selectedRow = null;    
-            this.origSelectedRowState = null;
             this.selectedSimulationEvent.emit(null);
             this._simulationDataService.changeSelectedSimulation(null);
             return;
         }
 
         this.selectedRow = this.selection.selected[0];
-        this.origSelectedRowState = this.selectedRow.activityState;
 
         if (this.selectedRow.activityState === ActivityState.Active) {
             this.selectedRow.activityState = ActivityState.Streaming;
