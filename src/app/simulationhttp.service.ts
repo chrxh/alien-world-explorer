@@ -18,12 +18,12 @@ export class SimulationHttpService {
 
     getSimulationInfos(): Observable<SimulationInfo[]>
     {
-        if (!this.simulationInfoRequested) {
-            this.simulationInfoRequested = true;
+        if (!this._simulationInfoRequested) {
+            this._simulationInfoRequested = true;
             const address = AppConfig.Address + "getsimulationinfos";
             return this.http.get<SimulationInfo[]>(address).pipe(
                 map(result => {
-                this.simulationInfoRequested = false;
+                this._simulationInfoRequested = false;
                 this.simulationInfos = result['data'];
                 return this.simulationInfos;
             }),
@@ -78,13 +78,19 @@ export class SimulationHttpService {
         );
     }
 
-    isSimulationImageAvailable(taskId : string): Observable<boolean> {
+    isSimulationImageAvailable(taskId : string): Observable<boolean>
+    {
+        if (this._simulationImageAvailabilityRequested) {
+            return of(false);
+        }
+        this._simulationImageAvailabilityRequested = true;
         const address = AppConfig.Address
             + "issimulationimageavailable"
             + "?taskId=" + taskId;
 
         return this.http.get<boolean>(address).pipe(
             map(result => {
+                this._simulationImageAvailabilityRequested = false;
                 return result['data'];
             }),
             catchError(this.handleError)
@@ -93,10 +99,13 @@ export class SimulationHttpService {
 
     private handleError(error: HttpErrorResponse) {
         console.log(error);
-
+        this._simulationInfoRequested = false;
+        this._simulationImageAvailabilityRequested = false;
+    
         // return an observable with a user friendly message
         return throwError('Error! something went wrong.' + error.message);
     }
 
-    private simulationInfoRequested = false;
+    private _simulationInfoRequested = false;
+    private _simulationImageAvailabilityRequested = false;
 }

@@ -24,12 +24,18 @@
         exit;
     }
 
-    //save statistics
+    //statistics
     $numCells = $_POST["numCells"];
     $numParticles = $_POST["numParticles"];
     $numClusters = $_POST["numClusters"];
     $numActiveClusters = $_POST["numActiveClusters"];
     $numTokens = $_POST["numTokens"];
+
+    //simulation info
+    $sizeX = $_POST["sizeX"];
+    $sizeY = $_POST["sizeY"];
+    $numBlocks = $_POST["numBlocks"];
+    $numThreadsPerBlock = $_POST["numThreadsPerBlock"];
 
     $db->query("INSERT INTO statistics (
             ID, 
@@ -50,7 +56,7 @@
             $numActiveClusters, 
             $numTokens)");
 
-    $db->query("UPDATE simulation SET TIMESTEP=$timestep WHERE ID = $simId;");
+    $db->query("UPDATE simulation SET TIMESTEP=$timestep, SIZE_X=$sizeX, SIZE_Y=$sizeY, NUM_BLOCKS=$numBlocks, NUM_THREADS_PER_BLOCK=$numThreadsPerBlock WHERE ID = $simId;");
 
     $db->commit();
     $db->close();

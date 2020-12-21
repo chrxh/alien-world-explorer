@@ -206,6 +206,9 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
 
     setSimulationImage(taskId : string)
     {
+        if (taskId === null) {
+            alert("image request failed: " + taskId);
+        }
         this.simulationImageSrc = SimulationViewComponent.ImageAddress
             + "?r=" + Math.floor(Math.random()*100000)
             + "&taskId=" + taskId;
