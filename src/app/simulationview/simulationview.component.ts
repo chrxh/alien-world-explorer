@@ -55,14 +55,21 @@ export class SimulationViewComponent implements AfterViewInit, OnDestroy  {
     private _timerForRequestImage;
     private _timerForPollingImage;
     private _subscription : Subscription;
+    private _currentSimulationId : string;
+    private _currentActivity : boolean;
     ngAfterViewInit() : void 
     {
         this._timerForRequestImage = setInterval(() => { this.onRequestImage(); }, SimulationViewComponent.RequestImageInterval);
         this._timerForPollingImage = setInterval(() => { this.onCheckIfImageAvailable(); }, SimulationViewComponent.PollingImageInterval);
 
-        this._subscription = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
-            this.simulationChanged(this._simulationDataService.getSelectedSimulationInfo());
-            this.updateMapElement();
+        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo) => {
+            if (this._currentSimulationId != simInfo.id || this._currentActivity != simInfo.isActive) {
+                this._currentSimulationId = simInfo.id;
+                this._currentActivity = simInfo.isActive;
+                this.simulationChanged(simInfo);
+                this.updateMapElement();
+
+            }
         });
     }
 

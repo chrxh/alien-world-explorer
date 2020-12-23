@@ -33,13 +33,16 @@ export class AlienCardComponent implements AfterViewInit, OnDestroy {
     }
 
     private _subscription: Subscription;
+    private _lastActivity : boolean;
     ngAfterViewInit()
     {
-        this._subscription = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
-            const simInfo = this._simulationDataService.getSelectedSimulationInfo();
+        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
             this.liveToggleEnabled = simInfo.isActive;
-            this.liveToggleAccess.checked = simInfo.isActive;
-            this.liveToggleChange.emit(simInfo.isActive);
+            if(this._lastActivity !== null && this._lastActivity != simInfo.isActive) {
+                this.liveToggleAccess.checked = simInfo.isActive;
+                this.liveToggleChange.emit(simInfo.isActive);
+            }
+            this._lastActivity = simInfo.isActive;
         });
     }
 

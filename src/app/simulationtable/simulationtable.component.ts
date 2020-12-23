@@ -22,9 +22,8 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
     @ViewChild(MatSort) sort: MatSort;
 
     displayedColumns: string[] = ['simulationName', 'activityState', 'userName', 'worldSize', 'timestep', 'lastUpdate'];
-    dataSource = new MatTableDataSource();
+    dataSource = new MatTableDataSource<SimulationInfoIntern>();
     selection = new SelectionModel(false, []);
-    private selectedRow? : SimulationInfoIntern = null;
 
     constructor(private _simulationHttpService : SimulationHttpService, private _simulationDataService : SimulationDataService)
     {
@@ -33,56 +32,86 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
     private _subscription: Subscription;
     ngAfterViewInit()
     {
-        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
-            if (this.selectedRow !== null) {
-                Object.assign(this.selectedRow, this.convertToSimulationInfoIntern(simInfo));
-            }
-        });
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.requestSimulationInfo();
+        this._subscription = this._simulationDataService.observeSimulationInfos().subscribe(
+            (simulationInfos: SimulationInfo[]) => {
+                if(simulationInfos === null) {
+                    return;
+                }
+                this.integrateData(simulationInfos);
+            },
+            (err) => {
+            }
+        );
+    }
+
+    integrateData(newSimulationInfos: SimulationInfo[])
+    {
+        if (this.isSelectionContained(newSimulationInfos)) {
+            for (let i = 0; i < this.dataSource.data.length; i++) {
+                Object.assign(this.dataSource.data[i], this.convertToSimulationInfoIntern(newSimulationInfos[i]));
+            }
+        }
+        else {
+            this.dataSource.data = newSimulationInfos.map(this.convertToSimulationInfoIntern);
+
+            if (this.selection.selected.length === 0) {
+                return;
+            }
+            const selectedRow = this.selection.selected[0];
+            for (const row of this.dataSource.data) {
+                if (selectedRow.id === row.id) {
+                    this.selection.toggle(row);
+                }
+            }
+        }
+    }
+
+    isSelectionContained(newSimulationInfos : SimulationInfo[]) : boolean
+    {
+        if (this.dataSource.data.length !== newSimulationInfos.length) {
+            return false;
+        }
+        if (this.selection.selected.length === 0) {
+            return true;
+        }
+
+        const selectedRow = this.selection.selected[0];
+        let selectionIndex : number;
+        for (let i = 0; i < this.dataSource.data.length; i++) {
+            if (this.dataSource.data[i].id === selectedRow.id) {
+                selectionIndex = i;
+                break;
+            }
+        }
+
+        for (let i = 0; i < newSimulationInfos.length; i++) {
+            if (newSimulationInfos[i].id === selectedRow.id) {
+                if(selectionIndex != i) {
+                    alert("ah");
+                }
+                return selectionIndex == i;
+            }
+        }
+        return false;
     }
 
     ngOnDestroy() {
         this._subscription.unsubscribe();
     }
 
-    onSimulationClicked()
+    onSimulationClicked(row : SimulationInfoIntern)
     {
         if (this.selection.selected.length === 0) {
-            this.selectedRow = null;    
             this.selectedSimulationEvent.emit(null);
             this._simulationDataService.changeSelectedSimulation(null);
             return;
         }
-
-        this.selectedRow = this.selection.selected[0];
-
-        if (this.selectedRow.activityState === ActivityState.Active) {
-            this.selectedRow.activityState = ActivityState.Streaming;
-        }
-
-        const simulationInfo = this.convertToSimulationInfo(this.selectedRow);
+        
+        const simulationInfo = this.convertToSimulationInfo(row);
         this.selectedSimulationEvent.emit(simulationInfo);
-        this._simulationDataService.changeSelectedSimulation(simulationInfo);
-    }
-
-    onRefreshClicked()
-    {
-        this.requestSimulationInfo();
-    }
-    
-    requestSimulationInfo(): void
-    {
-        this._simulationHttpService.getSimulationInfos().subscribe(
-            (simulationInfos: SimulationInfo[]) => {
-                const result : SimulationInfoIntern[] = 
-                this.dataSource.data = simulationInfos.map(this.convertToSimulationInfoIntern);
-            },
-            (err) => {
-            }
-        );
+        this._simulationDataService.changeSelectedSimulation(simulationInfo.id);
     }
 
     private convertToSimulationInfoIntern(simInfo : SimulationInfo) : SimulationInfoIntern

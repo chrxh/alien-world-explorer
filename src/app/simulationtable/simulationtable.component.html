@@ -44,14 +44,11 @@
     
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"
-                (click)="selection.toggle(row); onSimulationClicked()"
+                (click)="selection.toggle(row); onSimulationClicked(row)"
                 [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
                 (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
             </tr>
         </table>
         <mat-paginator [pageSizeOptions]="[4, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
-    <button class="RefreshButton" mat-raised-button (click)="onRefreshClicked()">
-        Refresh
-    </button>
 </div>

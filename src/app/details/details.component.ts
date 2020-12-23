@@ -17,8 +17,8 @@ export class DetailsComponent implements OnInit, OnDestroy  {
     private _subscription : Subscription;
     ngOnInit() : void
     {
-        this._subscription = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
-            this.selectedSimulation = this._simulationDataService.getSelectedSimulationInfo();
+        this._subscription = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo) => {
+            this.selectedSimulation = simInfo;
         });
     }
 

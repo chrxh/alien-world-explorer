@@ -18,25 +18,29 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     constructor(private _simulationHttpService: SimulationHttpService, private _simulationDataService : SimulationDataService) {
     }
 
+    private _lastSimulationId : string;
+    private _lastActivity : boolean;
     ngOnInit()
     {
-        this._subscriptionSimInfo = this._simulationDataService.observeSelectedSimulationInfo().subscribe(() => {
+        this._subscriptionSimInfo = this._simulationDataService.observeSelectedSimulationInfo().subscribe((simInfo : SimulationInfo) => {
             if (this.liveToggleChecked) {
                 this.update();
             }
-        });
-        this._subscriptionSimId = this._simulationDataService.observeSelectedSimulationId().subscribe(() => {
-            this.update();
+            else {
+                if (this._lastSimulationId === null || this._lastSimulationId != simInfo.id || this._lastActivity != simInfo.isActive) {
+                    this.update();
+                }
+                this._lastSimulationId = simInfo.id;
+                this._lastActivity = simInfo.isActive;
+            }
         });
     }
 
     ngOnDestroy() : void
     { 
         this._subscriptionSimInfo.unsubscribe();
-        this._subscriptionSimId.unsubscribe();
     }
     private _subscriptionSimInfo : Subscription;
-    private _subscriptionSimId : Subscription;
 
 
     selectionChange($event)
@@ -50,9 +54,9 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         if (simInfo === null) {
             return;
         }
-
         this._simulationHttpService.getStatistics(simInfo.id, simInfo.timestep - this.lastTimesteps).subscribe(
             (result : MonitorData[]) => {
+
                 if (this.selectedEntities.length === 0 || result.length === 0) {
                     this.chartAvailable = false;
                     return;
@@ -85,6 +89,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
                 this.chartColumnNames.unshift("");
             },
             (err) => {
+                this.chartAvailable = false;
             }
         );
     }

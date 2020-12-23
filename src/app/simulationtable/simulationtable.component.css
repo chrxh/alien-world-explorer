@@ -5,17 +5,10 @@
 }
 
 .TableContainer {
-    max-height: calc(100% - 4em);
     width: 100%;
     overflow: auto;
     position: absolute;
     border-radius: 0.1em 1.5em 0.2em 0em;
-}
-.RefreshButton {
-    bottom: 0em;
-    height: 3em;
-    position: absolute;
-    border-radius: 0.1em 0.5em 0.2em 2em;
 }
 
 table {
@@ -29,7 +22,12 @@ table {
 }
 .mat-column-activityState
 {
-    min-width: 6em;
+    width: 16em;
+}
+
+.mat-column-simulationName
+{
+    width: 20em;
 }
 
 ::ng-deep .mat-paginator-page-size-select {

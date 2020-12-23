@@ -10,23 +10,13 @@ import { SimulationInfoIntern } from './simulationtable/simulationinfointern';
 })
 export class SimulationDataService {
 
-    private _selectedSimulationId$ = new BehaviorSubject<string>(null);
+    private _simulationInfos$ = new BehaviorSubject<SimulationInfo[]>(null);
     private _selectedSimulationInfo$ = new BehaviorSubject<SimulationInfo>(null);
+    private _selectedSimulationId : string;
 
-    constructor(private _simulationHttpService : SimulationHttpService)
+    observeSimulationInfos() : Observable<SimulationInfo[]>
     {
-        setInterval(() => { this.updateSimulationInfo(); }, 1000);
-    }
-    
-    changeSelectedSimulation(simulationInfo : SimulationInfo)
-    {
-        this._selectedSimulationInfo$.next(simulationInfo);
-        this._selectedSimulationId$.next(simulationInfo.id);
-    }
-
-    observeSelectedSimulationId() : Observable<string>
-    {
-        return this._selectedSimulationId$.asObservable();
+        return this._simulationInfos$.asObservable();
     }
 
     observeSelectedSimulationInfo() : Observable<SimulationInfo>
@@ -39,22 +29,36 @@ export class SimulationDataService {
         return this._selectedSimulationInfo$.getValue();
     }
 
-    private updateSimulationInfo()
+    constructor(private _simulationHttpService : SimulationHttpService)
     {
-        const id = this._selectedSimulationId$.getValue();
-        if (id === null) {
-            return;
-        }
+        setInterval(() => { this.updateSimulationInfos(); }, 1000);
+    }
 
-        this._simulationHttpService.getSimulationInfoUpdate(id).subscribe(
-            (result : ReducedSimulationInfo) => {
-                let simInfo = this.getSelectedSimulationInfo();
-                if (simInfo.id = result.id) {
-                    simInfo.timestep = result.timestep;
-                    simInfo.lastUpdate = result.lastUpdate;
+    private updateSimulationInfos()
+    {
+        this._simulationHttpService.getSimulationInfos().subscribe(
+            (simInfos : SimulationInfo[]) => {
+                this._simulationInfos$.next(simInfos);
+                this.updateSelectedSimulationInfo();
+            }
+        );
+    }
+
+    changeSelectedSimulation(id : string)
+    {
+        this._selectedSimulationId = id;
+        this.updateSelectedSimulationInfo();
+    }
+
+    private updateSelectedSimulationInfo()
+    {
+        if (this._selectedSimulationId !== null) {
+            const simInfos = this._simulationInfos$.getValue();
+            for (const simInfo of simInfos) {
+                if (simInfo.id == this._selectedSimulationId) {
                     this._selectedSimulationInfo$.next(simInfo);
                 }
             }
-        );
+        }
     }
 }
