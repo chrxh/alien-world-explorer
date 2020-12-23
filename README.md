@@ -3,7 +3,7 @@
 </h1>
 
 <h1 align="center">
-<img src="img/logo.png" width=100%>
+<img src="img/logo.PNG" width=100%>
 </h1>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
