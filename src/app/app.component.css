@@ -94,11 +94,11 @@
     left: 25%;
     width: 50%;
     height: 7.5em;
-    bottom: 1em;
+    bottom: 0em;
 }
 
 .ClosedCardsSpacer
 {
     width: 100%;
-    height: 8.5em;
+    height: 7.5em;
 }
