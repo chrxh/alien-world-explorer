@@ -6,6 +6,7 @@
 
 .TableContainer {
     width: 100%;
+    max-height: 100%;
     overflow: auto;
     position: absolute;
     border-radius: 0.1em 1.5em 0.2em 0em;
@@ -13,7 +14,6 @@
 
 table {
     width: 100%;
-    height: 100%;
 }
 
 .mat-cell
@@ -38,5 +38,5 @@ table {
 }
 ::ng-deep .mat-select-value {
     font-size: 15px;
-    
+
 }

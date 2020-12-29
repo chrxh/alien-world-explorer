@@ -25,16 +25,16 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
     dataSource = new MatTableDataSource<SimulationInfoIntern>();
     selection = new SelectionModel(false, []);
 
-    constructor(private _simulationHttpService : SimulationHttpService, private _simulationDataService : SimulationDataService)
+    constructor(private _simulationDataService: SimulationDataService)
     {
     }
 
-    private _subscription: Subscription;
-    ngAfterViewInit()
+    private subscription: Subscription;
+    ngAfterViewInit(): void
     {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this._subscription = this._simulationDataService.observeSimulationInfos().subscribe(
+        this.subscription = this._simulationDataService.observeSimulationInfos().subscribe(
             (simulationInfos: SimulationInfo[]) => {
                 if(simulationInfos === null) {
                     return;
@@ -46,7 +46,7 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
         );
     }
 
-    integrateData(newSimulationInfos: SimulationInfo[])
+    integrateData(newSimulationInfos: SimulationInfo[]): void
     {
         if (this.isSelectionContained(newSimulationInfos)) {
             for (let i = 0; i < this.dataSource.data.length; i++) {
@@ -98,7 +98,7 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this._subscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     onSimulationClicked(row : SimulationInfoIntern)
@@ -108,7 +108,7 @@ export class SimulationTableComponent implements AfterViewInit, OnDestroy {
             this._simulationDataService.changeSelectedSimulation(null);
             return;
         }
-        
+
         const simulationInfo = this.convertToSimulationInfo(row);
         this.selectedSimulationEvent.emit(simulationInfo);
         this._simulationDataService.changeSelectedSimulation(simulationInfo.id);

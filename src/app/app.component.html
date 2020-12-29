@@ -34,64 +34,64 @@
         </mat-drawer>
 
         <div class="Content">
-            <app-simulation-table 
-                class="alienCard SimulationTable FlexItem" 
+            <app-simulation-table
+                class="alienCard SimulationTable FlexItem"
                 (selectedSimulationEvent)="selectedSimulationInfo = $event">
             </app-simulation-table>
 
-            <app-aliencard 
-                class="alienCard SimulationDetails FlexItem" 
-                [cardName]="'Details'" 
-                (cardClosedChange)="cardClosed($event)" 
+            <app-aliencard
+                class="alienCard SimulationDetails FlexItem"
+                [cardName]="'Details'"
+                (cardClosedChange)="cardClosed($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('Details')">
                 <app-details></app-details>
             </app-aliencard>
 
-            <app-aliencard 
-                class="alienCard SimulationStatistics FlexItem" 
-                [cardName]="'Statistics'" 
+            <app-aliencard
+                class="alienCard SimulationStatistics FlexItem"
+                [cardName]="'Statistics'"
                 [liveToggleVisible]="'true'"
-                (cardClosedChange)="cardClosed($event)" 
+                (cardClosedChange)="cardClosed($event)"
                 (liveToggleChange)="onStatisticsLiveToggleChange($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('Statistics')">
                 <app-statistics #statisticsRef></app-statistics>
             </app-aliencard>
 
-            <app-aliencard 
-                class="alienCard SimulationParameters FlexItem" 
-                [cardName]="'Parameters'" 
-                (cardClosedChange)="cardClosed($event)" 
+            <app-aliencard
+                class="alienCard SimulationParameters FlexItem"
+                [cardName]="'Parameters'"
+                (cardClosedChange)="cardClosed($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('Parameters')">
                 <br/>
                 <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
             </app-aliencard>
 
-            <app-aliencard 
-                class="alienCard SimulationActions FlexItem" 
+            <app-aliencard
+                class="alienCard SimulationActions FlexItem"
                 [cardName]="'Actions'"
-                (cardClosedChange)="cardClosed($event)" 
+                (cardClosedChange)="cardClosed($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('Actions')">
                 <br/>
                 <i class="NormalText">&nbsp; &nbsp; not implemented yet</i>
             </app-aliencard>
 
-            <app-aliencard 
-                class="alienCard SimulationChat FlexItem" 
-                [cardName]="'Chat'" 
-                (cardClosedChange)="cardClosed($event)" 
+            <app-aliencard
+                class="alienCard SimulationChat FlexItem"
+                [cardName]="'Chat'"
+                (cardClosedChange)="cardClosed($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('Chat')">
                 <br/>
                 <i class="NormalText">&nbsp; &nbsp;  not implemented yet</i>
             </app-aliencard>
 
-            <app-aliencard 
+            <app-aliencard
                 class="alienCard FlexItem SimulationView"
-                [cardName]="'View'" 
+                [cardName]="'View'"
                 [liveToggleVisible]="'true'"
-                (cardClosedChange)="cardClosed($event)" 
+                (cardClosedChange)="cardClosed($event)"
                 (liveToggleChange)="onSimLiveToggleChange($event)"
                 *ngIf="selectedSimulationInfo !== null && shownCards.has('View')">
-                <app-simulationview #simViewRef [liveToggleChecked]="simLiveToggleChange">
+                <app-simulationview #simViewRef>
                 </app-simulationview>
             </app-aliencard>
             <div class="ClosedCardsSpacer">
@@ -99,8 +99,8 @@
             </div>
         </div>
         <div class="ClosedCardsContainer">
-            <app-closedcards 
-                #closedCardsRef [(shownCards)]="closedCards" 
+            <app-closedcards
+                #closedCardsRef [(shownCards)]="closedCards"
                 [style.visibility]="selectedSimulationInfo !== null ? 'visible' : 'hidden'">
             </app-closedcards>
         </div>

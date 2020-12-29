@@ -1,62 +1,61 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import { MonitorData } from './monitordata';
-import { SimulationHttpService } from "./simulationhttp.service";
-import {SimulationInfo, ReducedSimulationInfo} from "./simulationinfo";
-import { SimulationInfoIntern } from './simulationtable/simulationinfointern';
+import {BehaviorSubject, Observable} from 'rxjs';
+import { SimulationHttpService } from './simulationhttp.service';
+import {SimulationInfo} from './simulationinfo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimulationDataService {
 
-    private _simulationInfos$ = new BehaviorSubject<SimulationInfo[]>(null);
-    private _selectedSimulationInfo$ = new BehaviorSubject<SimulationInfo>(null);
-    private _selectedSimulationId : string;
+    private simulationInfos$ = new BehaviorSubject<SimulationInfo[]>(null);
+    private selectedSimulationInfo$ = new BehaviorSubject<SimulationInfo>(null);
+    private selectedSimulationId: string;
 
-    observeSimulationInfos() : Observable<SimulationInfo[]>
+    observeSimulationInfos(): Observable<SimulationInfo[]>
     {
-        return this._simulationInfos$.asObservable();
+        return this.simulationInfos$.asObservable();
     }
 
-    observeSelectedSimulationInfo() : Observable<SimulationInfo>
+    observeSelectedSimulationInfo(): Observable<SimulationInfo>
     {
-        return this._selectedSimulationInfo$.asObservable();
+        return this.selectedSimulationInfo$.asObservable();
     }
 
-    getSelectedSimulationInfo() : SimulationInfo
+    getSelectedSimulationInfo(): SimulationInfo
     {
-        return this._selectedSimulationInfo$.getValue();
+        return this.selectedSimulationInfo$.getValue();
     }
 
-    constructor(private _simulationHttpService : SimulationHttpService)
+    constructor(private simulationHttpService: SimulationHttpService)
     {
+        this.updateSimulationInfos();
         setInterval(() => { this.updateSimulationInfos(); }, 1000);
     }
 
-    private updateSimulationInfos()
+    private updateSimulationInfos(): void
     {
-        this._simulationHttpService.getSimulationInfos().subscribe(
-            (simInfos : SimulationInfo[]) => {
-                this._simulationInfos$.next(simInfos);
+        this.simulationHttpService.getSimulationInfos().subscribe(
+            (simInfos: SimulationInfo[]) => {
+                this.simulationInfos$.next(simInfos);
                 this.updateSelectedSimulationInfo();
             }
         );
     }
 
-    changeSelectedSimulation(id : string)
+    changeSelectedSimulation(id: string): void
     {
-        this._selectedSimulationId = id;
+        this.selectedSimulationId = id;
         this.updateSelectedSimulationInfo();
     }
 
-    private updateSelectedSimulationInfo()
+    private updateSelectedSimulationInfo(): void
     {
-        if (this._selectedSimulationId !== null) {
-            const simInfos = this._simulationInfos$.getValue();
+        if (this.selectedSimulationId !== null) {
+            const simInfos = this.simulationInfos$.getValue();
             for (const simInfo of simInfos) {
-                if (simInfo.id == this._selectedSimulationId) {
-                    this._selectedSimulationInfo$.next(simInfo);
+                if (simInfo.id === this.selectedSimulationId) {
+                    this.selectedSimulationInfo$.next(simInfo);
                 }
             }
         }
