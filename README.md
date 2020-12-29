@@ -1,9 +1,9 @@
 <h1 align="center">
-<a href="https://alien-project.org" target="_blank">alien world explorer - Explore the world of artificial life</a>
+<a href="https://alien-project.org" target="_blank">ALiEn world explorer - Explore the world of artificial life</a>
 </h1>
 
 <h1 align="center">
-<img src="img/logo.png" width=100%>
+<img src="img/logo.PNG" width=100%>
 </h1>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
